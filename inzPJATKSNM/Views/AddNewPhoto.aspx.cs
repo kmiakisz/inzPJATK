@@ -18,10 +18,13 @@ namespace inzPJATKSNM.Views
 
         public void UploadButton_Click(object sender, EventArgs e)
         {
+           
+            String filePath = "";
             fileupload2 = FileUpload1;
             if (fileupload2.HasFile)
             {
-                inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
+                filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
+
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!!";
             }
