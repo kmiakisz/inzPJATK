@@ -51,5 +51,11 @@ System.IO.Path.GetDirectoryName(
             inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
             return savePath;
         }
+
+        public string storePhotoToDb(string URL, int idKategorii, int idKategoii, string rozmiar, int idAutora)
+        {
+            string wrt = "";
+            return wrt;
+        }
     }
 }
