@@ -65,7 +65,7 @@ System.IO.Path.GetDirectoryName(
                          Sqlcon.Open();
                      cmd.Connection = Sqlcon;
                    cmd.CommandType = CommandType.StoredProcedure;
-             
+                   string str = "new";
                    cmd.CommandText = "insert_dzielo";
 
                    cmd.Parameters.Add("@URL",SqlDbType.VarChar);
