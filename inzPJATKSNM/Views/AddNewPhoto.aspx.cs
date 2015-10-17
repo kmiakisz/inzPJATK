@@ -35,6 +35,7 @@ namespace inzPJATKSNM.Views
             technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
             kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
             autorId = int.Parse(AutorDropDownList.SelectedValue);
+            filePath = filePath.Replace('\\', '/');
             inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
         }
 
