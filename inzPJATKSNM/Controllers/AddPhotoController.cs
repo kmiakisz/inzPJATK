@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,7 +11,7 @@ namespace inzPJATKSNM.Controllers
 {
     public class AddPhotoController
     {
-      
+
 
         internal static String addPhoto(HttpPostedFile file)
         {
@@ -51,10 +54,26 @@ System.IO.Path.GetDirectoryName(
             return savePath;
         }
 
-        public string storePhotoToDb(string URL, int idKategorii, int idKategoii, string rozmiar, int idAutora)
+        public string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
         {
             string wrt = "";
-            return wrt;
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMEntities"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.Text;
+
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+                   
+                }
+                return wrt;
+            }
         }
     }
 }
