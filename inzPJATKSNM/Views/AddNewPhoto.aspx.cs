@@ -27,14 +27,14 @@ namespace inzPJATKSNM.Views
             fileupload2 = FileUpload1;
             if (fileupload2.HasFile)
             {
-                filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
-
+                    filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
+                
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
             }
-            technikaId = int.Parse(TechnikaDropDownList.DataValueField);
-            kategoriaId = int.Parse(KategoriaDropDownList.DataValueField);
-            autorId = int.Parse(AutorDropDownList.DataValueField);
+            technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
+            kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
+            autorId = int.Parse(AutorDropDownList.SelectedValue);
             inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
         }
 
