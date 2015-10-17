@@ -45,7 +45,8 @@ namespace inzPJATKSNM.Controllers
             string startupPath = Path.GetDirectoryName(Path.GetDirectoryName(
 System.IO.Path.GetDirectoryName(
       System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
-            startupPath = "C:\\Users\\Maateusz\\Source\\Repos\\inzPJATK\\inzPJATKSNM\\Images\\SurveyPhotos\\" + fileName;
+            startupPath += savePath;
+            startupPath = startupPath.Remove(0, 6);
             inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
         }
     }
