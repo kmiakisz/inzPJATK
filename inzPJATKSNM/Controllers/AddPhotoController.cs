@@ -19,7 +19,6 @@ namespace inzPJATKSNM.Controllers
             //tu trzeba pobrac z bazy danych najwieksze ID zdjecia (albo i nie )
             string pathToCheck = savePath + fileName;
             string tempfileName = "";
-            string tmp = "";
             if (System.IO.File.Exists(pathToCheck))
             {
                 int counter = 2;
