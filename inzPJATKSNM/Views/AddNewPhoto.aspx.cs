@@ -27,8 +27,8 @@ namespace inzPJATKSNM.Views
             fileupload2 = FileUpload1;
             if (fileupload2.HasFile)
             {
-                filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
-
+                    filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
+                
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
             }

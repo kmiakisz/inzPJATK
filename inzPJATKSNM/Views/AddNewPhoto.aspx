@@ -4,6 +4,7 @@
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
 
     <asp:FileUpload ID="FileUpload1" runat="server" />
+
     <br />
     <asp:Button ID="UploadButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="UploadButton_Click" />
     <br />
