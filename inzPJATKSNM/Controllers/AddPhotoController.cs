@@ -54,7 +54,7 @@ System.IO.Path.GetDirectoryName(
             return savePath;
         }
 
-        public string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
+        public static string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
         {
             string wrt = "";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMEntities"].ConnectionString;
