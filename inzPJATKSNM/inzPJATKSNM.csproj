@@ -340,6 +340,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
+    <Compile Include="Controllers\SavePhotoToDb.cs" />
     <Compile Include="Views\AddNewPhoto.aspx.cs">
       <DependentUpon>AddNewPhoto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
