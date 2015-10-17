@@ -54,7 +54,7 @@ System.IO.Path.GetDirectoryName(
             return savePath;
         }
 
-        public static string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
+        public static void storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora)
         {
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
@@ -62,14 +62,25 @@ System.IO.Path.GetDirectoryName(
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.Text;
-                    string query = @"INSERT INTO Dzieło (string URL, int Id_Tech , int Id_Kat , int Id_Autora) VALUES (" 
-                    + URL + "," + idTechnika + "," + idKategoii + "," + idAutora + ");";
+                         Sqlcon.Open();
+                     cmd.Connection = Sqlcon;
+                   cmd.CommandType = CommandType.StoredProcedure;
+             
+                   cmd.CommandText = "insert_dzielo";
 
-                    cmd.ExecuteNonQuery();
-                    Sqlcon.Close();
+                   cmd.Parameters.Add("@URL",SqlDbType.VarChar);
+                    cmd.Parameters["@URL"].Value = URL;
+                    cmd.Parameters.Add("@technika", SqlDbType.Int);
+                   cmd.Parameters["@technika"].Value = idTechnika;
+
+                   cmd.Parameters.Add("@kategoria", SqlDbType.Int);
+                    cmd.Parameters["@kategoria"].Value = idKategorii;
+
+                    cmd.Parameters.Add("@autor", SqlDbType.Int);
+                   cmd.Parameters["@autor"].Value = idAutora;
+                    cmd.CommandType = CommandType.Text;
+                   string query = @"INSERT INTO Dzieło (string URL, int Id_Tech , int Id_Kat , int Id_Autora) VALUES (" 
+                   + URL + "," + idTechnika + "," + idKategorii + "," + idAutora + ");";
                    
                 }
             }
