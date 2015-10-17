@@ -1,0 +1,1127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="inzSNMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id_admin" />
+          </Key>
+          <Property Name="Id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="haslo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Data_reje" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ankieta">
+          <Key>
+            <PropertyRef Name="Id_ankiety" />
+          </Key>
+          <Property Name="Id_ankiety" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opis_ankiety" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Data_rozp" Type="datetime" Nullable="false" />
+          <Property Name="Data_zak" Type="datetime" />
+          <Property Name="Id_admin" Type="int" Nullable="false" />
+          <Property Name="Id_Muzyka" Type="int" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="Id_Autora" />
+          </Key>
+          <Property Name="Id_Autora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Narod" Type="int" Nullable="false" />
+          <Property Name="Id_Plec" Type="int" Nullable="false" />
+          <Property Name="Id_Epoki" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bierze_udzial">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+            <PropertyRef Name="Id_ankiety" />
+          </Key>
+          <Property Name="Id_Osoba" Type="int" Nullable="false" />
+          <Property Name="Id_ankiety" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dzieło">
+          <Key>
+            <PropertyRef Name="Id_dzieło" />
+          </Key>
+          <Property Name="Id_dzieło" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Id_Tech" Type="int" Nullable="false" />
+          <Property Name="Id_Kat" Type="int" Nullable="false" />
+          <Property Name="Rozmiar" Type="varchar" MaxLength="50" />
+          <Property Name="Id_Autora" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Epoka">
+          <Key>
+            <PropertyRef Name="Id_Epoki" />
+          </Key>
+          <Property Name="Id_Epoki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Epoka" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Glosujący">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+          </Key>
+          <Property Name="Id_Osoba" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="Id_Narod" Type="int" Nullable="false" />
+          <Property Name="Id_Wiek" Type="int" Nullable="false" />
+          <Property Name="Id_Plec" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategoria">
+          <Key>
+            <PropertyRef Name="Id_Kat" />
+          </Key>
+          <Property Name="Id_Kat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategoria" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Muzyka">
+          <Key>
+            <PropertyRef Name="Id_Muzyka" />
+          </Key>
+          <Property Name="Id_Muzyka" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Muzyka" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Narodowosc">
+          <Key>
+            <PropertyRef Name="Id_Narod" />
+          </Key>
+          <Property Name="Id_Narod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Narodowosc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ocena">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+            <PropertyRef Name="Id_ankiety" />
+            <PropertyRef Name="Id_zdjecia" />
+          </Key>
+          <Property Name="Ocena" Type="int" Nullable="false" />
+          <Property Name="Id_Osoba" Type="int" Nullable="false" />
+          <Property Name="Id_ankiety" Type="int" Nullable="false" />
+          <Property Name="Id_zdjecia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Plec">
+          <Key>
+            <PropertyRef Name="Id_Plec" />
+          </Key>
+          <Property Name="Id_Plec" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Plec" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skład">
+          <Key>
+            <PropertyRef Name="Id_ankiety" />
+            <PropertyRef Name="Id_zdjecia" />
+          </Key>
+          <Property Name="Id_ankiety" Type="int" Nullable="false" />
+          <Property Name="Id_zdjecia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statystyki">
+          <Key>
+            <PropertyRef Name="IdStat" />
+          </Key>
+          <Property Name="IdStat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilosc_glosow" Type="int" Nullable="false" />
+          <Property Name="min_glos" Type="int" Nullable="false" />
+          <Property Name="max_glos" Type="int" Nullable="false" />
+          <Property Name="avg_glos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Id_Dzielo" Type="int" Nullable="false" />
+          <Property Name="Ankieta" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Technika">
+          <Key>
+            <PropertyRef Name="Id_Tech" />
+          </Key>
+          <Property Name="Id_Tech" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Technika" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wiek">
+          <Key>
+            <PropertyRef Name="Id_Wiek" />
+          </Key>
+          <Property Name="Id_Wiek" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Wiek" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="Admin_Ankieta_FK1">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id_admin" />
+            </Principal>
+            <Dependent Role="Ankieta">
+              <PropertyRef Name="Id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ankieta_Bierze_udzial_FK1">
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="1" />
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ankieta">
+              <PropertyRef Name="Id_ankiety" />
+            </Principal>
+            <Dependent Role="Bierze_udzial">
+              <PropertyRef Name="Id_ankiety" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ankieta_Skład_FK1">
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="1" />
+          <End Role="Skład" Type="Self.Skład" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ankieta">
+              <PropertyRef Name="Id_ankiety" />
+            </Principal>
+            <Dependent Role="Skład">
+              <PropertyRef Name="Id_ankiety" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Autor_Dzieło_FK1">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="Id_Autora" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Autora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bierze_udzial_Ocena_FK1">
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bierze_udzial">
+              <PropertyRef Name="Id_Osoba" />
+              <PropertyRef Name="Id_ankiety" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="Id_Osoba" />
+              <PropertyRef Name="Id_ankiety" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dzieło_Ocena_FK1">
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dzieło">
+              <PropertyRef Name="Id_dzieło" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="Id_zdjecia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dzieło_Skład_FK1">
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="1" />
+          <End Role="Skład" Type="Self.Skład" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dzieło">
+              <PropertyRef Name="Id_dzieło" />
+            </Principal>
+            <Dependent Role="Skład">
+              <PropertyRef Name="Id_zdjecia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Epoka_Autor_FK1">
+          <End Role="Epoka" Type="Self.Epoka" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Epoka">
+              <PropertyRef Name="Id_Epoki" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Epoki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DZIELO">
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="1" />
+          <End Role="Statystyki" Type="Self.Statystyki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dzieło">
+              <PropertyRef Name="Id_dzieło" />
+            </Principal>
+            <Dependent Role="Statystyki">
+              <PropertyRef Name="Id_Dzielo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Glosujący_Bierze_udzial_FK1">
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="1" />
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Glosujący">
+              <PropertyRef Name="Id_Osoba" />
+            </Principal>
+            <Dependent Role="Bierze_udzial">
+              <PropertyRef Name="Id_Osoba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kategoria_Dzieło_FK1">
+          <End Role="Kategoria" Type="Self.Kategoria" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoria">
+              <PropertyRef Name="Id_Kat" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Kat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Muzyka_Ankieta_FK1">
+          <End Role="Muzyka" Type="Self.Muzyka" Multiplicity="0..1" />
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Muzyka">
+              <PropertyRef Name="Id_Muzyka" />
+            </Principal>
+            <Dependent Role="Ankieta">
+              <PropertyRef Name="Id_Muzyka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Narodowosc_Autor_FK1">
+          <End Role="Narodowosc" Type="Self.Narodowosc" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Narodowosc">
+              <PropertyRef Name="Id_Narod" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Narod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Narodowosc_Glosujący_FK1">
+          <End Role="Narodowosc" Type="Self.Narodowosc" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Narodowosc">
+              <PropertyRef Name="Id_Narod" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Narod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Plec_Autor_FK1">
+          <End Role="Plec" Type="Self.Plec" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plec">
+              <PropertyRef Name="Id_Plec" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Plec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Plec_Glosujący_FK1">
+          <End Role="Plec" Type="Self.Plec" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plec">
+              <PropertyRef Name="Id_Plec" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Plec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Technika_Dzieło_FK1">
+          <End Role="Technika" Type="Self.Technika" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technika">
+              <PropertyRef Name="Id_Tech" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Tech" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Wiek_Glosujący_FK1">
+          <End Role="Wiek" Type="Self.Wiek" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wiek">
+              <PropertyRef Name="Id_Wiek" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Wiek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="inzSNMModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ankieta" EntityType="Self.Ankieta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bierze_udzial" EntityType="Self.Bierze_udzial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dzieło" EntityType="Self.Dzieło" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Epoka" EntityType="Self.Epoka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Glosujący" EntityType="Self.Glosujący" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoria" EntityType="Self.Kategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Muzyka" EntityType="Self.Muzyka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Narodowosc" EntityType="Self.Narodowosc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ocena" EntityType="Self.Ocena" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plec" EntityType="Self.Plec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skład" EntityType="Self.Skład" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statystyki" EntityType="Self.Statystyki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technika" EntityType="Self.Technika" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wiek" EntityType="Self.Wiek" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Admin_Ankieta_FK1" Association="Self.Admin_Ankieta_FK1">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Ankieta" EntitySet="Ankieta" />
+          </AssociationSet>
+          <AssociationSet Name="Ankieta_Bierze_udzial_FK1" Association="Self.Ankieta_Bierze_udzial_FK1">
+            <End Role="Ankieta" EntitySet="Ankieta" />
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+          </AssociationSet>
+          <AssociationSet Name="Ankieta_Skład_FK1" Association="Self.Ankieta_Skład_FK1">
+            <End Role="Ankieta" EntitySet="Ankieta" />
+            <End Role="Skład" EntitySet="Skład" />
+          </AssociationSet>
+          <AssociationSet Name="Autor_Dzieło_FK1" Association="Self.Autor_Dzieło_FK1">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Bierze_udzial_Ocena_FK1" Association="Self.Bierze_udzial_Ocena_FK1">
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="Dzieło_Ocena_FK1" Association="Self.Dzieło_Ocena_FK1">
+            <End Role="Dzieło" EntitySet="Dzieło" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="Dzieło_Skład_FK1" Association="Self.Dzieło_Skład_FK1">
+            <End Role="Dzieło" EntitySet="Dzieło" />
+            <End Role="Skład" EntitySet="Skład" />
+          </AssociationSet>
+          <AssociationSet Name="Epoka_Autor_FK1" Association="Self.Epoka_Autor_FK1">
+            <End Role="Epoka" EntitySet="Epoka" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DZIELO" Association="Self.FK_DZIELO">
+            <End Role="Dzieło" EntitySet="Dzieło" />
+            <End Role="Statystyki" EntitySet="Statystyki" />
+          </AssociationSet>
+          <AssociationSet Name="Glosujący_Bierze_udzial_FK1" Association="Self.Glosujący_Bierze_udzial_FK1">
+            <End Role="Glosujący" EntitySet="Glosujący" />
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+          </AssociationSet>
+          <AssociationSet Name="Kategoria_Dzieło_FK1" Association="Self.Kategoria_Dzieło_FK1">
+            <End Role="Kategoria" EntitySet="Kategoria" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Muzyka_Ankieta_FK1" Association="Self.Muzyka_Ankieta_FK1">
+            <End Role="Muzyka" EntitySet="Muzyka" />
+            <End Role="Ankieta" EntitySet="Ankieta" />
+          </AssociationSet>
+          <AssociationSet Name="Narodowosc_Autor_FK1" Association="Self.Narodowosc_Autor_FK1">
+            <End Role="Narodowosc" EntitySet="Narodowosc" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="Narodowosc_Glosujący_FK1" Association="Self.Narodowosc_Glosujący_FK1">
+            <End Role="Narodowosc" EntitySet="Narodowosc" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+          <AssociationSet Name="Plec_Autor_FK1" Association="Self.Plec_Autor_FK1">
+            <End Role="Plec" EntitySet="Plec" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="Plec_Glosujący_FK1" Association="Self.Plec_Glosujący_FK1">
+            <End Role="Plec" EntitySet="Plec" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+          <AssociationSet Name="Technika_Dzieło_FK1" Association="Self.Technika_Dzieło_FK1">
+            <End Role="Technika" EntitySet="Technika" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Wiek_Glosujący_FK1" Association="Self.Wiek_Glosujący_FK1">
+            <End Role="Wiek" EntitySet="Wiek" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="inzSNMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id_admin" />
+          </Key>
+          <Property Name="Id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="haslo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_reje" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Ankieta" Relationship="Self.Admin_Ankieta_FK1" FromRole="Admin" ToRole="Ankieta" />
+        </EntityType>
+        <EntityType Name="Ankieta">
+          <Key>
+            <PropertyRef Name="Id_ankiety" />
+          </Key>
+          <Property Name="Id_ankiety" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Opis_ankiety" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_rozp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_zak" Type="DateTime" Precision="3" />
+          <Property Name="Id_admin" Type="Int32" Nullable="false" />
+          <Property Name="Id_Muzyka" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="Self.Admin_Ankieta_FK1" FromRole="Ankieta" ToRole="Admin" />
+          <NavigationProperty Name="Bierze_udzial" Relationship="Self.Ankieta_Bierze_udzial_FK1" FromRole="Ankieta" ToRole="Bierze_udzial" />
+          <NavigationProperty Name="Muzyka" Relationship="Self.Muzyka_Ankieta_FK1" FromRole="Ankieta" ToRole="Muzyka" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.Skład" FromRole="Ankieta" ToRole="Dzieło" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="Id_Autora" />
+          </Key>
+          <Property Name="Id_Autora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Narod" Type="Int32" Nullable="false" />
+          <Property Name="Id_Plec" Type="Int32" Nullable="false" />
+          <Property Name="Id_Epoki" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.Autor_Dzieło_FK1" FromRole="Autor" ToRole="Dzieło" />
+          <NavigationProperty Name="Epoka" Relationship="Self.Epoka_Autor_FK1" FromRole="Autor" ToRole="Epoka" />
+          <NavigationProperty Name="Narodowosc" Relationship="Self.Narodowosc_Autor_FK1" FromRole="Autor" ToRole="Narodowosc" />
+          <NavigationProperty Name="Plec" Relationship="Self.Plec_Autor_FK1" FromRole="Autor" ToRole="Plec" />
+        </EntityType>
+        <EntityType Name="Bierze_udzial">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+            <PropertyRef Name="Id_ankiety" />
+          </Key>
+          <Property Name="Id_Osoba" Type="Int32" Nullable="false" />
+          <Property Name="Id_ankiety" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ankieta" Relationship="Self.Ankieta_Bierze_udzial_FK1" FromRole="Bierze_udzial" ToRole="Ankieta" />
+          <NavigationProperty Name="Ocena" Relationship="Self.Bierze_udzial_Ocena_FK1" FromRole="Bierze_udzial" ToRole="Ocena" />
+          <NavigationProperty Name="Glosujący" Relationship="Self.Glosujący_Bierze_udzial_FK1" FromRole="Bierze_udzial" ToRole="Glosujący" />
+        </EntityType>
+        <EntityType Name="Dzieło">
+          <Key>
+            <PropertyRef Name="Id_dzieło" />
+          </Key>
+          <Property Name="Id_dzieło" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Tech" Type="Int32" Nullable="false" />
+          <Property Name="Id_Kat" Type="Int32" Nullable="false" />
+          <Property Name="Rozmiar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id_Autora" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.Autor_Dzieło_FK1" FromRole="Dzieło" ToRole="Autor" />
+          <NavigationProperty Name="Ocena" Relationship="Self.Dzieło_Ocena_FK1" FromRole="Dzieło" ToRole="Ocena" />
+          <NavigationProperty Name="Statystyki" Relationship="Self.FK_DZIELO" FromRole="Dzieło" ToRole="Statystyki" />
+          <NavigationProperty Name="Kategoria" Relationship="Self.Kategoria_Dzieło_FK1" FromRole="Dzieło" ToRole="Kategoria" />
+          <NavigationProperty Name="Technika" Relationship="Self.Technika_Dzieło_FK1" FromRole="Dzieło" ToRole="Technika" />
+          <NavigationProperty Name="Ankieta" Relationship="Self.Skład" FromRole="Dzieło" ToRole="Ankieta" />
+        </EntityType>
+        <EntityType Name="Epoka">
+          <Key>
+            <PropertyRef Name="Id_Epoki" />
+          </Key>
+          <Property Name="Id_Epoki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Epoka1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.Epoka_Autor_FK1" FromRole="Epoka" ToRole="Autor" />
+        </EntityType>
+        <EntityType Name="Glosujący">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+          </Key>
+          <Property Name="Id_Osoba" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Id_Narod" Type="Int32" Nullable="false" />
+          <Property Name="Id_Wiek" Type="Int32" Nullable="false" />
+          <Property Name="Id_Plec" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bierze_udzial" Relationship="Self.Glosujący_Bierze_udzial_FK1" FromRole="Glosujący" ToRole="Bierze_udzial" />
+          <NavigationProperty Name="Narodowosc" Relationship="Self.Narodowosc_Glosujący_FK1" FromRole="Glosujący" ToRole="Narodowosc" />
+          <NavigationProperty Name="Plec" Relationship="Self.Plec_Glosujący_FK1" FromRole="Glosujący" ToRole="Plec" />
+          <NavigationProperty Name="Wiek" Relationship="Self.Wiek_Glosujący_FK1" FromRole="Glosujący" ToRole="Wiek" />
+        </EntityType>
+        <EntityType Name="Kategoria">
+          <Key>
+            <PropertyRef Name="Id_Kat" />
+          </Key>
+          <Property Name="Id_Kat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategoria1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.Kategoria_Dzieło_FK1" FromRole="Kategoria" ToRole="Dzieło" />
+        </EntityType>
+        <EntityType Name="Muzyka">
+          <Key>
+            <PropertyRef Name="Id_Muzyka" />
+          </Key>
+          <Property Name="Id_Muzyka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Muzyka1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ankieta" Relationship="Self.Muzyka_Ankieta_FK1" FromRole="Muzyka" ToRole="Ankieta" />
+        </EntityType>
+        <EntityType Name="Narodowosc">
+          <Key>
+            <PropertyRef Name="Id_Narod" />
+          </Key>
+          <Property Name="Id_Narod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Narodowosc1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.Narodowosc_Autor_FK1" FromRole="Narodowosc" ToRole="Autor" />
+          <NavigationProperty Name="Glosujący" Relationship="Self.Narodowosc_Glosujący_FK1" FromRole="Narodowosc" ToRole="Glosujący" />
+        </EntityType>
+        <EntityType Name="Ocena">
+          <Key>
+            <PropertyRef Name="Id_Osoba" />
+            <PropertyRef Name="Id_ankiety" />
+            <PropertyRef Name="Id_zdjecia" />
+          </Key>
+          <Property Name="Ocena1" Type="Int32" Nullable="false" />
+          <Property Name="Id_Osoba" Type="Int32" Nullable="false" />
+          <Property Name="Id_ankiety" Type="Int32" Nullable="false" />
+          <Property Name="Id_zdjecia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bierze_udzial" Relationship="Self.Bierze_udzial_Ocena_FK1" FromRole="Ocena" ToRole="Bierze_udzial" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.Dzieło_Ocena_FK1" FromRole="Ocena" ToRole="Dzieło" />
+        </EntityType>
+        <EntityType Name="Plec">
+          <Key>
+            <PropertyRef Name="Id_Plec" />
+          </Key>
+          <Property Name="Id_Plec" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Plec1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.Plec_Autor_FK1" FromRole="Plec" ToRole="Autor" />
+          <NavigationProperty Name="Glosujący" Relationship="Self.Plec_Glosujący_FK1" FromRole="Plec" ToRole="Glosujący" />
+        </EntityType>
+        <EntityType Name="Statystyki">
+          <Key>
+            <PropertyRef Name="IdStat" />
+          </Key>
+          <Property Name="IdStat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilosc_glosow" Type="Int32" Nullable="false" />
+          <Property Name="min_glos" Type="Int32" Nullable="false" />
+          <Property Name="max_glos" Type="Int32" Nullable="false" />
+          <Property Name="avg_glos" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Id_Dzielo" Type="Int32" Nullable="false" />
+          <Property Name="Ankieta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.FK_DZIELO" FromRole="Statystyki" ToRole="Dzieło" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Technika">
+          <Key>
+            <PropertyRef Name="Id_Tech" />
+          </Key>
+          <Property Name="Id_Tech" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Technika1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dzieło" Relationship="Self.Technika_Dzieło_FK1" FromRole="Technika" ToRole="Dzieło" />
+        </EntityType>
+        <EntityType Name="Wiek">
+          <Key>
+            <PropertyRef Name="Id_Wiek" />
+          </Key>
+          <Property Name="Id_Wiek" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wiek1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Glosujący" Relationship="Self.Wiek_Glosujący_FK1" FromRole="Wiek" ToRole="Glosujący" />
+        </EntityType>
+        <Association Name="Admin_Ankieta_FK1">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id_admin" />
+            </Principal>
+            <Dependent Role="Ankieta">
+              <PropertyRef Name="Id_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ankieta_Bierze_udzial_FK1">
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="1" />
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ankieta">
+              <PropertyRef Name="Id_ankiety" />
+            </Principal>
+            <Dependent Role="Bierze_udzial">
+              <PropertyRef Name="Id_ankiety" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Muzyka_Ankieta_FK1">
+          <End Role="Muzyka" Type="Self.Muzyka" Multiplicity="0..1" />
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Muzyka">
+              <PropertyRef Name="Id_Muzyka" />
+            </Principal>
+            <Dependent Role="Ankieta">
+              <PropertyRef Name="Id_Muzyka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Autor_Dzieło_FK1">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="Id_Autora" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Autora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Epoka_Autor_FK1">
+          <End Role="Epoka" Type="Self.Epoka" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Epoka">
+              <PropertyRef Name="Id_Epoki" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Epoki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Narodowosc_Autor_FK1">
+          <End Role="Narodowosc" Type="Self.Narodowosc" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Narodowosc">
+              <PropertyRef Name="Id_Narod" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Narod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Plec_Autor_FK1">
+          <End Role="Plec" Type="Self.Plec" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plec">
+              <PropertyRef Name="Id_Plec" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="Id_Plec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bierze_udzial_Ocena_FK1">
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bierze_udzial">
+              <PropertyRef Name="Id_Osoba" />
+              <PropertyRef Name="Id_ankiety" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="Id_Osoba" />
+              <PropertyRef Name="Id_ankiety" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Glosujący_Bierze_udzial_FK1">
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="1" />
+          <End Role="Bierze_udzial" Type="Self.Bierze_udzial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Glosujący">
+              <PropertyRef Name="Id_Osoba" />
+            </Principal>
+            <Dependent Role="Bierze_udzial">
+              <PropertyRef Name="Id_Osoba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dzieło_Ocena_FK1">
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dzieło">
+              <PropertyRef Name="Id_dzieło" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="Id_zdjecia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DZIELO">
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="1" />
+          <End Role="Statystyki" Type="Self.Statystyki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dzieło">
+              <PropertyRef Name="Id_dzieło" />
+            </Principal>
+            <Dependent Role="Statystyki">
+              <PropertyRef Name="Id_Dzielo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kategoria_Dzieło_FK1">
+          <End Role="Kategoria" Type="Self.Kategoria" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoria">
+              <PropertyRef Name="Id_Kat" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Kat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Technika_Dzieło_FK1">
+          <End Role="Technika" Type="Self.Technika" Multiplicity="1" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technika">
+              <PropertyRef Name="Id_Tech" />
+            </Principal>
+            <Dependent Role="Dzieło">
+              <PropertyRef Name="Id_Tech" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Narodowosc_Glosujący_FK1">
+          <End Role="Narodowosc" Type="Self.Narodowosc" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Narodowosc">
+              <PropertyRef Name="Id_Narod" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Narod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Plec_Glosujący_FK1">
+          <End Role="Plec" Type="Self.Plec" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plec">
+              <PropertyRef Name="Id_Plec" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Plec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Wiek_Glosujący_FK1">
+          <End Role="Wiek" Type="Self.Wiek" Multiplicity="1" />
+          <End Role="Glosujący" Type="Self.Glosujący" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wiek">
+              <PropertyRef Name="Id_Wiek" />
+            </Principal>
+            <Dependent Role="Glosujący">
+              <PropertyRef Name="Id_Wiek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Skład">
+          <End Role="Ankieta" Type="Self.Ankieta" Multiplicity="*" />
+          <End Role="Dzieło" Type="Self.Dzieło" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="inzSNMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
+          <EntitySet Name="Ankieta" EntityType="Self.Ankieta" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" />
+          <EntitySet Name="Bierze_udzial" EntityType="Self.Bierze_udzial" />
+          <EntitySet Name="Dzieło" EntityType="Self.Dzieło" />
+          <EntitySet Name="Epoka" EntityType="Self.Epoka" />
+          <EntitySet Name="Glosujący" EntityType="Self.Glosujący" />
+          <EntitySet Name="Kategoria" EntityType="Self.Kategoria" />
+          <EntitySet Name="Muzyka" EntityType="Self.Muzyka" />
+          <EntitySet Name="Narodowosc" EntityType="Self.Narodowosc" />
+          <EntitySet Name="Ocena" EntityType="Self.Ocena" />
+          <EntitySet Name="Plec" EntityType="Self.Plec" />
+          <EntitySet Name="Statystyki" EntityType="Self.Statystyki" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Technika" EntityType="Self.Technika" />
+          <EntitySet Name="Wiek" EntityType="Self.Wiek" />
+          <AssociationSet Name="Admin_Ankieta_FK1" Association="Self.Admin_Ankieta_FK1">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Ankieta" EntitySet="Ankieta" />
+          </AssociationSet>
+          <AssociationSet Name="Ankieta_Bierze_udzial_FK1" Association="Self.Ankieta_Bierze_udzial_FK1">
+            <End Role="Ankieta" EntitySet="Ankieta" />
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+          </AssociationSet>
+          <AssociationSet Name="Muzyka_Ankieta_FK1" Association="Self.Muzyka_Ankieta_FK1">
+            <End Role="Muzyka" EntitySet="Muzyka" />
+            <End Role="Ankieta" EntitySet="Ankieta" />
+          </AssociationSet>
+          <AssociationSet Name="Autor_Dzieło_FK1" Association="Self.Autor_Dzieło_FK1">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Epoka_Autor_FK1" Association="Self.Epoka_Autor_FK1">
+            <End Role="Epoka" EntitySet="Epoka" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="Narodowosc_Autor_FK1" Association="Self.Narodowosc_Autor_FK1">
+            <End Role="Narodowosc" EntitySet="Narodowosc" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="Plec_Autor_FK1" Association="Self.Plec_Autor_FK1">
+            <End Role="Plec" EntitySet="Plec" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="Bierze_udzial_Ocena_FK1" Association="Self.Bierze_udzial_Ocena_FK1">
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="Glosujący_Bierze_udzial_FK1" Association="Self.Glosujący_Bierze_udzial_FK1">
+            <End Role="Glosujący" EntitySet="Glosujący" />
+            <End Role="Bierze_udzial" EntitySet="Bierze_udzial" />
+          </AssociationSet>
+          <AssociationSet Name="Dzieło_Ocena_FK1" Association="Self.Dzieło_Ocena_FK1">
+            <End Role="Dzieło" EntitySet="Dzieło" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DZIELO" Association="Self.FK_DZIELO">
+            <End Role="Dzieło" EntitySet="Dzieło" />
+            <End Role="Statystyki" EntitySet="Statystyki" />
+          </AssociationSet>
+          <AssociationSet Name="Kategoria_Dzieło_FK1" Association="Self.Kategoria_Dzieło_FK1">
+            <End Role="Kategoria" EntitySet="Kategoria" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Technika_Dzieło_FK1" Association="Self.Technika_Dzieło_FK1">
+            <End Role="Technika" EntitySet="Technika" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+          <AssociationSet Name="Narodowosc_Glosujący_FK1" Association="Self.Narodowosc_Glosujący_FK1">
+            <End Role="Narodowosc" EntitySet="Narodowosc" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+          <AssociationSet Name="Plec_Glosujący_FK1" Association="Self.Plec_Glosujący_FK1">
+            <End Role="Plec" EntitySet="Plec" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+          <AssociationSet Name="Wiek_Glosujący_FK1" Association="Self.Wiek_Glosujący_FK1">
+            <End Role="Wiek" EntitySet="Wiek" />
+            <End Role="Glosujący" EntitySet="Glosujący" />
+          </AssociationSet>
+          <AssociationSet Name="Skład" Association="Self.Skład">
+            <End Role="Ankieta" EntitySet="Ankieta" />
+            <End Role="Dzieło" EntitySet="Dzieło" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="inzSNMModelStoreContainer" CdmEntityContainer="inzSNMEntities">
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="inzSNMModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Id_admin" ColumnName="Id_admin" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="haslo" ColumnName="haslo" />
+                <ScalarProperty Name="Data_reje" ColumnName="Data_reje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ankieta">
+            <EntityTypeMapping TypeName="inzSNMModel.Ankieta">
+              <MappingFragment StoreEntitySet="Ankieta">
+                <ScalarProperty Name="Id_ankiety" ColumnName="Id_ankiety" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="Opis_ankiety" ColumnName="Opis_ankiety" />
+                <ScalarProperty Name="Data_rozp" ColumnName="Data_rozp" />
+                <ScalarProperty Name="Data_zak" ColumnName="Data_zak" />
+                <ScalarProperty Name="Id_admin" ColumnName="Id_admin" />
+                <ScalarProperty Name="Id_Muzyka" ColumnName="Id_Muzyka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="inzSNMModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="Id_Autora" ColumnName="Id_Autora" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Id_Narod" ColumnName="Id_Narod" />
+                <ScalarProperty Name="Id_Plec" ColumnName="Id_Plec" />
+                <ScalarProperty Name="Id_Epoki" ColumnName="Id_Epoki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bierze_udzial">
+            <EntityTypeMapping TypeName="inzSNMModel.Bierze_udzial">
+              <MappingFragment StoreEntitySet="Bierze_udzial">
+                <ScalarProperty Name="Id_Osoba" ColumnName="Id_Osoba" />
+                <ScalarProperty Name="Id_ankiety" ColumnName="Id_ankiety" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dzieło">
+            <EntityTypeMapping TypeName="inzSNMModel.Dzieło">
+              <MappingFragment StoreEntitySet="Dzieło">
+                <ScalarProperty Name="Id_dzieło" ColumnName="Id_dzieło" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Id_Tech" ColumnName="Id_Tech" />
+                <ScalarProperty Name="Id_Kat" ColumnName="Id_Kat" />
+                <ScalarProperty Name="Rozmiar" ColumnName="Rozmiar" />
+                <ScalarProperty Name="Id_Autora" ColumnName="Id_Autora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Epoka">
+            <EntityTypeMapping TypeName="inzSNMModel.Epoka">
+              <MappingFragment StoreEntitySet="Epoka">
+                <ScalarProperty Name="Id_Epoki" ColumnName="Id_Epoki" />
+                <ScalarProperty Name="Epoka1" ColumnName="Epoka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Glosujący">
+            <EntityTypeMapping TypeName="inzSNMModel.Glosujący">
+              <MappingFragment StoreEntitySet="Glosujący">
+                <ScalarProperty Name="Id_Osoba" ColumnName="Id_Osoba" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id_Narod" ColumnName="Id_Narod" />
+                <ScalarProperty Name="Id_Wiek" ColumnName="Id_Wiek" />
+                <ScalarProperty Name="Id_Plec" ColumnName="Id_Plec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoria">
+            <EntityTypeMapping TypeName="inzSNMModel.Kategoria">
+              <MappingFragment StoreEntitySet="Kategoria">
+                <ScalarProperty Name="Id_Kat" ColumnName="Id_Kat" />
+                <ScalarProperty Name="Kategoria1" ColumnName="Kategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Muzyka">
+            <EntityTypeMapping TypeName="inzSNMModel.Muzyka">
+              <MappingFragment StoreEntitySet="Muzyka">
+                <ScalarProperty Name="Id_Muzyka" ColumnName="Id_Muzyka" />
+                <ScalarProperty Name="Muzyka1" ColumnName="Muzyka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Narodowosc">
+            <EntityTypeMapping TypeName="inzSNMModel.Narodowosc">
+              <MappingFragment StoreEntitySet="Narodowosc">
+                <ScalarProperty Name="Id_Narod" ColumnName="Id_Narod" />
+                <ScalarProperty Name="Narodowosc1" ColumnName="Narodowosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ocena">
+            <EntityTypeMapping TypeName="inzSNMModel.Ocena">
+              <MappingFragment StoreEntitySet="Ocena">
+                <ScalarProperty Name="Ocena1" ColumnName="Ocena" />
+                <ScalarProperty Name="Id_Osoba" ColumnName="Id_Osoba" />
+                <ScalarProperty Name="Id_ankiety" ColumnName="Id_ankiety" />
+                <ScalarProperty Name="Id_zdjecia" ColumnName="Id_zdjecia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plec">
+            <EntityTypeMapping TypeName="inzSNMModel.Plec">
+              <MappingFragment StoreEntitySet="Plec">
+                <ScalarProperty Name="Id_Plec" ColumnName="Id_Plec" />
+                <ScalarProperty Name="Plec1" ColumnName="Plec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statystyki">
+            <EntityTypeMapping TypeName="inzSNMModel.Statystyki">
+              <MappingFragment StoreEntitySet="Statystyki">
+                <ScalarProperty Name="IdStat" ColumnName="IdStat" />
+                <ScalarProperty Name="ilosc_glosow" ColumnName="ilosc_glosow" />
+                <ScalarProperty Name="min_glos" ColumnName="min_glos" />
+                <ScalarProperty Name="max_glos" ColumnName="max_glos" />
+                <ScalarProperty Name="avg_glos" ColumnName="avg_glos" />
+                <ScalarProperty Name="Id_Dzielo" ColumnName="Id_Dzielo" />
+                <ScalarProperty Name="Ankieta" ColumnName="Ankieta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="inzSNMModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technika">
+            <EntityTypeMapping TypeName="inzSNMModel.Technika">
+              <MappingFragment StoreEntitySet="Technika">
+                <ScalarProperty Name="Id_Tech" ColumnName="Id_Tech" />
+                <ScalarProperty Name="Technika1" ColumnName="Technika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wiek">
+            <EntityTypeMapping TypeName="inzSNMModel.Wiek">
+              <MappingFragment StoreEntitySet="Wiek">
+                <ScalarProperty Name="Id_Wiek" ColumnName="Id_Wiek" />
+                <ScalarProperty Name="Wiek1" ColumnName="Wiek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Skład" TypeName="inzSNMModel.Skład" StoreEntitySet="Skład">
+            <EndProperty Name="Ankieta">
+              <ScalarProperty Name="Id_ankiety" ColumnName="Id_ankiety" />
+            </EndProperty>
+            <EndProperty Name="Dzieło">
+              <ScalarProperty Name="Id_dzieło" ColumnName="Id_zdjecia" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

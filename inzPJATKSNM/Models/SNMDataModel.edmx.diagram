@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a745345aef3a469b950f01fee6b8fe6b" Name="Diagram1">
+        <EntityTypeShape EntityType="inzSNMModel.Admin" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Ankieta" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Autor" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Bierze_udzial" Width="1.5" PointX="11.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Dzieło" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Epoka" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Glosujący" Width="1.5" PointX="6" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Kategoria" Width="1.5" PointX="6" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Muzyka" Width="1.5" PointX="3.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Narodowosc" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Ocena" Width="1.5" PointX="13.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Plec" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Statystyki" Width="1.5" PointX="10.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Technika" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="inzSNMModel.Wiek" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
+        <AssociationConnector Association="inzSNMModel.Admin_Ankieta_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Ankieta_Bierze_udzial_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Muzyka_Ankieta_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Autor_Dzieło_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Epoka_Autor_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Narodowosc_Autor_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Plec_Autor_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Bierze_udzial_Ocena_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Glosujący_Bierze_udzial_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Dzieło_Ocena_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.FK_DZIELO" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Kategoria_Dzieło_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Technika_Dzieło_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Narodowosc_Glosujący_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Plec_Glosujący_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Wiek_Glosujący_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="inzSNMModel.Skład" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
