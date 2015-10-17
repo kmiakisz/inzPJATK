@@ -26,7 +26,7 @@ namespace inzPJATKSNM.Views
                 filePath = inzPJATKSNM.Controllers.AddPhotoController.addPhoto(fileupload2.PostedFile);
 
             }else{
-                StatusLabel.Text="Nie wybrano żadnego pliku!!!";
+                StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
             }
         }
      }
