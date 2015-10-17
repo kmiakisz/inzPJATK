@@ -10,7 +10,7 @@ namespace inzPJATKSNM.Controllers
     {
       
 
-        internal static void addPhoto(HttpPostedFile file)
+        internal static String addPhoto(HttpPostedFile file)
         {
             //status zwracany do metody w AddNewPhoto 0 = ok, 1 = nie udalo sie, -1 zmieniono nazwe
             int status = 0;
@@ -48,6 +48,7 @@ System.IO.Path.GetDirectoryName(
             startupPath += savePath;
             startupPath = startupPath.Remove(0, 6);
             inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
+            return savePath;
         }
     }
 }
