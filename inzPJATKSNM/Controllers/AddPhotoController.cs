@@ -54,10 +54,10 @@ System.IO.Path.GetDirectoryName(
             return savePath;
         }
 
-        public static string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
+        public static string storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora)
         {
             string wrt = "";
-            String connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
 
@@ -66,9 +66,13 @@ System.IO.Path.GetDirectoryName(
                     Sqlcon.Open();
                     cmd.Connection = Sqlcon;
                     cmd.CommandType = CommandType.Text;
-                    string query = @"INSERT INTO Dzieło (string URL, int Id_Tech , int Id_Kat , int Id_Autora) VALUES (" 
-                    + URL + "," + idTechnika + "," + idKategoii + "," + idAutora + ");";
-
+                    string query = @"INSERT INTO Dzieło (string URL, int Id_Tech , int Id_Kat , int Id_Autora) VALUES (
+                    @URL , @idTechnika , @idKategorii , @idAutora );";
+                    cmd.Parameters.AddWithValue("@URL",URL);
+                    cmd.Parameters.AddWithValue("@idTechnika", idTechnika);
+                    cmd.Parameters.AddWithValue("@idKategorii", idKategorii);
+                    cmd.Parameters.AddWithValue("@idAutora", idAutora);
+                    cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
                     Sqlcon.Close();
                    
