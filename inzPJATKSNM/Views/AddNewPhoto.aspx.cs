@@ -32,9 +32,9 @@ namespace inzPJATKSNM.Views
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
             }
-            technikaId = int.Parse(TechnikaDropDownList.DataValueField);
-            kategoriaId = int.Parse(KategoriaDropDownList.DataValueField);
-            autorId = int.Parse(AutorDropDownList.DataValueField);
+            technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
+            kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
+            autorId = int.Parse(AutorDropDownList.SelectedValue);
             inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
         }
 

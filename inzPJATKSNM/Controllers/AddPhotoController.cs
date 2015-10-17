@@ -57,7 +57,7 @@ System.IO.Path.GetDirectoryName(
         public static string storePhotoToDb(string URL, int idTechnika, int idKategoii, int idAutora)
         {
             string wrt = "";
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMEntities"].ConnectionString;
+            String connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
 
@@ -66,7 +66,8 @@ System.IO.Path.GetDirectoryName(
                     Sqlcon.Open();
                     cmd.Connection = Sqlcon;
                     cmd.CommandType = CommandType.Text;
-
+                    string query = @"INSERT INTO Dzieło (string URL, int Id_Tech , int Id_Kat , int Id_Autora) VALUES (" 
+                    + URL + "," + idTechnika + "," + idKategoii + "," + idAutora + ");";
 
                     cmd.ExecuteNonQuery();
                     Sqlcon.Close();
