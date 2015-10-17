@@ -10,7 +10,7 @@ namespace inzPJATKSNM.Controllers
         public string storePhoto(string URL,int idKategorii , int idKategoii, string rozmiar , int idAutora)
         {
             string wrt = "";
-
+            string cos = "dadasd";
             return wrt;
         }
     }
