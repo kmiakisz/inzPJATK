@@ -7,7 +7,7 @@ namespace inzPJATKSNM.Controllers
 {
     public class AddPhotoController
     {
-        private void addPhoto()
+        public void addPhoto()
         {
 
         }
