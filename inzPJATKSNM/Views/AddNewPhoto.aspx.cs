@@ -11,6 +11,10 @@ namespace inzPJATKSNM.Views
     public partial class AddNewPhoto : System.Web.UI.Page
     {
         public static FileUpload fileupload2;
+        String filePath = "";
+        int technikaId,kategoriaId,autorId;
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -19,7 +23,7 @@ namespace inzPJATKSNM.Views
         public void UploadButton_Click(object sender, EventArgs e)
         {
            
-            String filePath = "";
+            
             fileupload2 = FileUpload1;
             if (fileupload2.HasFile)
             {
@@ -28,6 +32,11 @@ namespace inzPJATKSNM.Views
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
             }
+            technikaId = int.Parse(TechnikaDropDownList.DataValueField);
+            kategoriaId = int.Parse(KategoriaDropDownList.DataValueField);
+            autorId = int.Parse(AutorDropDownList.DataValueField);
+            inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDB(filePath, technikaId, kategoriaId, autorId);
         }
+
      }
 }
