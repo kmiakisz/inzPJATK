@@ -184,6 +184,8 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="App_Data\aspnet-inzPJATKSNM-20151017063417.mdf" />
+    <Content Include="App_Data\aspnet-inzPJATKSNM-20151017063417_log.ldf" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -469,7 +471,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Images\SurveyPhotos\" />
   </ItemGroup>
   <ItemGroup>

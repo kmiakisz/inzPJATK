@@ -13,5 +13,21 @@ namespace inzPJATKSNM.Views
         {
 
         }
+
+        protected void AddAuthor_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Views/AddAuthor.aspx");
+        }
+
+        protected void NewPhoto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Views/AddNewPhoto.aspx");
+        }
+
+        protected void AddNewSurveyButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Views/NewSurvey.aspx");
+        }
+
     }
 }
