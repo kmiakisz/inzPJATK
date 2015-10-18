@@ -9,6 +9,9 @@ namespace inzPJATKSNM.Views
 {
     public partial class AddAuthor : System.Web.UI.Page
     {
+        String name = "",surname="";
+        int Id_nar, Id_plec, Id_epoka;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -16,7 +19,12 @@ namespace inzPJATKSNM.Views
 
         protected void DodajButton_Click(object sender, EventArgs e)
         {
-
+            name = AuthorNameTextBox.Text;
+            surname = AuthorSurnameTextBox.Text;
+            Id_nar = int.Parse(NationalityDropDownList.SelectedValue);
+            Id_plec = int.Parse(PlecDropDownList.SelectedValue);
+            Id_epoka = int.Parse(EpokaDropDownList1.SelectedValue);
+            inzPJATKSNM.Controllers.AddAuthorController.addNewAuthor(name, surname, Id_nar, Id_plec, Id_epoka);
         }
     }
 }

@@ -103,13 +103,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.SqlDataSource PlecSqlDataSource2;
         
         /// <summary>
-        /// EpokaDropDownList control.
+        /// EpokaLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EpokaDropDownList;
+        protected global::System.Web.UI.WebControls.Label EpokaLabel;
         
         /// <summary>
         /// EpokaDropDownList1 control.

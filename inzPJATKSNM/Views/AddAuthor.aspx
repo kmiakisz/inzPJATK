@@ -20,7 +20,7 @@
     <br />
     <asp:DropDownList ID="PlecDropDownList" runat="server" DataSourceID="PlecSqlDataSource2" DataTextField="Plec" DataValueField="Id_Plec"></asp:DropDownList><asp:SqlDataSource ID="PlecSqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Plec], [Plec] FROM [Plec]"></asp:SqlDataSource>
     <br />
-    <asp:Label ID="EpokaDropDownList" runat="server" Text="Epoka" CssClass="label label-danger"></asp:Label>
+    <asp:Label ID="EpokaLabel" runat="server" Text="Epoka" CssClass="label label-danger"></asp:Label>
     <br />
     <asp:DropDownList ID="EpokaDropDownList1" runat="server" DataSourceID="EpokaSqlDataSource1" DataTextField="Epoka" DataValueField="Id_Epoki"></asp:DropDownList><asp:SqlDataSource ID="EpokaSqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Epoki], [Epoka] FROM [Epoka]"></asp:SqlDataSource>
     <br />
