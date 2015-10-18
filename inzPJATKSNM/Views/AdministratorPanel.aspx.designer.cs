@@ -13,24 +13,6 @@ namespace inzPJATKSNM.Views {
     public partial class AdministratorPanel {
         
         /// <summary>
-        /// NewSurveyButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button NewSurveyButton;
-        
-        /// <summary>
-        /// StatisticsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button StatisticsButton;
-        
-        /// <summary>
         /// ActiveSurveyButton control.
         /// </summary>
         /// <remarks>
@@ -47,5 +29,32 @@ namespace inzPJATKSNM.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button EditSurveyButton;
+        
+        /// <summary>
+        /// AddAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddAuthor;
+        
+        /// <summary>
+        /// NewPhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button NewPhoto;
+        
+        /// <summary>
+        /// AddNewSurveyButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddNewSurveyButton;
     }
 }

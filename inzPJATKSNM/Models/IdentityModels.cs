@@ -98,7 +98,7 @@ namespace inzPJATKSNM
             }
             else
             {
-                response.Redirect("~/");
+                response.Redirect("/Views/AdministratorPanel.aspx");
             }
         }
     }
