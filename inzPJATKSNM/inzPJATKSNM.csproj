@@ -341,6 +341,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
+    <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Views\AddAuthor.aspx.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
