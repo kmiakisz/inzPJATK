@@ -254,6 +254,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\AddAuthor.aspx" />
+    <Content Include="Views\AddMusic.aspx" />
     <Content Include="Views\AddNewPhoto.aspx" />
     <Content Include="Views\HomePage.aspx" />
     <Content Include="favicon.ico" />
@@ -342,6 +343,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AddMusicController.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Views\AddAuthor.aspx.cs">
@@ -350,6 +352,13 @@
     </Compile>
     <Compile Include="Views\AddAuthor.aspx.designer.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddMusic.aspx.cs">
+      <DependentUpon>AddMusic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AddMusic.aspx.designer.cs">
+      <DependentUpon>AddMusic.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\AddNewPhoto.aspx.cs">
       <DependentUpon>AddNewPhoto.aspx</DependentUpon>
@@ -472,6 +481,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\SurveyPhotos\" />
+    <Folder Include="Music\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
