@@ -26,7 +26,10 @@ namespace inzPJATKSNM.Views
             fileuploadPom = MusicFileUpload;
             if (fileuploadPom.HasFile)
             {
-                filePath = inzPJATKSNM.Controllers.AddMusicController.addMusic(fileuploadPom.PostedFile);
+                
+                    filePath = inzPJATKSNM.Controllers.AddMusicController.addMusic(fileuploadPom.PostedFile);
+                
+                
 
             }
             else
