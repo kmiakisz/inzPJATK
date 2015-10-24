@@ -49,7 +49,7 @@ namespace inzPJATKSNM.Controllers
 System.IO.Path.GetDirectoryName(
       System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
             startupPath += savePath;
-            startupPath = startupPath.Remove(0, 6);
+           // startupPath = startupPath.Remove(0, 6);
             inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
             return savePath;
         }
