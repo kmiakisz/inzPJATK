@@ -17,6 +17,7 @@ namespace inzPJATKSNM.Views
         }
         public void loadPhotosFromDB()
         {
+
             photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
         }
     }
