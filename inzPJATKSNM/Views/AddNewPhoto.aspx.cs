@@ -14,10 +14,10 @@ namespace inzPJATKSNM.Views
         String filePath = "";
         int technikaId,kategoriaId,autorId;
         
-        
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+         
         }
 
         public void UploadButton_Click(object sender, EventArgs e)
@@ -37,6 +37,7 @@ namespace inzPJATKSNM.Views
             autorId = int.Parse(AutorDropDownList.SelectedValue);
             inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
         }
+       
 
      }
 }

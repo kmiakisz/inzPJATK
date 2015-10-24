@@ -1,12 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNewPhoto.aspx.cs" Inherits="inzPJATKSNM.Views.AddNewPhoto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+     
+  
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
 
-    <asp:FileUpload ID="FileUpload1" runat="server" />
+    <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static" onchange="this.form.submit()" Height="24px" Width="258px" />
 
-    <br />
-    <asp:Button ID="UploadButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="UploadButton_Click" />
+    
     <br />
     <asp:Label ID="StatusLabel" runat="server" Text="" CssClass="label label-danger"></asp:Label>
 
@@ -34,5 +35,7 @@
             <asp:Label ID="AutorLabel" runat="server" Text="Autor" class="label label-danger"></asp:Label>
             <asp:DropDownList ID="AutorDropDownList" runat="server" class="form-control" Width="250px" DataSourceID="SqlDataSource3" DataTextField="Nazwisko" DataValueField="Id_Autora"></asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Autora], [Nazwisko] FROM [Autor]"></asp:SqlDataSource>
+            <br />
+            <asp:Button ID="UploadButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="UploadButton_Click" />
         </div>
 </asp:Content>
