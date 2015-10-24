@@ -37,5 +37,7 @@ namespace inzPJATKSNM.Views
                 //error handling tu powinien byc 
             }
         }
+
+     
     }
 }

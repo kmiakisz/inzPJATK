@@ -9,9 +9,15 @@ namespace inzPJATKSNM.Views
 {
     public partial class NewSurvey : System.Web.UI.Page
     {
+        private List<String> photoFromDB;
+        private List<String> photoToSurvey;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            loadPhotosFromDB();
+        }
+        public void loadPhotosFromDB()
+        {
+            photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
         }
     }
 }

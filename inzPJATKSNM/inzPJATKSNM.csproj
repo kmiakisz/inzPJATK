@@ -346,6 +346,7 @@
     <Compile Include="Controllers\AddMusicController.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Views\AddAuthor.aspx.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

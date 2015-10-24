@@ -21,7 +21,7 @@
     <br />
     <asp:Button ID="ZapiszButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="ZapiszButton_Click"/>
     <asp:Button ID="AnulujButton" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="AnulujButton_Click"/>
-    <asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="play();" />
+    
    
     
     <asp:HiddenField ID="audioHidden" runat="server" Value="C:\Users\Kubus\Source\Repos\inzPJATK\inzPJATKSNM\Music\01. Dwa Sławy - Przyjaciele dwa.mp3" />
