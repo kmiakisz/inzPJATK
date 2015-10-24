@@ -46,12 +46,14 @@ namespace inzPJATKSNM.Controllers
             }
             savePath += fileName;
             string startupPath = Path.GetDirectoryName(Path.GetDirectoryName(
-System.IO.Path.GetDirectoryName(
-      System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
+            System.IO.Path.GetDirectoryName(
+            System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
             startupPath += savePath;
-           // startupPath = startupPath.Remove(0, 6);
+            string fullPath = startupPath;
+            string toDBPath = "../Images/SurveyPhotos/" + fileName;
+            startupPath = startupPath.Remove(0, 6);
             inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
-            return savePath;
+            return toDBPath;
         }
 
         public static void storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora)

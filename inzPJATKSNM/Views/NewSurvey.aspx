@@ -48,8 +48,8 @@
            <ul id="lightSlider">
                <% foreach(String s in GetList())
                   {
-                  
-                   Response.Write("<li data-thumb="+ u + ">" + " <img src=" + u + " />" + "</li>  ");
+                    
+                   Response.Write("<li data-thumb="+ s  + ">" + " <img src=" + s + " />" + "</li>  ");
                   }
                %>
            </ul>

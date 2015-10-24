@@ -5,7 +5,7 @@
   
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
 
-    <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static" onchange="this.form.submit()" Height="24px" Width="258px" />
+    <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static"  Height="24px" Width="258px" />
 
     
     <br />

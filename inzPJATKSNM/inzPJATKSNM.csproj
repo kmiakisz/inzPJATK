@@ -196,6 +196,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\Icons\controls.png" />
     <Content Include="Images\Icons\statistics-512.png" />
+    <Content Include="Images\SurveyPhotos\20150815_162932.jpg" />
+    <Content Include="Images\SurveyPhotos\20150815_235512.jpg" />
+    <Content Include="Images\SurveyPhotos\20150816_075926.jpg" />
+    <Content Include="Images\SurveyPhotos\20150816_075932.jpg" />
+    <Content Include="Images\SurveyPhotos\20150816_122900.jpg">
+      <BrowseToURL>disco</BrowseToURL>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="Account\Web.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -485,7 +492,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\SurveyPhotos\" />
     <Folder Include="Music\" />
   </ItemGroup>
   <ItemGroup>
