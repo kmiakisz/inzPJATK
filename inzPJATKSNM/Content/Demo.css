@@ -1,5 +1,5 @@
 ﻿.demo {
-    width:100%;
+    width:450px;
 }
 ul {
     list-style: none outside none;
@@ -8,7 +8,7 @@ ul {
 }
 li {
     display: block;
-    float: left;
+    float: right;
     margin-right: 6px;
     cursor:pointer;
 }
@@ -16,4 +16,29 @@ img {
     display: block;
     height: auto;
     max-width: 100%;
+    
+}
+
+div.show-image {
+    position: relative;
+    float:left;
+    margin:5px;
+}
+div.show-image:hover img{
+    opacity:0.5;
+}
+div.show-image:hover input {
+    display: block;
+}
+div.show-image input {
+    position:absolute;
+    display:none;
+}
+div.show-image input.update {
+    top:50%;
+    margin-left:50%;
+    margin-right:50%;
+    background-image: url(../img/BtnAdd.png);
+    visibility:hidden;
+   
 }

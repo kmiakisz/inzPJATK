@@ -10,7 +10,7 @@ namespace inzPJATKSNM.Views
     public partial class NewSurvey : System.Web.UI.Page
     {
         private List<String> photoFromDB;
-        private List<String> photoToSurvey;
+        private static List<String> photoToSurvey;
         protected void Page_Load(object sender, EventArgs e)
         {
             loadPhotosFromDB();
@@ -20,5 +20,10 @@ namespace inzPJATKSNM.Views
 
             photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
         }
+        public static void addToPhotoToSurvey(string url)
+        {
+            photoToSurvey.Add(url);
+        }
+
     }
 }

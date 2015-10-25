@@ -32,6 +32,10 @@ namespace inzPJATKSNM.Controllers
             }
             return photoList;
         }
+        public static void saveSurvey()
+        {
+
+        }
         
     }
 }
