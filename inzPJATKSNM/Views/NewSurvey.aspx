@@ -13,8 +13,15 @@
                 slideMargin: 0,
                 thumbItem: 9
             });
+            $(".update").click(function(event) {
+                // pobrać id
+                debugger
+                $("#"+event.target.id).css("background-color", "lightgreen");
+                
+            });
         });
     </script>
+
     <script runat="server">
         protected List<String> GetList()
         {
@@ -53,15 +60,29 @@
        </div>
        
        <div class="demo" style="float: right; width: 40%">
+           <!--
+           <li data-thumb="http://www.adrenalinemotorsport.pl/photos/aktualnosci/37163.jpg">
+            <div class="show-image">
+                <img src="http://www.adrenalinemotorsport.pl/photos/aktualnosci/37163.jpg" />
+                <input class="update" type="button" value=" " id="updateBtn" onclick="AddToSurvey" /> 
+            </div>
+        </li>
+           -->
            <ul id="lightSlider">
                <% 
-                  
+                   int x = 0;
                    foreach(String s in GetList())
                   {
-
+                      
                       Response.Write("<li data-thumb=" + s + ">" 
-                          +" <img src=" + s + " />" 
+                          +" <div class=\"show-image\">"
+                          +" <img src=" + s + " />"
+                          + " <input class=\"update\" type=\"button\" value=\" \" id=" + x + " onclick=\"changeBackground();\">"
+                          +" </div>"
                           + "</li>  ");
+
+                      x++;
+                      
                   }
                %>
            </ul>
