@@ -83,7 +83,7 @@
                       Response.Write("<li data-thumb=" + s + ">" 
                           +" <div class=\"show-image\" id=" + x +">"
                           +" <img src=" + s + " />"
-                          + " <input class=\"update\" type=\"button\" value=\" \" id=" + x + " >"
+                          + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x + " />"
                           +" </div>"
                           + "</li>  ");
 
