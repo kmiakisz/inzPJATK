@@ -54,7 +54,7 @@ namespace inzPJATKSNM.Controllers
         public static int getNewSurveyId()
         {
             int SurveyId = 0;
-            string getSurveyIdCmd("SELECT TOP 1 * FROM Ankieta ORDER BY Id_ankiety DESC;");
+            string getSurveyIdCmd=("SELECT TOP 1 * FROM Ankieta ORDER BY Id_ankiety DESC;");
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
