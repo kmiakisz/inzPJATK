@@ -52,8 +52,8 @@
             </asp:DropDownList>
             <asp:SqlDataSource ID="MusicDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <br /><br />
-            <div id="Buttons" style="float:left ; width:50%">
-                <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" style="float:left"/>
+            <div id="Buttons" style="float:left; width:56%">
+                <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" style="float:left" OnClick="AcceptButton_Click"/>
                 <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" style="float:right"/>
            </div>
          
