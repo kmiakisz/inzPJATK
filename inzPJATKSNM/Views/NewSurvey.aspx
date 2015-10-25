@@ -13,11 +13,17 @@
                 slideMargin: 0,
                 thumbItem: 9
             });
-            $(".update").click(function(event) {
+           $(".update").click(function(event) {
                 // pobrać id
-                debugger
+                //debugger
                 $("#"+event.target.id).css("background-color", "lightgreen");
-                
+                    if($("#"+event.target.id).data('clicked')){
+                        $(".show-image").click(function(event) {
+                                $("#"+event.target.id).css("boarder-color","green");
+                            });
+                      }
+                   
+
             });
         });
     </script>
@@ -75,9 +81,9 @@
                   {
                       
                       Response.Write("<li data-thumb=" + s + ">" 
-                          +" <div class=\"show-image\">"
+                          +" <div class=\"show-image\" id=" + x +">"
                           +" <img src=" + s + " />"
-                          + " <input class=\"update\" type=\"button\" value=\" \" id=" + x + " onclick=\"changeBackground();\">"
+                          + " <input class=\"update\" type=\"button\" value=\" \" id=" + x + " >"
                           +" </div>"
                           + "</li>  ");
 
