@@ -45,6 +45,13 @@
            
         }
     </script>
+    <script language="javascript" type="text/javascript">
+        function btnAccept_onclick() {        
+            var name;            
+            name = document.getElementById('txtName').value;
+            alert("cipki atakuja!")
+            // Call Server side method SetName() by passing this parameter 'name'
+</script>
    <div id="content" class="container-fluid">
        <h3><span class="label label-danger">Nowa ankieta</span></h3>
        <div id="left" style="float:left ; width:30%">
@@ -74,7 +81,7 @@
             </div>
         </li>
            -->
-           <ul id="lightSlider">
+        <ul id="lightSlider">
                <% 
                    int x = 0;
                    foreach(String s in GetList())
@@ -83,7 +90,7 @@
                       Response.Write("<li data-thumb=" + s + ">" 
                           +" <div class=\"show-image\" id=" + x +">"
                           +" <img src=" + s + " />"
-                          + " <input class=\"update\" type=\"button\" value=\" \" id=" + x + " >"
+                          + "<asp:Button class=\"update\" runat=\"server\" Text=\"\" id=\""+s+ "\" OnClick=\"AddToSurvey\"" + "></asp:Button>"
                           +" </div>"
                           + "</li>  ");
 
@@ -92,8 +99,9 @@
                   }
                %>
            </ul>
-
-
+           
+           
+          
 
        </div>
        
