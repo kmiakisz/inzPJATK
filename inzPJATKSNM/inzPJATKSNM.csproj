@@ -194,6 +194,7 @@
     <Content Include="Content\lightslider.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\SurveyPhotos\20150816_115142.jpg" />
     <Content Include="Images\Icons\BtnAdd.png" />
     <Content Include="Images\Icons\controls.png" />
     <Content Include="Images\Icons\statistics-512.png" />
@@ -486,7 +487,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\SurveyPhotos\" />
     <Folder Include="Music\" />
   </ItemGroup>
   <ItemGroup>
