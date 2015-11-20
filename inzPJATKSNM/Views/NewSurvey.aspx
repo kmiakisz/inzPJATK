@@ -22,16 +22,14 @@
                                 $("#"+event.target.id).css("border-color","green");
                             });
                     }
-                    var link = event.target.id;
-                    var opt =
-                        {
-                            type: "POST",
-                            url: "~/Views/NewSurvey.aspx.cs/addToPhotoToSurvey",
-                            data: { url: link },
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        }
-                    $.ajax(opt);
+                    var link = $("#"+event.target.id).val();
+                    $.ajax({
+                        url: 'NewServey.aspx/addToPhotoToSurvey',
+                        method: 'post',
+                        contentType: 'application/json',
+                        data: '{url:'+ link +'}',
+                        dataType: 'json'
+                    });
 
            });
 
