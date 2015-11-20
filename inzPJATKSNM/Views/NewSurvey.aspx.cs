@@ -34,7 +34,11 @@ namespace inzPJATKSNM.Views
         {
 
         }
-
+        [WebMethod]
+        public static void test(String var)
+        {
+            Console.WriteLine("" + var);
+        }
 
     }
 }

@@ -15,27 +15,26 @@
             });
            $(".update").click(function(event) {
                 // pobrać id
-                //debugger
+                debugger;
+                
                 $("#"+event.target.id).css("background-color", "lightgreen");
+              
                     if($("#"+event.target.id).data('clicked')){
                         $(".show-image").click(function(event) {
                                 $("#"+event.target.id).css("border-color","green");
                         });
 
-                        var link = $("#" + event.target.id).val();
-                        $.ajax({
-                            url: '/Views/NewSurvey.aspx/addToPhotoToSurvey',
-                            method: 'post',
-                            contentType: 'application/json',
-                            data: '{url:' + link + '}',
-                            dataType: 'json'
-                        });
+                        
                     }
-                    
-
+                   
+               
            });
+            
 
+            }
+             
         });
+
     </script>
 
     <script runat="server">
