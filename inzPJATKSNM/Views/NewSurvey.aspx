@@ -21,10 +21,20 @@
                         $(".show-image").click(function(event) {
                                 $("#"+event.target.id).css("border-color","green");
                             });
-                      }
-                   
+                    }
+                    var link = event.target.id;
+                    var opt =
+                        {
+                            type: "POST",
+                            url: "~/Views/NewSurvey.aspx.cs/addToPhotoToSurvey",
+                            data: { url: link },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        }
+                    $.ajax(opt);
 
-            });
+           });
+
         });
     </script>
 
