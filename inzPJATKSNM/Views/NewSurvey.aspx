@@ -24,7 +24,7 @@
                     }
                     var link = $("#"+event.target.id).val();
                     $.ajax({
-                        url: 'NewServey.aspx/addToPhotoToSurvey',
+                        url: 'NewSurvey.aspx/addToPhotoToSurvey',
                         method: 'post',
                         contentType: 'application/json',
                         data: '{url:'+ link +'}',
