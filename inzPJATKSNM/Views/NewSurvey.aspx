@@ -15,7 +15,7 @@
             });
            $(".update").click(function(event) {
                 // pobrać id
-                //debugger
+                debugger;
                 $("#"+event.target.id).css("background-color", "lightgreen");
                     if($("#"+event.target.id).data('clicked')){
                         $(".show-image").click(function(event) {
@@ -26,7 +26,7 @@
                     var opt =
                         {
                             type: "POST",
-                            url: "~/Views/NewSurvey.aspx.cs/addToPhotoToSurvey",
+                            url: "addToPhotoToSurvey",
                             data: { url: link },
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
