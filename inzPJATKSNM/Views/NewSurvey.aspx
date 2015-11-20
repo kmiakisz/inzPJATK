@@ -19,7 +19,7 @@
                 $("#"+event.target.id).css("background-color", "lightgreen");
                     if($("#"+event.target.id).data('clicked')){
                         $(".show-image").click(function(event) {
-                                $("#"+event.target.id).css("boarder-color","green");
+                                $("#"+event.target.id).css("border-color","green");
                             });
                       }
                    
