@@ -24,6 +24,7 @@ namespace inzPJATKSNM.Views
 
             photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
         }
+        
         public static void addToPhotoToSurvey(string url)
         {
             photoToSurvey.Add(url);
