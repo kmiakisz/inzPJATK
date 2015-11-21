@@ -6,33 +6,20 @@
     <br />
 
     <% 
-            int ilAnkiet = liczbaAnkiet;
+     Response.Write("<div class = \"row\">");
             foreach(KeyValuePair<int, String> kvp in getURLDict()){
                String nazwa = getNazwyDict()[kvp.Key];
                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\""+kvp.Value+"\" alt=\" "+ nazwa +"\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");   
+                Response.Write("<h3>" +nazwa +"</h3>");        
+                Response.Write("<p>"+opis+"</p>");
+                Response.Write("<p> <a href=\"#\" class=\"btn btn-danger\" role=\"button\">Usuń </a> <a href=\"#\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");   
             }
-       
-    <div class = "row">
+                Response.Write("</div>");
    
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="../Images/SurveyPhotos/20150816_114132.jpg" alt="Generic placeholder thumbnail">
-           </div>
-
-            <div class="caption">
-                <h3>Thumbnail label</h3>
-                <p>Some sample text. Some sample text.</p>
-
-                <p>
-                    <a href="#" class="btn btn-danger" role="button">Usuń
-                    </a>
-
-                    <a href="#" class="btn btn-success" role="button">Edytuj
-                    </a>
-                </p>
-
-            </div>
-        </div>
-        </div>
         %>
 </asp:Content>
