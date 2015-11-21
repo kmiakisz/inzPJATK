@@ -16,13 +16,14 @@
                 <p>Some sample text. Some sample text.</p>
 
                 <p>
-                    <a href="#" class="btn btn-danger" role="button">Button
+                    <a href="#" class="btn btn-danger" role="button">Usuń
                     </a>
 
-                    <a href="#" class="btn btn-default" role="button">Button
+                    <a href="#" class="btn btn-success" role="button">Edytuj
                     </a>
                 </p>
 
             </div>
+        </div>
         </div>
 </asp:Content>
