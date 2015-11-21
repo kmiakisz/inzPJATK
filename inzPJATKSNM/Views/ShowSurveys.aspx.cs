@@ -31,6 +31,17 @@ namespace inzPJATKSNM.Views
             ilosc = nazwyAnkiet.Count();
             return ilosc;
         }
-
+        public Dictionary<int, String> getURLDict()
+        {
+            return urlAnkiet;
+        }
+        public Dictionary<int, String> getOpisyDict()
+        {
+            return opisyAnkiet;
+        }
+        public Dictionary<int, String> getNazwyDict()
+        {
+            return nazwyAnkiet;
+        }
     }
 }

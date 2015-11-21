@@ -7,7 +7,10 @@
 
     <% 
             int ilAnkiet = liczbaAnkiet;
-            
+            foreach(KeyValuePair<int, String> kvp in getURLDict()){
+               String nazwa = getNazwyDict()[kvp.Key];
+               String opis = getOpisyDict()[kvp.Key];
+            }
        
     <div class = "row">
    
