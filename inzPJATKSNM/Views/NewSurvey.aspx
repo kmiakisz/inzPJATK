@@ -56,15 +56,6 @@
             return photoFromDB;
         }
     </script>
-     <script runat="server">
-         protected void AddToSurvey(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            string url = button.ID;
-            inzPJATKSNM.Views.NewSurvey.addToPhotoToSurvey(url);
-           
-        }
-    </script>
    <div id="content" class="container-fluid">
        <h3><span class="label label-danger">Nowa ankieta</span></h3>
        <div id="left" style="float:left ; width:30%">

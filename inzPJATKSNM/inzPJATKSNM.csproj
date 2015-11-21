@@ -269,6 +269,7 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\AdministratorPanel.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
+    <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <None Include="Project_Readme.html" />
@@ -353,6 +354,7 @@
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
+    <Compile Include="Controllers\ShowSurveysController.cs" />
     <Compile Include="Views\AddAuthor.aspx.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -484,6 +486,13 @@
     </Compile>
     <Compile Include="Views\NewSurvey.aspx.designer.cs">
       <DependentUpon>NewSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShowSurveys.aspx.cs">
+      <DependentUpon>ShowSurveys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ShowSurveys.aspx.designer.cs">
+      <DependentUpon>ShowSurveys.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

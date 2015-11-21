@@ -138,7 +138,7 @@ namespace inzPJATKSNM.Controllers
         {
             DateTime data_rozp = DateTime.Now;
             DateTime data_zak = DateTime.Now.AddDays(30);
-            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Id_Muzyka) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Id_Muzyka);";
+            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Id_Muzyka,Active) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Id_Muzyka,1);";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
