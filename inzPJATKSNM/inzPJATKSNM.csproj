@@ -192,10 +192,10 @@
     <Content Include="Content\metro-bootstrap.css" />
     <Content Include="Content\metro-bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\SurveyPhotos\20150816_115142.jpg" />
     <Content Include="Images\Icons\BtnAdd.png" />
     <Content Include="Images\Icons\controls.png" />
     <Content Include="Images\Icons\statistics-512.png" />
+    <Content Include="Images\SurveyPhotos\12287516_1089958617715028_1626717926_o.jpg" />
     <Content Include="packages.config" />
     <Content Include="Account\Web.config" />
     <EntityDeploy Include="Models\SNMDataModel.edmx">
@@ -336,6 +336,7 @@
     <Content Include="Views\AddAuthor.aspx" />
     <Content Include="Views\AddMusic.aspx" />
     <Content Include="Views\AddNewPhoto.aspx" />
+    <Content Include="Views\EditExistingSurvey.aspx" />
     <Content Include="Views\HomePage.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -449,6 +450,13 @@
     </Compile>
     <Compile Include="Views\AddNewPhoto.aspx.designer.cs">
       <DependentUpon>AddNewPhoto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditExistingSurvey.aspx.cs">
+      <DependentUpon>EditExistingSurvey.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\EditExistingSurvey.aspx.designer.cs">
+      <DependentUpon>EditExistingSurvey.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>

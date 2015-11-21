@@ -17,7 +17,7 @@
                 Response.Write("<div class=\"caption\">");   
                 Response.Write("<h3>" +nazwa +"</h3>");        
                 Response.Write("<p>"+opis+"</p>");
-                Response.Write("<p> <a href=\"#\" name =\""+ kvp.Key + "\" class=\"btn btn-danger\" role=\"button\">Usuń </a> <a href=\"#\" name=\""+ kvp.Key+ "\"class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");   
+                Response.Write("<p> <a href=\"#\" class=\"btn btn-danger\" role=\"button\">Usuń </a> <a href=\"EditExistingSurvey.aspx\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");   
             }
                 Response.Write("</div>");
    
