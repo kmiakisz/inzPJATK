@@ -13,48 +13,57 @@ namespace inzPJATKSNM.Views {
     public partial class AdministratorPanel {
         
         /// <summary>
-        /// ActiveSurveyButton control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ActiveSurveyButton;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// EditSurveyButton control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button EditSurveyButton;
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
-        /// AddAuthor control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddAuthor;
+        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
-        /// NewPhoto control.
+        /// Button4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button NewPhoto;
+        protected global::System.Web.UI.WebControls.Button Button4;
         
         /// <summary>
-        /// AddNewSurveyButton control.
+        /// Button5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddNewSurveyButton;
+        protected global::System.Web.UI.WebControls.Button Button5;
+        
+        /// <summary>
+        /// Button6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button6;
     }
 }
