@@ -62,7 +62,7 @@ namespace inzPJATKSNM.Controllers
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 Sqlcon.Open();
-                string query = "select ankieta.Id_ankiety,url from dzieło inner join skład on Id_dzieło = Id_zdjecia inner join ankieta on ankieta.Id_ankiety = skład.Id_ankiety;";
+                string query = "select ankieta.id_ankiety, dzielo.url from ankieta outer apply ( select top(1) url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo;";
                 using (SqlCommand command = new SqlCommand(query, Sqlcon))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
