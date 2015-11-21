@@ -6,6 +6,7 @@
     <script src="../Scripts/lightslider.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+           
             $('#lightSlider').lightSlider({
                 gallery: true,
                 item: 1,
@@ -14,8 +15,8 @@
                 thumbItem: 9
             });
            $(".update").click(function(event) {
-                // pobrać id
-                debugger
+                
+                debugger;
                 $("#"+event.target.id).css("background-color", "lightgreen");
                     if($("#"+event.target.id).data('clicked')){
                         $(".show-image").click(function(event) {
@@ -23,20 +24,28 @@
                         });
 
                     }
+
                     var link = event.target.id;
                     alert(link);
                     $.ajax({
-                        url: '/Views/NewSurvey.aspx/addToPhotoToSurvey',
+                        url: '<%= ResolveUrl("NewSurvey.aspx/addToPhotoToSurvey") %>',
                         method: 'post',
                         contentType: 'application/json',
-                        data: '{url:' + link + '}',
-                        dataType: 'json'
+                        data: '{"url":'+ link + ' }',
+                        dataType: 'json',
+                        success: function(){
+
+                        },
+                        error: function(er){
+                        Alert("Zdarzył się potworny błąd!!!")
+                        }
                     });
                     
 
            });
 
         });
+
     </script>
 
     <script runat="server">

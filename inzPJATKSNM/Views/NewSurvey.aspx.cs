@@ -15,7 +15,7 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             loadPhotosFromDB();
-          
+            photoToSurvey = new List<string>();
 
         }
         
@@ -25,20 +25,17 @@ namespace inzPJATKSNM.Views
             photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
         }
         [WebMethod]
-        public static void addToPhotoToSurvey(string url)
+        public static void addToPhotoToSurvey(String url)
         {
             photoToSurvey.Add(url);
+            Console.WriteLine(url);
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
 
         }
-        [WebMethod]
-        public static void test(String var)
-        {
-            Console.WriteLine("" + var);
-        }
+       
 
     }
 }
