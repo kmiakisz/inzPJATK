@@ -4,11 +4,16 @@
 
     <br />
     <br />
+
+    <% 
+            int ilAnkiet = liczbaAnkiet;
+            
+       
     <div class = "row">
    
         <div class="col-sm-6 col-md-3">
             <div class="thumbnail">
-                <img src="Images/SurveyPhotos/20150816_115142.jpg" alt="Generic placeholder thumbnail">
+                <img src="../Images/SurveyPhotos/20150816_114132.jpg" alt="Generic placeholder thumbnail">
            </div>
 
             <div class="caption">
@@ -26,4 +31,5 @@
             </div>
         </div>
         </div>
+        %>
 </asp:Content>
