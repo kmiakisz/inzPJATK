@@ -28,7 +28,12 @@ namespace inzPJATKSNM.Views
         public static void addToPhotoToSurvey(String url)
         {
             photoToSurvey.Add(url);
-            Console.WriteLine(url);
+            
+        }
+        [WebMethod]
+        public static void removePhotoFromSurvey(String url)
+        {
+            photoToSurvey.Remove(url);
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)

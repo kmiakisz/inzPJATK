@@ -25,7 +25,7 @@
 
                     }
 
-                    var link = event.target.id;
+                    var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                     alert(link);
                     $.ajax({
                         url: '<%= ResolveUrl("NewSurvey.aspx/addToPhotoToSurvey") %>',
@@ -103,7 +103,7 @@
                       Response.Write("<li data-thumb=" + s + ">" 
                           +" <div class=\"show-image\" id=" + x +">"
                           +" <img src=" + s + " />"
-                          + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x + " />"
+                          + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x + " name ="  + s  +  " />"
                           +" </div>"
                           + "</li>  ");
 
