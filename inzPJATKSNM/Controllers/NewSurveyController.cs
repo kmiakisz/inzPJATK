@@ -33,7 +33,7 @@ namespace inzPJATKSNM.Controllers
             }
             return photoList;
         }
-        public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,string nazwa,string opis)
+        public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis)
         {
             List<int> imageIdList = new List<int>();
 
@@ -62,7 +62,7 @@ namespace inzPJATKSNM.Controllers
                 try
                 {
                     Sqlcon.Open();
-                    SurveyId = command.ExecuteNonQuery();
+                    SurveyId = (int) command.ExecuteScalar();
                 }
                  catch (Exception ex)
                 {
@@ -76,7 +76,7 @@ namespace inzPJATKSNM.Controllers
         public static int getPhotoId(string url)
         {
             int imageId =0;
-            string commandText = "Select Id_dzieło from Dzieło where URL like @url;";
+            string commandText = "Select Id_dzieło from Dzieło where URL like '%' + @url + '%';";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
@@ -86,8 +86,14 @@ namespace inzPJATKSNM.Controllers
                 try
                 {
                     Sqlcon.Open();
-                    imageId =  command.ExecuteNonQuery();
-                    
+                    //SqlDataReader rd = command.ExecuteReader();
+
+                    //if (rd.HasRows)
+                    //    imageId = (int)rd.GetInt32(1);
+
+                    //rd.Close();
+                    imageId = (int) command.ExecuteScalar();
+
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +118,7 @@ namespace inzPJATKSNM.Controllers
                 SqlCommand command = new SqlCommand(commandTextInsertSklad, Sqlcon);
                 command.Parameters.Add("@Id_ankiety", SqlDbType.Int);
                 command.Parameters["@Id_ankiety"].Value = Id_ankiety;
-                command.Parameters.Add("@Id_zdjęcia", SqlDbType.VarChar);
+                command.Parameters.Add("@Id_zdjęcia", SqlDbType.Int);
                 command.Parameters["@Id_zdjęcia"].Value = Id_zdjęcia;
                 try
                 {
