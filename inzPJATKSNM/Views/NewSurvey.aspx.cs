@@ -11,11 +11,11 @@ namespace inzPJATKSNM.Views
     public partial class NewSurvey : System.Web.UI.Page
     {
         private List<String> photoFromDB;
-        private static List<String> photoToSurvey;
+        private static List<String> photoToSurvey = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             loadPhotosFromDB();
-            photoToSurvey = new List<string>();
+          
 
         }
         
@@ -27,7 +27,15 @@ namespace inzPJATKSNM.Views
         [WebMethod]
         public static void addToPhotoToSurvey(String url)
         {
-            photoToSurvey.Add(url);
+            if (photoToSurvey.Contains(url))
+            {
+                removePhotoFromSurvey(url);
+            }
+            else
+            {
+                photoToSurvey.Add(url);
+            }
+            
             
         }
         [WebMethod]
@@ -37,6 +45,15 @@ namespace inzPJATKSNM.Views
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
+        {
+            List<String> tempList = photoToSurvey;
+          int musicId = int.Parse(MusicDropDownList.SelectedValue);
+          String nazwa = SurveyNameTextBox.Text;
+          String opis = ServeyDescribtionTextBox.Text;
+          inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis);
+        }
+
+        protected void CancelButton_Click(object sender, EventArgs e)
         {
 
         }
