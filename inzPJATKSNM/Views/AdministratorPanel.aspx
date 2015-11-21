@@ -5,51 +5,38 @@
     <div id="content" class="container-fluid">
         <div class="row offset 3">
             <div class="col-sm-1 col-md-2">
-                <div class="thumbnail tile tile-medium tile-green">
-                    <a href="#">
-                        <h1>Hello</h1>
-                    </a>
+                <div class="thumbnail tile tile-medium tile-lime">
+                    <a href="AddNewPhoto.aspx" style="color:transparent">AddNewPhoto.aspx<h3>Nowe Zdjecie</h3></a>
                 </div>
             </div>
             <div class="col-sm-1 col-md-4">
-                <div class="thumbnail tile tile-wide">
-                    <a href="#">
-                        <img src="images/twittertile.png">
-                        <h2>Tweet
-                        </h2>
-                    </a>
+                <div class="thumbnail tile tile-wide tile-teal">  
+                      <!-- <img src="images/twittertile.png"> -->
+                      <a href="NewSurvey.aspx" style="color:transparent">NewSurvey.aspx<h3>Nowa Ankieta</h3></a>
                 </div>
             </div>
             <div class="col-sm-1 col-md-2">
                 <div class="thumbnail tile tile-medium tile-orange">
-                    <a href="#">
-                        <h1 class="tile-text">I'm the 2!</h1>
-                    </a>
+                    <a href="AddMusic.aspx" style="color:transparent">AddMusic.aspx<h3>Muzyka</h3></a>
                 </div>
             </div>
 
         </div>
         <div class="row offset 3">
             <div class="col-sm-1 col-md-4">
-                <div class="thumbnail tile tile-wide tile-green">
-                    <a href="#">
-                        <h1>Hello</h1>
-                    </a>
+                <div class="thumbnail tile tile-wide tile-red">
+                    <a href="ShowSurveys.aspx" style="color:transparent">ShowSurveys.aspx<h3>Pokaz Ankiety</h3></a>
                 </div>
             </div>
             <div class="col-sm-1 col-md-2">
                 <div class="thumbnail tile tile-medium">
-                    <a href="#">
-                        <img src="images/twittertile.png">
-                        <h2>Tweet
-                        </h2>
-                    </a>
+                    <a href="AddAuthor.aspx" style="color:transparent">AddAuthor.aspx<h3>Autorzy</h3></a>
                 </div>
             </div>
             <div class="col-sm-1 col-md-2">
                 <div class="thumbnail tile tile-medium tile-orange">
                     <a href="#">
-                        <h1 class="tile-text">I'm the 2!</h1>
+                        <h1 class="tile-text">CHUJ</h1>
                     </a>
                 </div>
             </div>
