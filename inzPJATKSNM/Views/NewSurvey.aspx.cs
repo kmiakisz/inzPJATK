@@ -29,6 +29,7 @@ namespace inzPJATKSNM.Views
         {
             photoToSurvey.Add(url);
             Console.WriteLine(url);
+
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
