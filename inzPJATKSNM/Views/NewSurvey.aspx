@@ -18,15 +18,13 @@
                 
                 debugger;
                 $("#"+event.target.id).css("background-color", "lightgreen");
-                    if($("#"+event.target.id).data('clicked')){
-                        $(".show-image").click(function(event) {
-                                $("#"+event.target.id).css("border-color","green");
-                        });
-
-                    }
-
+                    //if($("#"+event.target.id).data('clicked')){
+                      //  $(".show-image").click(function(event) {
+                         //       $("#"+event.target.id).css("border-color","green");
+                        // });
+                
+                  //  }
                     var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
-                    alert(link);
                     $.ajax({
                         url: '<%= ResolveUrl("NewSurvey.aspx/addToPhotoToSurvey") %>',
                         method: 'post',
@@ -40,9 +38,10 @@
                         Alert("Zdarzył się potworny błąd!!!")
                         }
                     });
-                    
-
            });
+            $(".update").dblclick(function (event) {
+                $("#" + event.target.id).css("background-color", "transparent");
+            });
 
         });
 

@@ -1,35 +1,60 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdministratorPanel.aspx.cs" Inherits="inzPJATKSNM.Views.AdministratorPanel" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <br />
+    <br />
     <div id="content" class="container-fluid">
-        <div class="row-md-2">
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button1" runat="server" Text="Button"  class="btn btn-default" Height="100px" Width="100px"/>
-                <br />
+        <div class="row offset 3">
+            <div class="col-sm-1 col-md-2">
+                <div class="thumbnail tile tile-medium tile-green">
+                    <a href="#">
+                        <h1>Hello</h1>
+                    </a>
                 </div>
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button2" runat="server" Text="Button" class="btn btn-primary" Height="100px" Width="100px"/>
-                <br />
+            </div>
+            <div class="col-sm-1 col-md-4">
+                <div class="thumbnail tile tile-wide">
+                    <a href="#">
+                        <img src="images/twittertile.png">
+                        <h2>Tweet
+                        </h2>
+                    </a>
                 </div>
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button3" runat="server" Text="Button" class="btn btn-success" Height="100px" Width="100px"/>
-                <br />
+            </div>
+            <div class="col-sm-1 col-md-2">
+                <div class="thumbnail tile tile-medium tile-orange">
+                    <a href="#">
+                        <h1 class="tile-text">I'm the 2!</h1>
+                    </a>
                 </div>
+            </div>
+
         </div>
-        <div class="row-md-2">
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button4" runat="server" Text="Button" class="btn btn-info" Height="100px" Width="100px"/>
-                <br />
+        <div class="row offset 3">
+            <div class="col-sm-1 col-md-4">
+                <div class="thumbnail tile tile-wide tile-green">
+                    <a href="#">
+                        <h1>Hello</h1>
+                    </a>
                 </div>
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button5" runat="server" Text="Button" class="btn btn-warning" Height="100px" Width="100px"/>
-                <br />
+            </div>
+            <div class="col-sm-1 col-md-2">
+                <div class="thumbnail tile tile-medium">
+                    <a href="#">
+                        <img src="images/twittertile.png">
+                        <h2>Tweet
+                        </h2>
+                    </a>
                 </div>
-            <div class="col-sm-6 col-md-3">
-                <asp:Button ID="Button6" runat="server" Text="Button" class="btn btn-danger" Height="100px" Width="100px"/>
-                <br />
+            </div>
+            <div class="col-sm-1 col-md-2">
+                <div class="thumbnail tile tile-medium tile-orange">
+                    <a href="#">
+                        <h1 class="tile-text">I'm the 2!</h1>
+                    </a>
                 </div>
+            </div>
+
         </div>
     </div>
- 
+
 </asp:Content>
