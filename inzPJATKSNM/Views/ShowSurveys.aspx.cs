@@ -13,9 +13,9 @@ namespace inzPJATKSNM.Views
 {
     public partial class ShowSurveys : System.Web.UI.Page
     {
-        Dictionary<int, String> nazwyAnkiet = new Dictionary<int,string>();
-        Dictionary<int, String> opisyAnkiet = new Dictionary<int, string>();
-        Dictionary<int, String> urlAnkiet = new Dictionary<int, string>();
+        Dictionary<int, String> nazwyAnkiet;
+        Dictionary<int, String> opisyAnkiet;
+        Dictionary<int, String> urlAnkiet;
         public int liczbaAnkiet = 0;
         public int CsVariable = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -52,20 +52,15 @@ namespace inzPJATKSNM.Views
         {
             return nazwyAnkiet;
         }
-        public String getButtonId(String id)
-        {
-            String buttonID = "";
-            Button button = (Button)FindControl(id);
-            return buttonID;
-        }
         [WebMethod]
         public static void usunAnkiete(int id)
         {
             inzPJATKSNM.Controllers.ShowSurveysController.removeSurvey(id);
-            
+           
         }
-        public void refreshSite(){
-            Response.Redirect("ShowSurveys.aspx");
+        public void redirectToEdit()
+        {
+            Response.Redirect("EditExistingSurvey.aspx");
         }
     }
 }

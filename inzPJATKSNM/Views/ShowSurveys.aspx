@@ -17,7 +17,7 @@
                 Response.Write("<div class=\"caption\">");   
                 Response.Write("<h3>" +nazwa +"</h3>");        
                 Response.Write("<p>"+opis+"</p>");
-                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx\" name=\"" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");   
+                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx\" onclick=\"editItem(\'" + kvp.Key + "\');\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");   
             }
                 Response.Write("</div>");
    
@@ -33,6 +33,7 @@
         }
         function test() {
             var ida = Sys.Serialization.JavaScriptSerializer.serialize(id);
+
             $.ajax({
                 url: '<%= ResolveUrl("ShowSurveys.aspx/usunAnkiete") %>',
                 method: 'post',
@@ -40,14 +41,38 @@
                 data: '{"id":' + ida + ' }',
                 dataType: 'json',
                 success: function () {
-
+                    
                 },
                 error: function (er) {
                     Alert("Zdarzył się potworny błąd!!!")
                 }
             });
             $('#myModal').modal('hide');
-            window.reload();
+            reloadPage();
+           
+        }
+        function reloadPage() {
+            window.location.reload()
+        }
+        function editItem(i) {
+            var ida = Sys.Serialization.JavaScriptSerializer.serialize(i);
+            debugger;
+            
+            $.ajax({
+                url: '<%= ResolveUrl("EditExistingSurvey.aspx/returnId") %>',
+                method: 'post',
+                contentType: 'application/json',
+                data: '{"id":' + ida + ' }',
+                dataType: 'json',
+                success: function (response) {
+                    
+                },
+                error: function (er) {
+                    Alert("Zdarzył się potworny błąd!!!")
+                }
+            });
+            
+            
         }
 </script>
 
