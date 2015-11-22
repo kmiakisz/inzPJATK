@@ -59,9 +59,9 @@
        <h3><span class="label label-danger">Nowa ankieta</span></h3>
        <div id="left" style="float:left ; width:30%">
             <asp:Label ID="SurveyNameLabel" runat="server" Text="Nazwa Ankiety" class="label label-danger"></asp:Label>
-            <asp:TextBox ID="SurveyNameTextBox" runat="server" class="form-control"></asp:TextBox>
+            <asp:TextBox ID="SurveyNameTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
-            <asp:TextBox ID="ServeyDescribtionTextBox" runat="server" class="form-control"></asp:TextBox>
+            <asp:TextBox ID="ServeyDescribtionTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
             <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
             <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" style="width:80%" DataSourceID="MusicDataSource" DataTextField="Tytul" DataValueField="Id_Muzyka">
                 <asp:ListItem Text="--Wybierz--" Value="0" Enabled="true">dfg</asp:ListItem>
