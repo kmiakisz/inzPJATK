@@ -191,6 +191,7 @@
     <Content Include="Content\lightslider.css" />
     <Content Include="Content\metro-bootstrap.css" />
     <Content Include="Content\metro-bootstrap.min.css" />
+    <Content Include="Content\modal.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Icons\BtnAdd.png" />
     <Content Include="Images\Icons\controls.png" />
@@ -300,6 +301,7 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datapicker.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -308,6 +310,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\lightslider.js" />
+    <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -345,11 +348,13 @@
     <Content Include="Views\AdministratorPanel.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
+    <Content Include="Views\StartPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="VoteMaster.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -428,6 +433,7 @@
     <Compile Include="Controllers\AddMusicController.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\EditSurveyController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Controllers\ShowSurveysController.cs" />
     <Compile Include="Views\AddAuthor.aspx.cs">
@@ -575,6 +581,20 @@
     </Compile>
     <Compile Include="Views\ShowSurveys.aspx.designer.cs">
       <DependentUpon>ShowSurveys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPage.aspx.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StartPage.aspx.designer.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VoteMaster.Master.cs">
+      <DependentUpon>VoteMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VoteMaster.Master.designer.cs">
+      <DependentUpon>VoteMaster.Master</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

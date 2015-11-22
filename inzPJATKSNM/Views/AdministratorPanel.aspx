@@ -36,7 +36,7 @@
             <div class="col-sm-1 col-md-2">
                 <div class="thumbnail tile tile-medium tile-orange">
                     <a href="#">
-                        <h1 class="tile-text">CHUJ</h1>
+                        <h1 class="tile-text">FREE</h1>
                     </a>
                 </div>
             </div>

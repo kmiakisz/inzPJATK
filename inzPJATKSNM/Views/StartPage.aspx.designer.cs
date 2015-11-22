@@ -10,114 +10,87 @@
 namespace inzPJATKSNM.Views {
     
     
-    public partial class EditExistingSurvey {
+    public partial class StartPage {
         
         /// <summary>
-        /// SurveyNameLabel control.
+        /// nationalityLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SurveyNameLabel;
+        protected global::System.Web.UI.WebControls.Label nationalityLabel;
         
         /// <summary>
-        /// SurveyNameTextBox control.
+        /// nationalityDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SurveyNameTextBox;
+        protected global::System.Web.UI.WebControls.DropDownList nationalityDDL;
         
         /// <summary>
-        /// ServeyDescribtionLabel control.
+        /// NarodowoscSQL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ServeyDescribtionLabel;
+        protected global::System.Web.UI.WebControls.SqlDataSource NarodowoscSQL;
         
         /// <summary>
-        /// ServeyDescribtionTextBox control.
+        /// sexLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ServeyDescribtionTextBox;
+        protected global::System.Web.UI.WebControls.Label sexLabel;
         
         /// <summary>
-        /// MusicLabel control.
+        /// sexDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MusicLabel;
+        protected global::System.Web.UI.WebControls.DropDownList sexDDL;
         
         /// <summary>
-        /// MusicDropDownList control.
+        /// sexSQL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MusicDropDownList;
+        protected global::System.Web.UI.WebControls.SqlDataSource sexSQL;
         
         /// <summary>
-        /// MusicDataSource control.
+        /// ageLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource MusicDataSource;
+        protected global::System.Web.UI.WebControls.Label ageLabel;
         
         /// <summary>
-        /// Label1 control.
+        /// ageDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.DropDownList ageDDL;
         
         /// <summary>
-        /// Label2 control.
+        /// ageSQL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// DropDownList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
-        /// <summary>
-        /// AcceptButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AcceptButton;
-        
-        /// <summary>
-        /// CancelButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelButton;
+        protected global::System.Web.UI.WebControls.SqlDataSource ageSQL;
     }
 }
