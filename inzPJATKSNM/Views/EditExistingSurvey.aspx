@@ -67,6 +67,7 @@
             return photoFromDB;
         }
     </script>
+
     <div id="content" class="container-fluid">
         <h3><span class="label label-danger">Edycja Ankiety</span></h3>
         <div id="left" style="float: left; width: 30%">
@@ -94,18 +95,11 @@
                 <asp:Button ID="AcceptButton" runat="server" Text="Zapisz" class="btn btn-success" Style="float: left" OnClick="AcceptButton_Click" />
                 <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
             </div>
-
+            
         </div>
 
         <div class="demo" style="float: right; width: 40%">
-            <!--
-           <li data-thumb="http://www.adrenalinemotorsport.pl/photos/aktualnosci/37163.jpg">
-            <div class="show-image">
-                <img src="http://www.adrenalinemotorsport.pl/photos/aktualnosci/37163.jpg" />
-                <input class="update" type="button" value=" " id="updateBtn" onclick="AddToSurvey" /> 
-            </div>
-        </li>
-           -->
+
             <ul id="lightSlider">
                 <% 
                     int x = 0;
