@@ -22,13 +22,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label SurveyNameLabel;
         
         /// <summary>
-        /// SurveyNameTextBox control.
+        /// SurveyNameTextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SurveyNameTextBox;
+        protected global::System.Web.UI.WebControls.TextBox SurveyNameTextBox1;
         
         /// <summary>
         /// ServeyDescribtionLabel control.
@@ -40,13 +40,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label ServeyDescribtionLabel;
         
         /// <summary>
-        /// ServeyDescribtionTextBox control.
+        /// ServeyDescribtionTextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ServeyDescribtionTextBox;
+        protected global::System.Web.UI.WebControls.TextBox ServeyDescribtionTextBox1;
         
         /// <summary>
         /// MusicLabel control.

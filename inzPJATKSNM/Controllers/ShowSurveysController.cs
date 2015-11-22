@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -76,6 +77,29 @@ namespace inzPJATKSNM.Controllers
                 Sqlcon.Close();
             }
             return urle;
+        }
+        public static void removeSurvey(int id)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "DeleteAnkieta";
+
+                    cmd.Parameters.Add("@idAnkiety", SqlDbType.Int);
+                    cmd.Parameters["@idAnkiety"].Value = id;
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+
+                }
+                
+            }
         }
     }
 }
