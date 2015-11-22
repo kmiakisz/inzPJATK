@@ -7,4 +7,3 @@
 /// <reference path="lightslider.js" />
 /// <reference path="bootstrap.min.js" />
 /// <reference path="datapicker.js" />
-/// <reference path="modal.js" />
