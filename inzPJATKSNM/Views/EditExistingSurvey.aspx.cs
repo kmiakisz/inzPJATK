@@ -14,6 +14,7 @@ namespace inzPJATKSNM.Views
     {
         public inzPJATKSNM.Models.Ankieta ankieta = new inzPJATKSNM.Models.Ankieta();
         List<String> listaURLZdjec = new List<String>();
+        String visitorIP;
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -27,7 +28,7 @@ namespace inzPJATKSNM.Views
                 SurveyNameTextBox1.Text = ankieta.Nazwa;
                 ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
                 Data_zakLAb.Text = ankieta.Data_rozp.ToString();
-                uip.Text = inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress().ToString();
+                visitorIP = inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress().ToString();
 
             }
             else

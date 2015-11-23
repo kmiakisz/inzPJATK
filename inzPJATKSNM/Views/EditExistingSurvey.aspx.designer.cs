@@ -103,15 +103,6 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label Data_zakLAb;
         
         /// <summary>
-        /// uip control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label uip;
-        
-        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>

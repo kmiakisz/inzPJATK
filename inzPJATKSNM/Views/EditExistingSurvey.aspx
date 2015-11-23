@@ -84,7 +84,6 @@
             <input type="text" placeholder="click to show datepicker" id="example1" class="form-control" runat="server">
             <br />
             <asp:Label ID="Data_zakLAb" runat="server" Text=""></asp:Label>
-            <asp:Label ID="uip" runat="server" Text=""></asp:Label>
             <br />
             <asp:Label ID="Label2" runat="server" Text="Status: " CssClass="label label-danger"></asp:Label>
             <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
