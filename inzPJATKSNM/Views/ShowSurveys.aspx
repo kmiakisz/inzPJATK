@@ -17,7 +17,7 @@
                 Response.Write("<div class=\"caption\">");   
                 Response.Write("<h3>" +nazwa +"</h3>");        
                 Response.Write("<p>"+opis+"</p>");
-                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a><a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");   
+                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a><a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");   
             }
                 Response.Write("</div>");
    
