@@ -11,9 +11,11 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Statystyki
     {
+        [Key]
         public int IdStat { get; set; }
         public int ilosc_glosow { get; set; }
         public int min_glos { get; set; }

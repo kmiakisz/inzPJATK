@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Admin
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Ankieta = new HashSet<Ankieta>();
         }
-    
+        [Key]
         public int Id_admin { get; set; }
         public string login { get; set; }
         public string haslo { get; set; }

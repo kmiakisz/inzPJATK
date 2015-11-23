@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Technika
     {
@@ -19,6 +20,7 @@ namespace inzPJATKSNM.Models
             this.Dzieło = new HashSet<Dzieło>();
         }
     
+        [Key]
         public int Id_Tech { get; set; }
         public string Technika1 { get; set; }
     

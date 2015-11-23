@@ -35,9 +35,9 @@ namespace inzPJATKSNM.Controllers
             }
             return photoList;
         }
-        public static Ankieta getSurvey(int id)
+        public static inzPJATKSNM.Models.Ankieta getSurvey(int id)
         {
-            Ankieta Survey = new Ankieta();
+            inzPJATKSNM.Models.Ankieta Survey = new inzPJATKSNM.Models.Ankieta();
             
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))

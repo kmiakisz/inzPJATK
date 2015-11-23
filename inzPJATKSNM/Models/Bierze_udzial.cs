@@ -11,6 +11,8 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class Bierze_udzial
     {
@@ -18,8 +20,9 @@ namespace inzPJATKSNM.Models
         {
             this.Ocena = new HashSet<Ocena>();
         }
-    
+        [ForeignKey("Glosujący")]
         public int Id_Osoba { get; set; }
+        [Key]
         public int Id_ankiety { get; set; }
     
         public virtual Ankieta Ankieta { get; set; }

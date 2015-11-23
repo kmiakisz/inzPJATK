@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Kategoria
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Dzieło = new HashSet<Dzieło>();
         }
-    
+        [Key]
         public int Id_Kat { get; set; }
         public string Kategoria1 { get; set; }
     

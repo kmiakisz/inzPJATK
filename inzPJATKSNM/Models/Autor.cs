@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Autor
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Dzieło = new HashSet<Dzieło>();
         }
-    
+        [Key]
         public int Id_Autora { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }

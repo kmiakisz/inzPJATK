@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Epoka
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Autor = new HashSet<Autor>();
         }
-    
+        [Key]
         public int Id_Epoki { get; set; }
         public string Epoka1 { get; set; }
     

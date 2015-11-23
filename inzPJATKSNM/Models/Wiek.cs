@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Wiek
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Glosujący = new HashSet<Glosujący>();
         }
-    
+        [Key]
         public int Id_Wiek { get; set; }
         public string Wiek1 { get; set; }
     

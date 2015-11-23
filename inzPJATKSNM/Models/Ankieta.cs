@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Ankieta
     {
@@ -19,7 +20,7 @@ namespace inzPJATKSNM.Models
             this.Bierze_udzial = new HashSet<Bierze_udzial>();
             this.Dzieło = new HashSet<Dzieło>();
         }
-    
+        [Key]
         public int Id_ankiety { get; set; }
         public string Nazwa { get; set; }
         public string Opis_ankiety { get; set; }

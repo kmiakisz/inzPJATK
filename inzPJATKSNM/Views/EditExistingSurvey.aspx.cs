@@ -11,13 +11,28 @@ namespace inzPJATKSNM.Views
 {
     public partial class EditExistingSurvey : System.Web.UI.Page
     {
-        public Ankieta ankieta = new Ankieta();
+        public inzPJATKSNM.Models.Ankieta ankieta = new inzPJATKSNM.Models.Ankieta();
         
         int i = 0;
        
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (Request.QueryString["Id"]!=null)
+            {
+                int id = int.Parse(Request.QueryString["Id"]);
+                inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
+
+                SurveyNameTextBox1.Text = ankieta.Nazwa;
+                ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
+
+            }
+            else
+            {
+                //tu dodac modal 
+            }
+            
+            
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
@@ -38,8 +53,7 @@ namespace inzPJATKSNM.Views
         }
         public void getData(int id)
         {
-            inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
-            ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
+            
            
             //SurveyNameTextBox = this.FindControl("SurveyNameTextBox") as TextBox;
             //ServeyDescribtionTextBox = this.FindControl("ServeyDescribtionTextBox") as TextBox;

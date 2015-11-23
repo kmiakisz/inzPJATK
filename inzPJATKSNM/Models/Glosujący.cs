@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Glosujący
     {
@@ -18,7 +19,7 @@ namespace inzPJATKSNM.Models
         {
             this.Bierze_udzial = new HashSet<Bierze_udzial>();
         }
-    
+        [Key]
         public int Id_Osoba { get; set; }
         public string Email { get; set; }
         public int Id_Narod { get; set; }

@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Plec
     {
@@ -19,7 +20,7 @@ namespace inzPJATKSNM.Models
             this.Autor = new HashSet<Autor>();
             this.Glosujący = new HashSet<Glosujący>();
         }
-    
+        [Key]
         public int Id_Plec { get; set; }
         public string Plec1 { get; set; }
     

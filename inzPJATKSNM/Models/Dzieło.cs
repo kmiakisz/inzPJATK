@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Dzieło
     {
@@ -20,7 +21,7 @@ namespace inzPJATKSNM.Models
             this.Statystyki = new HashSet<Statystyki>();
             this.Ankieta = new HashSet<Ankieta>();
         }
-    
+        [Key]
         public int Id_dzieło { get; set; }
         public string URL { get; set; }
         public int Id_Tech { get; set; }

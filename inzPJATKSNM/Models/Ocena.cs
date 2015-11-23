@@ -11,9 +11,11 @@ namespace inzPJATKSNM.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Ocena
     {
+        [Key]
         public int Ocena1 { get; set; }
         public int Id_Osoba { get; set; }
         public int Id_ankiety { get; set; }
