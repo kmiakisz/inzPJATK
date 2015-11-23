@@ -455,6 +455,7 @@
     <Compile Include="Controllers\AddMusicController.cs" />
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EditExistingSurveyController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Controllers\ShowSurveysController.cs" />

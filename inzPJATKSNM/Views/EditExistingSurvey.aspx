@@ -76,12 +76,16 @@
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox1" runat="server" class="form-control"></asp:TextBox>
             <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
-            <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MusicDataSource" DataTextField="Tytul" DataValueField="Id_Muzyka">
-                <asp:ListItem Text="--Wybierz--" Value="0" Enabled="true">dfg</asp:ListItem>
+            <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MuzykaSDS" DataTextField="Tytul" DataValueField="Id_Muzyka">
+                <asp:ListItem Text="--Wybierz--" Value="" Enabled="true">dfg</asp:ListItem> 
             </asp:DropDownList>
-            <asp:SqlDataSource ID="MusicDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="MuzykaSDS" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Wybierz date zakonczenia: " CssClass="label label-danger"></asp:Label>
-            <input type="text" placeholder="click to show datepicker" id="example1" class="form-control">
+            <input type="text" placeholder="click to show datepicker" id="example1" class="form-control" runat="server">
+            <br />
+            <asp:Label ID="Data_zakLAb" runat="server" Text=""></asp:Label>
+            <asp:Label ID="uip" runat="server" Text=""></asp:Label>
+            <br />
             <asp:Label ID="Label2" runat="server" Text="Status: " CssClass="label label-danger"></asp:Label>
             <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
                 <asp:ListItem>--Wybierz Stan --</asp:ListItem>

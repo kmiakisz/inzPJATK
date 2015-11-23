@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -12,19 +13,21 @@ namespace inzPJATKSNM.Views
     public partial class EditExistingSurvey : System.Web.UI.Page
     {
         public inzPJATKSNM.Models.Ankieta ankieta = new inzPJATKSNM.Models.Ankieta();
-        
-        int i = 0;
-       
+        List<String> listaURLZdjec = new List<String>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (Request.QueryString["Id"]!=null)
             {
                 int id = int.Parse(Request.QueryString["Id"]);
-                inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                listaURLZdjec = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
                 ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
-
+                MusicDropDownList.DataValueField = ankieta.Id_Muzyka.ToString();
+                example1.Value = ankieta.Data_zak.ToString();
                 SurveyNameTextBox1.Text = ankieta.Nazwa;
                 ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
+                Data_zakLAb.Text = ankieta.Data_rozp.ToString();
+                uip.Text = inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress().ToString();
 
             }
             else
@@ -65,8 +68,8 @@ namespace inzPJATKSNM.Views
      public String getNazwa(){
          return ankieta.Nazwa;
      }
-
   
+    
         
     }
 }
