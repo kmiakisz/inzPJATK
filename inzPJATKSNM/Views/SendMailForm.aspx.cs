@@ -21,10 +21,10 @@ namespace inzPJATKSNM.Views
             message.From = new MailAddress("ankietySNM@gmail.com");
 
 
-            message.To.Add(new MailAddress("s10509@pjwstk.edu.pl"));
-
-            message.Body = "testowy mal";
-            message.CC.Add(new MailAddress("mateuszonasz@gmail.com"));
+            message.To.Add(new MailAddress("s10509@pjwstk.edu.pl "));
+            message.Subject = "CO TAM ? ";
+            message.Body = "SIEMA MORDECZKO !";
+            //message.CC.Add(new MailAddress("mateuszonasz@gmail.com"));
 
             SmtpClient client = new SmtpClient();
             client.Send(message);
