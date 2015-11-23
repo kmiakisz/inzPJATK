@@ -369,6 +369,7 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\AdministratorPanel.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
+    <Content Include="Views\SendMailForm.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Views\StartPage.aspx" />
     <Content Include="Web.config" />
@@ -759,6 +760,13 @@
     </Compile>
     <Compile Include="Views\NewSurvey.aspx.designer.cs">
       <DependentUpon>NewSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendMailForm.aspx.cs">
+      <DependentUpon>SendMailForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SendMailForm.aspx.designer.cs">
+      <DependentUpon>SendMailForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ShowSurveys.aspx.cs">
       <DependentUpon>ShowSurveys.aspx</DependentUpon>
