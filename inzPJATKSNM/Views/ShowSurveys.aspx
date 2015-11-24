@@ -54,26 +54,6 @@
         function reloadPage() {
             window.location.reload()
         }
-        function editItem(i) {
-            var ida = Sys.Serialization.JavaScriptSerializer.serialize(i);
-            debugger;
-            
-            $.ajax({
-                url: '<%= ResolveUrl("EditExistingSurvey.aspx/returnId") %>',
-                method: 'post',
-                contentType: 'application/json',
-                data: '{"id":' + ida + ' }',
-                dataType: 'json',
-                success: function (response) {
-                    
-                },
-                error: function (er) {
-                    Alert("Zdarzył się potworny błąd!!!")
-                }
-            });
-            
-            
-        }
 </script>
 
         <!-- Modal -->

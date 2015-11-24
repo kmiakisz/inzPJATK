@@ -65,5 +65,126 @@ namespace inzPJATKSNM.Controllers
             }
             return Survey;
         }
+        public static void saveEditsurvey(Ankieta ankieta,List<String> zdjPoEdycji)
+        {
+            List<int> listaIdPoEdycji = new List<int>();
+            foreach (string url in zdjPoEdycji)
+            {
+                listaIdPoEdycji.Add(getPhotoId(url));
+            }
+            saveOnlyEditSurvey(ankieta);
+            saveEditPhotos(listaIdPoEdycji, ankieta.Id_ankiety);
+           
+        }
+        public static void saveOnlyEditSurvey(Ankieta ankieta)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlconn = new SqlConnection(connStr))
+            {
+                try
+                {
+                    Sqlconn.Open();
+                    SqlCommand command = new SqlCommand("edit_survey", Sqlconn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@id_ankiety", SqlDbType.Int).Value = ankieta.Id_ankiety;
+                    command.Parameters.Add("@nazwa", SqlDbType.VarChar).Value = ankieta.Nazwa;
+                    command.Parameters.Add("@opis", SqlDbType.VarChar).Value = ankieta.Opis_ankiety;
+                    command.Parameters.Add("@dataZak", SqlDbType.DateTime).Value = ankieta.Data_zak;
+                    command.Parameters.Add("@idMuzyka", SqlDbType.Int).Value = ankieta.Id_Muzyka;
+                    command.Parameters.Add("@active", SqlDbType.Int).Value = 1;//do zmiay po zaktualizowaniu modelu
+                    command.ExecuteNonQuery();
+
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("SQL Error" + ex.Message.ToString());
+                }
+            }
+        }
+        public static void saveEditPhotos(List<int> zdjPoEdycji, int id)
+        {
+            deleteOldPhotos(id);
+            foreach (int id_zdj in zdjPoEdycji)
+            {
+                insertNewPhotos(id_zdj, id);
+            }
+            
+
+        }
+        public static void deleteOldPhotos(int id)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "delete from Skład where id_ankiety like @ID;";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    command.Parameters.Add("@ID", SqlDbType.Int);
+                    command.Parameters["@ID"].Value = id;
+                    command.ExecuteNonQuery();
+                }
+                Sqlcon.Close();
+            }
+      
+        }
+        public static void insertNewPhotos(int Id_zdjecia,int id)
+        {
+            string commandTextInsertSklad = "Insert into Skład values (@Id_ankiety,@Id_zdjęcia);";
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                SqlCommand command = new SqlCommand(commandTextInsertSklad, Sqlcon);
+                command.Parameters.Add("@Id_ankiety", SqlDbType.Int);
+                command.Parameters["@Id_ankiety"].Value = id;
+                command.Parameters.Add("@Id_zdjęcia", SqlDbType.Int);
+                command.Parameters["@Id_zdjęcia"].Value = Id_zdjecia;
+                try
+                {
+                    Sqlcon.Open();
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Sqlcon.Close();
+            }
+        }
+        public static int getPhotoId(string url)
+        {
+            int imageId = 0;
+            string commandText = "Select Id_dzieło from Dzieło where URL like '%' + @url + '%';";
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                SqlCommand command = new SqlCommand(commandText, Sqlcon);
+                command.Parameters.Add("@url", SqlDbType.VarChar);
+                command.Parameters["@url"].Value = url;
+                try
+                {
+                    Sqlcon.Open();
+                    imageId = (int)command.ExecuteScalar();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Sqlcon.Close();
+            }
+            if (imageId == 0)
+            {
+                throw new System.ArgumentException("Błąd wyszukiwania ID!");
+            }
+            else
+            {
+                return imageId;
+            }
+
+        }
+
+        
     }
 }
