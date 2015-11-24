@@ -44,13 +44,23 @@ namespace inzPJATKSNM.Views
 
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
+            
             ankieta.Id_ankiety = int.Parse(Request.QueryString["Id"]);
             ankieta.Id_Muzyka = 4;
            // ankieta.Id_Muzyka=int.Parse(MusicDropDownList.SelectedValue);
             ankieta.Data_zak=DateTime.Parse(example1.Value);
             ankieta.Nazwa = SurveyNameTextBox1.Text;
             ankieta.Opis_ankiety=ServeyDescribtionTextBox1.Text;
-            inzPJATKSNM.Controllers.EditExistingSurveyController.saveEditsurvey(ankieta, listaURLZdjec);//ladujemy te same zdjecia do zmiany po updejcie widoku
+            try
+            {
+                inzPJATKSNM.Controllers.EditExistingSurveyController.saveEditsurvey(ankieta, listaURLZdjec);//ladujemy te same zdjecia do zmiany po updejcie widoku
+            }
+            catch (Exception ex)
+            {
+                //wywalic modala o nieudanej edycji
+
+            }
+            Response.Redirect("ShowSurveys.aspx");
         }
 
         protected void CancelButton_Click(object sender, EventArgs e)
