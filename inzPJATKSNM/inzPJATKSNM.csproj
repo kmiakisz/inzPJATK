@@ -460,6 +460,7 @@
     <Compile Include="Controllers\EditExistingSurveyController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Controllers\ShowSurveysController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
       <DependentUpon>Boolean.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
