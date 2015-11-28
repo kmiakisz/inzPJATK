@@ -3,7 +3,22 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../Content/modal.css" rel="stylesheet" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script> 
+   <% 
+     Response.Write("<div class = \"row\">");
+            foreach(inzPJATKSNM.Models.Dzieło dzielo in dziela){
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\""+dzielo.URL+"\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");   
+                Response.Write("<h3>" +inzPJATKSNM.Controllers.SurveyController.getKategoria(dzielo.Id_Kat) +"</h3>");        
+                Response.Write("<p>"+inzPJATKSNM.Controllers.SurveyController.getTechnika(dzielo.Id_Tech)+"</p>");
+                Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getAutor(dzielo.Id_Autora) + "</p>");
+                Response.Write("<p><asp:DropDownList cssClass=\"form-control\" runat=\"server\"></asp:DropDownList>  </p></div></div>");   
+            }
+                Response.Write("</div>");
    
+        %>
     <div id="boxes">
         <div id="dialog" class="window">
             <asp:Label ID="nationalityLabel" runat="server" Text="Narodowosc" CssClass="label label-danger"></asp:Label>
