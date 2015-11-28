@@ -458,6 +458,7 @@
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EditExistingSurveyController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Controllers\ShowSurveysController.cs" />
     <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
