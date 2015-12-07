@@ -1,13 +1,33 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNewPhoto.aspx.cs" Inherits="inzPJATKSNM.Views.AddNewPhoto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-     
+ <link href="../Scripts/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+ <script src="../Scripts/dropzone/dropzone.js" type="text/javascript"></script>
   
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
 
     <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static"  Height="24px" Width="258px" />
-
-    
+    <div id="dZUpload" class="dropzone">
+        <div class="dz-default dz-message"></div>
+    </div>
+   
+    <script>
+        $(document).ready(function () {
+            Dropzone.autoDiscover = false;
+            //Simple Dropzonejs 
+            $("#dZUpload").dropzone({
+                url: "hn_FileUpload.ashx",
+                addRemoveLinks: true,
+                success: function (file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-success");
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                }
+            });
+        });
+    </script>
     <br />
     <asp:Label ID="StatusLabel" runat="server" Text="" CssClass="label label-danger"></asp:Label>
 

@@ -7,3 +7,5 @@
 /// <reference path="lightslider.js" />
 /// <reference path="bootstrap.min.js" />
 /// <reference path="datapicker.js" />
+/// <reference path="dropzone/dropzone-amd-module.min.js" />
+/// <reference path="dropzone/dropzone.js" />

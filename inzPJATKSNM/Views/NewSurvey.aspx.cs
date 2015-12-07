@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -15,7 +16,7 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             loadPhotosFromDB();
-          
+            
 
         }
         
@@ -57,6 +58,8 @@ namespace inzPJATKSNM.Views
         {
 
         }
+
+       
        
 
     }
