@@ -2,22 +2,29 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    
+    
+
+
+    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+
     <div class="row" runat="server" id="row">
         <div class="col-lg-6">
             <table ID="tab2"  class="table table-striped"> 
                 <%
+                    int ID = 0;
                     foreach (String mail in inzPJATKSNM.Controllers.MailController.getMailList())
                     {
                     Response.Write(
                          "<asp:TableRow>"
                         + "<asp:TableCell>"
-                        + "<asp:CheckBox ID=\"mailCheckBox\" runnat=\"server\" CssClass=\"form-control\" />"
+                        + "<asp:CheckBox ID=\"mailCheckBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" />"
                         + "</asp:TableCell"
                         + "<asp:TableCell>"
-                        + "<asp:TextBox ID=\"mailTextBox\" runnat=\"server\" CssClass=\"form-control\" Text=" + mail + " />"
+                        + "<asp:TextBox ID=\"mailTextBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" Text=\"" + mail + "\"" + " />"
                         + "</asp:TableCell>"
                         + "</asp:TableRow>"
                         );
+                    ID++;
                     }
                 %>
             </table>
@@ -25,8 +32,6 @@
         </div>
     </div>
 
-
-    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
     <link href="../Content/modal.css" rel="stylesheet" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,6 +56,8 @@
         </div>
         <div id="mask"></div>
     </div>
+
+    
     <script>
         $('.window .btn btn-success').click(function (e) {
             //Cancel the link behavior

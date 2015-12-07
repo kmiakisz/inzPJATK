@@ -33,10 +33,10 @@ namespace inzPJATKSNM.Controllers
             return mailList;
         }
 
-        public static void sendMail(String subject,String body,List<String> listaMaili)
+        public static void sendMail(String subject,String body, List<String> listaMaili)
         {
 
-              MailMessage message = new MailMessage();
+            MailMessage message = new MailMessage();
             message.From = new MailAddress("ankietySNM@gmail.com");
             foreach(String mail in listaMaili)
             {

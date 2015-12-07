@@ -17,7 +17,7 @@ namespace inzPJATKSNM.Views
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            //inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
+            inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
         }
 
         public List<String> getMail()
