@@ -12,22 +12,25 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress("ankietySNM@gmail.com");
+            inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
+        }
 
+        public List<String> getMail()
+        {
+            List<String> userMailList;
+            userMailList = inzPJATKSNM.Controllers.MailController.getMailList();
+            return userMailList;
 
-            message.To.Add(new MailAddress("s10509@pjwstk.edu.pl "));
-            message.Subject = "CO TAM ? ";
-            message.Body = "SIEMA MORDECZKO !";
-            //message.CC.Add(new MailAddress("mateuszonasz@gmail.com"));
+        }
 
-            SmtpClient client = new SmtpClient();
-            client.Send(message);
+        protected void Accept_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
