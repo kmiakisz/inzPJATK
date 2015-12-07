@@ -49,18 +49,5 @@ namespace inzPJATKSNM.Controllers
             client.Send(message);
         }
 
-        public static void dummy(String subject,String body,String mail)
-        {
-
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress("ankietySNM@gmail.com");
-            message.To.Add(mail);
-            message.Subject = subject;
-            message.Body = body;
-
-            SmtpClient client = new SmtpClient();
-            client.Send(message);
-        }
-
     }
 }
