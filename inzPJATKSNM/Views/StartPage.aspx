@@ -11,7 +11,7 @@
        <script id="sample">
            $(function () {
                // initialize the slideshow
-               $('.thumbnail img').fullscreenslides();
+               $('.image img').fullscreenslides();
 
                // All events are bound to this container element
                var $container = $('#fullscreenSlideshowContainer');
@@ -76,9 +76,12 @@
          foreach (inzPJATKSNM.Models.Dzieło dzielo in dziela)
          {
              Response.Write("<div class=\"col-sm-6 col-md-3\">");
+             Response.Write("<div class=\"image\">");
              Response.Write("<div class=\"thumbnail\">");
+             Response.Write("<a href=\""+dzielo.URL+"\" >");
              Response.Write("<img src=\"" + dzielo.URL + "\">");
-             Response.Write("</div>");
+             Response.Write("</a>");
+             Response.Write("</div></div>");
              Response.Write("<div class=\"caption\">");
              Response.Write("<h3>" + inzPJATKSNM.Controllers.SurveyController.getKategoria(dzielo.Id_Kat) + "</h3>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getTechnika(dzielo.Id_Tech) + "</p>");
