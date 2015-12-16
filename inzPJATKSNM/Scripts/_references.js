@@ -9,3 +9,4 @@
 /// <reference path="datapicker.js" />
 /// <reference path="dropzone/dropzone-amd-module.min.js" />
 /// <reference path="dropzone/dropzone.js" />
+/// <reference path="jquery.fullscreenslides.js" />
