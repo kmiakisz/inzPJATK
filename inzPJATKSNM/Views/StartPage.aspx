@@ -52,6 +52,12 @@
         </div>
         <div id="mask"></div>
     </div>
+      <div id="boxesPow">
+        <div id="dialogPow" class="window">
+    
+        </div>
+        <div id="maskPow"></div>
+    </div>
     <script>
         $('.window .btn btn-success').click(function (e) {
             //Cancel the link behavior
