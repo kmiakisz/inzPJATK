@@ -16,8 +16,7 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             
-            if (!IsPostBack)
-            {
+            
                 if (Request.QueryString["Id"] != null)
                 {
                     id = int.Parse(Request.QueryString["Id"]);
@@ -28,8 +27,6 @@ namespace inzPJATKSNM.Views
                 {
                     //tu dodac modal z errorem o pustym id
                 }
-                
-            }
         }
 
         protected void Accept_Click(object sender, EventArgs e)

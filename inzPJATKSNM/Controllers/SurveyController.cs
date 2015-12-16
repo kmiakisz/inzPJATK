@@ -43,6 +43,35 @@ namespace inzPJATKSNM.Controllers
             }
             return dziela;
         }
+        public static String getSurveyName(int idSurvey)
+        {
+            String nazwa = "";
+
+
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "select nazwa from Ankieta where Id_ankiety = @id;";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    command.Parameters.Add("@id", SqlDbType.Int);
+                    command.Parameters["@id"].Value = idSurvey;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            nazwa = reader.GetString(0);
+
+
+                        }
+                    }
+                }
+                Sqlcon.Close();
+            }
+            return nazwa;
+        }
         public static String getTechnika(int idTech)
         {
             String technika = "";
