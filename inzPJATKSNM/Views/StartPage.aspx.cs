@@ -25,13 +25,12 @@ namespace inzPJATKSNM.Views
                     blokowaneIP = inzPJATKSNM.Controllers.SurveyController.getBlockedIPs(id);
                     if (blokowaneIP.Count != 0)
                     {
-                        foreach (String adres in blokowaneIP)
-                        {
-                            if (inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress().Equals(adres))
+                        
+                            if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
                             {
                                 //wyjebac modala ze juz glosowal i wyjebac ze strony
                             }
-                        }
+                        
                     }
                     
                     dziela = new List<Dzieło>();
