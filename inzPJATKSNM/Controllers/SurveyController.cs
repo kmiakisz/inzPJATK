@@ -159,5 +159,42 @@ namespace inzPJATKSNM.Controllers
             }
             return autor;
         }
+        public static void saveGlosujacy()
+        {
+
+        }
+        public static int saveCheckIP(String IP)
+        {
+            int status = 0;// 0 ok -1 blokuj
+            
+            return status;
+        }
+        public static List<String> getBlockedIPs(int surId)
+        {
+            List<String> blokowaneIP = new List<String>();
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "select IPAdress from Ip_table inner join BlokowaneAdresy on Ip_table.Id_ip = BlokowaneAdresy.Id_ip where Id_Ankiety = @id;";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    command.Parameters.Add("@id", SqlDbType.Int);
+                    command.Parameters["@id"].Value = surId;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            blokowaneIP.Add(reader.GetString(0));
+
+
+                        }
+                    }
+                }
+                Sqlcon.Close();
+            }
+            return blokowaneIP;
+        }
     }
 }

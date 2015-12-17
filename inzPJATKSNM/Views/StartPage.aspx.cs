@@ -11,8 +11,10 @@ namespace inzPJATKSNM.Views
     public partial class StartPage : System.Web.UI.Page
     {
         public List<Dzieło> dziela;
-        Glosujący glosujacy = new Glosujący();
+        Glosujący glosujacy;
         int id;
+       public int ilDziel = 0;
+       List<String> blokowaneIP;
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -20,8 +22,21 @@ namespace inzPJATKSNM.Views
                 if (Request.QueryString["Id"] != null)
                 {
                     id = int.Parse(Request.QueryString["Id"]);
+                    blokowaneIP = inzPJATKSNM.Controllers.SurveyController.getBlockedIPs(id);
+                    if (blokowaneIP.Count != 0)
+                    {
+                        foreach (String adres in blokowaneIP)
+                        {
+                            if (inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress().Equals(adres))
+                            {
+                                //wyjebac modala ze juz glosowal i wyjebac ze strony
+                            }
+                        }
+                    }
+                    
                     dziela = new List<Dzieło>();
                     dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                    ilDziel = dziela.Count();
                 }
                 else
                 {
@@ -31,6 +46,7 @@ namespace inzPJATKSNM.Views
 
         protected void Accept_Click(object sender, EventArgs e)
         {
+            glosujacy = new Glosujący();
             glosujacy.Id_Narod = int.Parse(nationalityDDL.SelectedValue);
             glosujacy.Id_Plec = int.Parse(sexDDL.SelectedValue);
             glosujacy.Id_Wiek = int.Parse(ageDDL.SelectedValue);
@@ -40,6 +56,17 @@ namespace inzPJATKSNM.Views
         public void loadDzielaFromDB(int idAnkieta)
         {
             
+        }
+
+        protected void vote_Click(object sender, EventArgs e)
+        {
+           
+            //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
+        }
+
+        protected void cancel_Click(object sender, EventArgs e)
+        {
+            //Otworz kurwa ten modal
         }
     }
 }

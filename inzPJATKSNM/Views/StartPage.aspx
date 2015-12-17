@@ -86,7 +86,16 @@
              Response.Write("<h3>" + inzPJATKSNM.Controllers.SurveyController.getKategoria(dzielo.Id_Kat) + "</h3>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getTechnika(dzielo.Id_Tech) + "</p>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getAutor(dzielo.Id_Autora) + "</p>");
-             Response.Write("<p><asp:DropDownList cssClass=\"form-control\" runat=\"server\"></asp:DropDownList>  </p></div></div>");
+             Response.Write("<p>Ocena: </p><select onChange=\"removeSameValue("+dzielo.URL+")\" id=\"" + dzielo.URL + "\" class=\"form-control\">");
+             Response.Write("<option value=\"--wybierz--\">--wybierz--</option>");
+             for (int i = 1; i <= dziela.Count; i++)
+             {
+                 int j = i+1;
+               Response.Write("<option value=\"" + j + "\">" + i + "</option>");
+             }
+                 Response.Write("</select>");
+             Response.Write("</div></div>");
+             
          }
          Response.Write("</div>");
      }
@@ -97,7 +106,17 @@
      
    
         %>
-   
+    <br/>
+    <br />
+    <div id="buttons">
+        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClick="vote_Click"/>
+       
+        &nbsp
+        <asp:Button ID="cancel" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="cancel_Click"/>
+      
+        
+    </div>
+    
 
     <div id="boxes">
         <div id="dialog" class="window">
@@ -174,4 +193,34 @@
         });
         
     </script>
+    <script>
+        var $selects = $('select');
+
+        $selects.on('change', function () {
+
+            // enable all options
+            $selects.find('option').prop('disabled', false);
+
+            // loop over each select, use its value to 
+            // disable the options in the other selects
+            $selects.each(function () {
+                $selects.not(this)
+                if(this.value!="--wybierz--"){
+                    $selects.find('option[value="' + this.value + '"]')
+                   .prop('disabled', true);  
+                }else{
+                    $selects.find('option[value="' + this.value + '"]')
+                                       .prop('disabled', false);  
+                };
+                 
+            });
+
+        });
+    </script>
+    <style>
+    #buttons {
+    width: 50%;
+    margin: 0 auto;
+    }
+    </style>
 </asp:Content>
