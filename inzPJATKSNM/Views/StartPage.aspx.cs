@@ -17,8 +17,8 @@ namespace inzPJATKSNM.Views
        List<String> blokowaneIP;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            
+
+      
                 if (Request.QueryString["Id"] != null)
                 {
                     id = int.Parse(Request.QueryString["Id"]);
@@ -59,13 +59,19 @@ namespace inzPJATKSNM.Views
 
         protected void vote_Click(object sender, EventArgs e)
         {
-           
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal();", true);
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
 
         protected void cancel_Click(object sender, EventArgs e)
         {
             //Otworz kurwa ten modal
+        }
+        protected void subscription_Click(object sender, EventArgs e)
+        {
+
+            //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
     }
 }

@@ -12,12 +12,24 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Request.QueryString["Id"] != null)
+            {
+                int id = int.Parse(Request.QueryString["Id"]);
+                if (!IsPostBack)
+                {
+                    body.Value += " Ankieta pod adresem: http://localhost:11222/Views/StartPage.aspx?Id=" + id;
+                }
+               
+            }
+            else
+            {
+                //modal o pustym id
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
+            
         }
 
         public List<String> getMail()
@@ -30,7 +42,8 @@ namespace inzPJATKSNM.Views
 
         protected void Accept_Click(object sender, EventArgs e)
         {
-
+            int il = inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
+            Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
         }
     }
 }

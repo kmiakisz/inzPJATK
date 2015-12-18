@@ -2,11 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    
-    
-
-
-    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
-
+   
     <div class="row" runat="server" id="row">
         <div class="col-lg-6">
             <table ID="tab2"  class="table table-striped"> 

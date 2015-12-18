@@ -4,7 +4,11 @@
 
     <br />
     <br />
-
+    <script type="text/javascript">
+        function mailOpenModal() {
+            $('#mailModal').modal('show');
+        }
+    </script>
     <% 
      Response.Write("<div class = \"row\">");
             foreach(KeyValuePair<int, String> kvp in getURLDict()){
@@ -17,7 +21,7 @@
                 Response.Write("<div class=\"caption\">");   
                 Response.Write("<h3>" +nazwa +"</h3>");        
                 Response.Write("<p>"+opis+"</p>");
-                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a><a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");   
+                Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a>&nbsp<a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");   
             }
                 Response.Write("</div>");
    
@@ -77,6 +81,28 @@
 
             </div>
         </div>
+    <!--Modal z Maili-->
+      <div id="mailModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Wysłano maile</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            Response.Write("<p>Udało się wysłać " + Request.QueryString["val"] + " maili!!!</p>");
+                             %>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     
 </asp:Content>

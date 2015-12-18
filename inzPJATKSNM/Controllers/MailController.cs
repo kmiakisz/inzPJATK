@@ -33,13 +33,14 @@ namespace inzPJATKSNM.Controllers
             return mailList;
         }
 
-        public static void sendMail(String subject,String body, List<String> listaMaili)
+        public static int sendMail(String subject,String body, List<String> listaMaili)
         {
-
+            int listaWyslanych = 0;
             MailMessage message = new MailMessage();
             message.From = new MailAddress("ankietySNM@gmail.com");
             foreach(String mail in listaMaili)
             {
+                listaWyslanych++;
                 message.To.Add(new MailAddress(mail));
             }
             message.Subject = subject;
@@ -47,7 +48,8 @@ namespace inzPJATKSNM.Controllers
 
             SmtpClient client = new SmtpClient();
             client.Send(message);
+            return listaWyslanych;
         }
-
+        
     }
 }

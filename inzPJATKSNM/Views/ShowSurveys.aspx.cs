@@ -23,7 +23,11 @@ namespace inzPJATKSNM.Views
            
                 LoadSurveysFromDb();
                 liczbaAnkiet = policzAnkiety();
-              
+                if (Request.QueryString["val"] != null)
+                {
+                    int val = int.Parse(Request.QueryString["val"]);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
+                }
             
                        
         }

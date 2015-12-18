@@ -5,9 +5,16 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script> 
     <script src="../Scripts/jquery.fullscreenslides.js"></script>
     <link href="../Content/fullscreenstyle.css" rel="stylesheet" />
+    
+  <script type="text/javascript">
+      function subscriptionOpenModal() {
+          $('#subscriptionModal').modal('show');
+      }
+    </script>
     <%
         Response.Write("<h1>" + inzPJATKSNM.Controllers.SurveyController.getSurveyName(int.Parse(Request.QueryString["Id"])) + "</h1>");
     %>
+    
        <script id="sample">
            $(function () {
                // initialize the slideshow
@@ -109,7 +116,7 @@
     <br/>
     <br />
     <div id="buttons">
-        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClick="vote_Click"/>
+        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClientClick="subscriptionOpenModal()"/>
        
         &nbsp
         <asp:Button ID="cancel" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="cancel_Click"/>
@@ -135,6 +142,31 @@
         </div>
         <div id="mask"></div>
     </div>
+     <!-- subscriptionModal -->
+        <div id="subscriptionModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Dziękujemy!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Dziękujemy za uzupełnienie ankiety.</p>
+                        <br/>
+                        <p>Jeżeli Ci się podobało, bądź na bieżąco i subskrybuj nas!</p>
+                        <br />
+                        <label for="comment"><span class="glyphicon glyphicon-envelope"></span>Email: </label>
+                        <textarea class="form-control" rows="1" id="email" runat="server"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="subscription_Click">Ok</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
    
     <script>
         $('.window .btn btn-success').click(function (e) {
