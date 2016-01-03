@@ -159,9 +159,24 @@ namespace inzPJATKSNM.Controllers
             }
             return autor;
         }
-        public static void saveGlosujacy()
+        public static void saveGlosujacy(String email,int idNar, int idWiek, int idPlec,int idAnkiety)
         {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand("glosowanie", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@idnarod", idNar);
+                    cmd.Parameters.AddWithValue("@idwiek", idWiek);
+                    cmd.Parameters.AddWithValue("@idplec", idPlec);
+                    cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
 
+            }
         }
         public static int saveCheckIP(String IP)
         {
@@ -195,6 +210,25 @@ namespace inzPJATKSNM.Controllers
                 Sqlcon.Close();
             }
             return blokowaneIP;
+        }
+
+        public static void saveVotes(int idDzielo, int ocena, int idOsoba, int idAnkiety)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand("ankieta_glosowanie", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ocena", ocena);
+                    cmd.Parameters.AddWithValue("@idosoba", idOsoba);
+                    cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
+                    cmd.Parameters.AddWithValue("@idzdjecia", idDzielo);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
         }
     }
 }
