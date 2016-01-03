@@ -80,6 +80,7 @@
      Response.Write("<div class = \"row\">");
      if (dziela != null)
      {
+         
          foreach (inzPJATKSNM.Models.Dzieło dzielo in dziela)
          {
              Response.Write("<div class=\"col-sm-6 col-md-3\">");
@@ -102,7 +103,7 @@
              }
                  Response.Write("</select>");
              Response.Write("</div></div>");
-             
+ 
          }
          Response.Write("</div>");
      }
@@ -113,10 +114,11 @@
      
    
         %>
+
     <br/>
     <br />
     <div id="buttons">
-        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClientClick="subscriptionOpenModal()"/>
+        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClick="vote_Click" OnClientClick="subscriptionOpenModal()"/>
        
         &nbsp
         <asp:Button ID="cancel" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="cancel_Click"/>

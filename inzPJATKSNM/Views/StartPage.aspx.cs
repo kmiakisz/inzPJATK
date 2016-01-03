@@ -61,7 +61,8 @@ namespace inzPJATKSNM.Views
         protected void vote_Click(object sender, EventArgs e)
         {
             foreach(Dzieło dzielo in dziela){
-                ocenyDziel.Add(dzielo.Id_dzieło,);
+               String ocena = Request.Form["0"];
+                ocenyDziel.Add(dzielo.Id_dzieło,int.Parse(ocena));
                
             }
             
