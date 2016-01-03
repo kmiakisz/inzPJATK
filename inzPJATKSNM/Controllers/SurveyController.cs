@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Controllers
 {
     public class SurveyController
     {
+        public Glosujący glosujacy = new Glosujący();
         public static List<Dzieło> getDziela(int idAnkieta)
         {
            List<Dzieło> dziela = new List<Dzieło>();
@@ -178,12 +179,7 @@ namespace inzPJATKSNM.Controllers
 
             }
         }
-        public static int saveCheckIP(String IP)
-        {
-            int status = 0;// 0 ok -1 blokuj
-            
-            return status;
-        }
+
         public static List<String> getBlockedIPs(int surId)
         {
             List<String> blokowaneIP = new List<String>();

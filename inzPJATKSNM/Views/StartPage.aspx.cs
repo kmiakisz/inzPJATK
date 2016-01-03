@@ -11,8 +11,7 @@ namespace inzPJATKSNM.Views
     public partial class StartPage : System.Web.UI.Page
     {
         public List<Dzieło> dziela;
-        Glosujący glosujacy;
-        int id;
+        int id,idNarod,idPlec,idWiek;
        public int ilDziel = 0;
        List<String> blokowaneIP;
         protected void Page_Load(object sender, EventArgs e)
@@ -45,10 +44,11 @@ namespace inzPJATKSNM.Views
 
         protected void Accept_Click(object sender, EventArgs e)
         {
-            glosujacy = new Glosujący();
-            glosujacy.Id_Narod = int.Parse(nationalityDDL.SelectedValue);
-            glosujacy.Id_Plec = int.Parse(sexDDL.SelectedValue);
-            glosujacy.Id_Wiek = int.Parse(ageDDL.SelectedValue);
+
+            ViewState["idNarod"] = int.Parse(nationalityDDL.SelectedValue);
+            ViewState["idPlec"] = int.Parse(sexDDL.SelectedValue);
+            ViewState["idWiek"] = int.Parse(ageDDL.SelectedValue);
+            
             //ClientScript.RegisterStartupScript(GetType(),"closeModal();", true);
            
         }
@@ -61,11 +61,16 @@ namespace inzPJATKSNM.Views
         {
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal();", true);
+            
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
 
         protected void cancel_Click(object sender, EventArgs e)
         {
+            idNarod = int.Parse(ViewState["idNarod"].ToString());
+            idWiek = int.Parse(ViewState["idWiek"].ToString());
+            idPlec = int.Parse(ViewState["idPlec"].ToString());
+            inzPJATKSNM.Controllers.SurveyController.saveGlosujacy(null, idNarod, idWiek, idPlec, id);
             //Otworz kurwa ten modal
         }
         protected void subscription_Click(object sender, EventArgs e)
