@@ -10,6 +10,7 @@ namespace inzPJATKSNM.Views
 {
     public partial class StartPage : System.Web.UI.Page
     {
+        Dictionary<int, int> ocenyDziel = new Dictionary<int, int>();
         public List<Dzieło> dziela;
         int id,idNarod,idPlec,idWiek;
        public int ilDziel = 0;
@@ -59,7 +60,11 @@ namespace inzPJATKSNM.Views
 
         protected void vote_Click(object sender, EventArgs e)
         {
-
+            foreach(Dzieło dzielo in dziela){
+                ocenyDziel.Add(dzielo.Id_dzieło,);
+               
+            }
+            
             ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal();", true);
             
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
@@ -67,15 +72,16 @@ namespace inzPJATKSNM.Views
 
         protected void cancel_Click(object sender, EventArgs e)
         {
-            idNarod = int.Parse(ViewState["idNarod"].ToString());
-            idWiek = int.Parse(ViewState["idWiek"].ToString());
-            idPlec = int.Parse(ViewState["idPlec"].ToString());
-            inzPJATKSNM.Controllers.SurveyController.saveGlosujacy(null, idNarod, idWiek, idPlec, id);
+           
             //Otworz kurwa ten modal
         }
         protected void subscription_Click(object sender, EventArgs e)
         {
+            idNarod = int.Parse(ViewState["idNarod"].ToString());
+            idWiek = int.Parse(ViewState["idWiek"].ToString());
+            idPlec = int.Parse(ViewState["idPlec"].ToString());
 
+            inzPJATKSNM.Controllers.SurveyController.saveGlosujacy(null, idNarod, idWiek, idPlec, id);
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
     }

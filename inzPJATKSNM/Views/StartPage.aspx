@@ -93,7 +93,7 @@
              Response.Write("<h3>" + inzPJATKSNM.Controllers.SurveyController.getKategoria(dzielo.Id_Kat) + "</h3>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getTechnika(dzielo.Id_Tech) + "</p>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getAutor(dzielo.Id_Autora) + "</p>");
-             Response.Write("<p>Ocena: </p><select onChange=\"removeSameValue("+dzielo.URL+")\" id=\"" + dzielo.URL + "\" class=\"form-control\">");
+             Response.Write("<p>Ocena: </p><select onChange=\"removeSameValue("+dzielo.URL+")\" id=\"" + dzielo.URL + "\" name =\""+ dzielo.URL + "\" class=\"form-control\">");
              Response.Write("<option value=\"--wybierz--\">--wybierz--</option>");
              for (int i = 1; i <= dziela.Count; i++)
              {

@@ -160,8 +160,9 @@ namespace inzPJATKSNM.Controllers
             }
             return autor;
         }
-        public static void saveGlosujacy(String email,int idNar, int idWiek, int idPlec,int idAnkiety)
+        public static int saveGlosujacy(String email,int idNar, int idWiek, int idPlec,int idAnkiety)
         {
+            int idOsoba = 0;
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connStr))
             {
@@ -173,11 +174,14 @@ namespace inzPJATKSNM.Controllers
                     cmd.Parameters.AddWithValue("@idwiek", idWiek);
                     cmd.Parameters.AddWithValue("@idplec", idPlec);
                     cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
+                    cmd.Parameters.AddWithValue("@tmpOsobaId", "@tmpOsobaId");
                     con.Open();
                     cmd.ExecuteNonQuery();
+                    idOsoba = int.Parse((string)cmd.Parameters["@idOsoba"].Value);
                 }
 
             }
+            return idOsoba;
         }
 
         public static List<String> getBlockedIPs(int surId)
@@ -222,9 +226,26 @@ namespace inzPJATKSNM.Controllers
                     cmd.Parameters.AddWithValue("@idzdjecia", idDzielo);
                     con.Open();
                     cmd.ExecuteNonQuery();
+                    
                 }
 
             }
+        }
+        public static void saveAll(Dictionary<int,int> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec,String ipAddress)
+        {
+            int idOsoba = saveGlosujacy(email,idNar,idWiek,idPlec,idAnkiety);
+
+            foreach (KeyValuePair<int, int> mapa in ocenyDziel)
+            {
+                saveVotes(mapa.Key, mapa.Value, idOsoba, idAnkiety);
+                // do something with entry.Value or entry.Key
+            }
+            saveIPAddress(ipAddress);
+
+        }
+        public static void saveIPAddress(String ip)
+        {
+
         }
     }
 }
