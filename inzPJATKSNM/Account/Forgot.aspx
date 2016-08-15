@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <section id="loginForm">
                 <div class="form-horizontal">
-                    <h4>Forgot your password?</h4>
+                    <h4>Zapomniałeś Hasła?</h4>
                     <hr />
                       <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
                         <p class="text-danger">
@@ -19,12 +19,12 @@
                         <div class="col-md-10">
                             <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                                CssClass="text-danger" ErrorMessage="The email field is required." />
+                                CssClass="text-danger" ErrorMessage="Email jest polem wymaganym." />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <asp:Button runat="server" OnClick="Forgot" Text="Submit" CssClass="btn btn-default" />
+                            <asp:Button runat="server" OnClick="Forgot" Text="Zatwierdź" CssClass="btn btn-default" />
                         </div>
                     </div>
                 </div>

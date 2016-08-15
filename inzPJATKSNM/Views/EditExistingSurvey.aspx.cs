@@ -14,13 +14,25 @@ namespace inzPJATKSNM.Views
     {
         public inzPJATKSNM.Models.Ankieta ankieta = new inzPJATKSNM.Models.Ankieta();
         List<String> listaURLZdjec = new List<String>();
+        public Dictionary<Int32, String> freePhotos { get; set; }
+        public Dictionary<Int32, String> usedPhotos {get;set;}
+        public Int32 currentKey { get; set; }
+        public String currentValue { get; set; }
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            freePhotos = new Dictionary<Int32, String>();
+            usedPhotos = new Dictionary<Int32, String>();
+           
+            freePhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
+            usedPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getUsedPhotos(int.Parse(Request.QueryString["Id"]));
+           
             if (!IsPostBack)
             {
                 if (Request.QueryString["Id"] != null)
                 {
+                    currentValue = "";
+                    currentKey = new Int32();
                     int id = int.Parse(Request.QueryString["Id"]);
                     listaURLZdjec = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
                     ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
@@ -29,8 +41,8 @@ namespace inzPJATKSNM.Views
                     SurveyNameTextBox1.Text = ankieta.Nazwa;
                     ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
                     Data_zakLAb.Text = ankieta.Data_rozp.ToString();
-
-
+               
+                  
                 }
                 else
                 {
@@ -38,8 +50,7 @@ namespace inzPJATKSNM.Views
                 }
             }
            
-            
-            
+    
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
@@ -66,6 +77,38 @@ namespace inzPJATKSNM.Views
         protected void CancelButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("ShowSurveys.aspx");
-        }        
+        }
+  /*      protected void addToSurvey(int id, string url)
+        {
+            freePhotos.Remove(id);
+            usedPhotos.Add(id, url);
+        }
+        protected void removeFromSurvey(int id, string url)
+        {
+            usedPhotos.Remove(id);
+            freePhotos.Add(id, url);
+        }
+*/
+        protected void Add_Button_Click(object sender, EventArgs e)
+        {
+            //addToSurvey(currentKey, currentValue);
+        }
+
+        protected void Del_Button_Click(object sender, EventArgs e)
+        {
+            //removeFromSurvey(currentKey, currentValue);
+        }
+        [WebMethod]
+        public void RemovePhotoFromSurvey(int id, string url)
+        {
+            usedPhotos.Remove(id);
+            freePhotos.Add(id, url);
+        }
+        [WebMethod]
+        public void AddPhotoToSurvey(int id, string url)
+        {
+            freePhotos.Remove(id);
+            usedPhotos.Add(id, url);
+        }
     }
 }

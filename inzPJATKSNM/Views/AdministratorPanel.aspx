@@ -34,9 +34,9 @@
                 </div>
             </div>
             <div class="col-sm-1 col-md-2">
-                <div class="thumbnail tile tile-medium tile-orange">
+                <div class="thumbnail tile tile-medium tile-green">
                     <a href="#">
-                        <h1 class="tile-text">FREE</h1>
+                        <h4 class="tile-text">Statystyki</h4>
                     </a>
                 </div>
             </div>

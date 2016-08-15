@@ -10,6 +10,7 @@ namespace inzPJATKSNM.Controllers
 {
     public class MailController
     {
+        static bool isSend = false;
         public static  List<String> getMailList()
         {
             List<String> mailList = new List<String>();
@@ -36,7 +37,9 @@ namespace inzPJATKSNM.Controllers
         public static int sendMail(String subject,String body, List<String> listaMaili)
         {
             int listaWyslanych = 0;
+            
             MailMessage message = new MailMessage();
+            //string userToken = "test";
             message.From = new MailAddress("ankietySNM@gmail.com");
             foreach(String mail in listaMaili)
             {
@@ -48,7 +51,9 @@ namespace inzPJATKSNM.Controllers
 
             SmtpClient client = new SmtpClient();
             client.Send(message);
+            //client.SendAsync(message,userToken);
             return listaWyslanych;
+            
         }
         
     }

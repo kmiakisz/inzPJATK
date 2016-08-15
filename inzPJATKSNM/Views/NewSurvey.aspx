@@ -2,10 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link href="../Content/Demo.css" rel="stylesheet" />
-    <link href="../Content/lightslider.css" rel="stylesheet" />
+    <link href="../Content/lightSlider.css" rel="stylesheet" />
     <script src="../Scripts/jquery-2.1.4.js"></script>
     <script src="../Scripts/dropzone.js"></script>
-    <script src="../Scripts/lightslider.js"></script>
+    <script src="../Scripts/lightSlider.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 

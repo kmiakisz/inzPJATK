@@ -184,7 +184,79 @@ namespace inzPJATKSNM.Controllers
             }
 
         }
+        public static Dictionary<Int32,String> getFreePhotos()
+        {
+            Dictionary<Int32, String> freePhotos = new Dictionary<Int32, String>();
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "FREE_PHOTOS";
+                        var returnParameter1 =  cmd.Parameters.Add("@ID_DZIEŁO", SqlDbType.Int);
+                        returnParameter1.Direction = ParameterDirection.ReturnValue;
+                        var returnParameter2 = cmd.Parameters.Add("@URL", SqlDbType.VarChar);
+                        returnParameter2.Direction = ParameterDirection.ReturnValue;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                freePhotos.Add(reader.GetInt32(0), reader.GetString(1));
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }                    
+                    conn.Close();
+                }
+            }
+            return freePhotos;
+        }
+        public static Dictionary<Int32, String> getUsedPhotos(int surveyId)
+        {
+            Dictionary<Int32, String> usedPhotos = new Dictionary<Int32, String>();
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "PHOTOS_IN_SURVEY";
+                        cmd.Parameters.Add("@ID_SURV", SqlDbType.Int);
+                        cmd.Parameters["@ID_SURV"].Value = surveyId;
 
-        
+                        var returnParameter1 = cmd.Parameters.Add("@S.ID_ZDJECIA", SqlDbType.Int);
+                        returnParameter1.Direction = ParameterDirection.ReturnValue;
+                        var returnParameter2 = cmd.Parameters.Add("@D.URL", SqlDbType.VarChar);
+                        returnParameter2.Direction = ParameterDirection.ReturnValue;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                usedPhotos.Add(reader.GetInt32(0), reader.GetString(1));
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    conn.Close();
+                }
+            }
+            return usedPhotos;
+        }
+       
     }
 }

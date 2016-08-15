@@ -163,7 +163,7 @@
             },
             keyPress: function () {
                 if (settings.keyPress) {
-                    $(document).on('keyup.lightslider', function (e) {
+                    $(document).on('keyup.lightSlider', function (e) {
                         if (!$(':focus').is('input, textarea')) {
                             if (e.preventDefault) {
                                 e.preventDefault();

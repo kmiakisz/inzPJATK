@@ -12,15 +12,15 @@ namespace inzPJATKSNM.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            RegisterHyperLink.NavigateUrl = "Register";
+            //RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             // ForgotPasswordHyperLink.NavigateUrl = "Forgot";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
+            //OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
-            {
-                RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
-            }
+            //if (!String.IsNullOrEmpty(returnUrl))
+            //{
+           //     RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+           // }
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace inzPJATKSNM.Account
                 ApplicationUser user = manager.Find(Email.Text, Password.Text);
                 if (user != null)
                 {
-                    IdentityHelper.SignIn(manager, user, RememberMe.Checked);
+                    IdentityHelper.SignIn(manager, user,true);
                     IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                 }
                 else

@@ -16,10 +16,10 @@
                 slideMargin: 0,
                 thumbItem: 9
             });
-            $(".update").click(function (event) {
+            $(".delete").click(function (event) {
 
                 debugger;
-                $("#" + event.target.id).css("background-color", "lightgreen");
+                $("#" + event.target.id).css("background-color", "transparent");
                 //if($("#"+event.target.id).data('clicked')){
                 //  $(".show-image").click(function(event) {
                 //       $("#"+event.target.id).css("border-color","green");
@@ -28,7 +28,7 @@
                 //  }
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                 $.ajax({
-                    url: '<%= ResolveUrl("NewSurvey.aspx/addToPhotoToSurvey") %>',
+                    url: '<%= ResolveUrl("NewSurvey.aspx/RemovePhotoFromSurvey") %>',
                     method: 'post',
                     contentType: 'application/json',
                     data: '{"url":' + link + ' }',
@@ -41,9 +41,51 @@
                     }
                 });
             });
-            $(".update").dblclick(function (event) {
-                $("#" + event.target.id).css("background-color", "transparent");
+           // $(".update").dblclick(function (event) {
+           //     $("#" + event.target.id).css("background-color", "transparent");
+           // });
+
+        });
+
+    </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#lightSlider2').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    loop: true,
+                    slideMargin: 0,
+                    thumbItem: 9
+                });
+                $(".update").click(function (event) {
+
+                    debugger;
+                    $("#" + event.target.id).css("background-color", "transparent");
+                    //if($("#"+event.target.id).data('clicked')){
+                    //  $(".show-image").click(function(event) {
+                    //       $("#"+event.target.id).css("border-color","green");
+                    // });
+
+                    //  }
+                    var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+                    $.ajax({
+                        url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: '{"url":' + link + ' }',
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (er) {
+                        Alert("Zdarzył się potworny błąd!!!")
+                    }
+                });
             });
+           // $(".update").dblclick(function (event) {
+            //    $("#" + event.target.id).css("background-color", "transparent");
+           // });
 
         });
 
@@ -65,6 +107,37 @@
             List<String> photoFromDB;
             photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
             return photoFromDB;
+        }
+    </script>
+      <script runat="server">
+        protected void removeFromSurvey(int id,string url)
+        {
+            usedPhotos.Remove(id);
+            freePhotos.Add(id, url);
+        }
+    </script>
+      <script runat="server">
+        protected void addToSurvey(int id,string url)
+        {
+            freePhotos.Remove(id);
+            usedPhotos.Add(id, url);   
+        }
+    </script>
+    <script runat="server">
+        protected Dictionary<Int32,String> GetFreePhotos()
+        {
+            Dictionary<Int32, String> freePhotosFromDB;
+            freePhotosFromDB = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
+            return freePhotosFromDB;
+        }
+    </script>
+        <script runat="server">
+        protected Dictionary<Int32,String> GetUsedPhotos()
+        {
+            int surveyId = int.Parse(Request.QueryString["Id"]);
+            Dictionary<Int32, String> usedPhotosFromDB;
+            usedPhotosFromDB = inzPJATKSNM.Controllers.EditExistingSurveyController.getUsedPhotos(surveyId);
+            return usedPhotosFromDB;
         }
     </script>
 
@@ -100,31 +173,52 @@
             </div>
             
         </div>
+        <div id="right" style="float: right; width: 40%">
+            <div class="demo">
+                <ul id="lightSlider">
+                    <% 
+                     
+                        int surveyId = int.Parse(Request.QueryString["Id"]);
+                        foreach (Int32 key in usedPhotos.Keys)
+                        {
+                            currentKey = key;
+                            currentValue = usedPhotos[key];
+                            Response.Write("<li data-thumb=" + usedPhotos[key] + ">"
+                                + " <div class=\"show-image\" id=" + key + ">"
+                                + " <img src=" + usedPhotos[key] + " />"
+                                //+ " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + key + " name =" + usedPhotos[key] + " />"
+                                + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" name =" + key + ">"
+                                + " </div>"
+                                + "</li>  ");
 
-        <div class="demo" style="float: right; width: 40%">
+                        }
+                    %>
+                </ul>
+            </div>
+            <div id="buttons" align="center">
+                <asp:Button ID="Add_Button" runat="server" Text="Dodaj ↓ " CssClass="btn btn-success" OnClick="Add_Button_Click"/>
+                <asp:Button ID="Del_Button" runat="server" Text="Usuń ↑ " CssClass="btn btn-danger" OnClick="Del_Button_Click"/>
+            </div>
+            <div class="demo">
+                <ul id="lightSlider2">
+                    <% 
+                        int x_1 = 0;
+                        foreach (String s in freePhotos.Values)
+                        {
 
-            <ul id="lightSlider">
-                <% 
-                    int x = 0;
-                    foreach (String s in GetList())
-                    {
+                            Response.Write("<li data-thumb=" + s + ">"
+                                + " <div class=\"show-image\" id=" + x_1 + ">"
+                                + " <img src=" + s + " />"
+                                + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x_1 + " name =" + s + " />"
+                                + " </div>"
+                                + "</li>  ");
 
-                        Response.Write("<li data-thumb=" + s + ">"
-                            + " <div class=\"show-image\" id=" + x + ">"
-                            + " <img src=" + s + " />"
-                            + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x + " name =" + s + " />"
-                            + " </div>"
-                            + "</li>  ");
+                                x_1++;
 
-                        x++;
-
-                    }
-                %>
-            </ul>
-
-
-
+                        }
+                    %>
+                </ul>
+            </div>
         </div>
-
     </div>
 </asp:Content>

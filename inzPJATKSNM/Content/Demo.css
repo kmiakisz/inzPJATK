@@ -38,7 +38,20 @@ div.show-image input.update {
     top:50%;
     margin-left:50%;
     margin-right:50%;
-    background-image: url(../Images/Icons/BtnAdd.png);
+    background-image: url(../Images/Icons/plus.png);
+    background-size:cover;
+    background-color:transparent;
+    border:none;
+    background-position-x :center;
+    background-position-y : center;
+    image-rendering:optimizeQuality;
+    background-size:contain;
+}
+div.show-image input.delete {
+    top:50%;
+    margin-left:50%;
+    margin-right:50%;
+    background-image: url(../Images/Icons/minus.png);
     background-size:cover;
     background-color:transparent;
     border:none;

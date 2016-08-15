@@ -213,8 +213,9 @@
     <Content Include="DynamicData\FieldTemplates\Text_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Url.ascx" />
     <Content Include="DynamicData\FieldTemplates\Url_Edit.ascx" />
-    <Content Include="Images\Icons\BtnAdd.png" />
     <Content Include="Images\Icons\controls.png" />
+    <Content Include="Images\Icons\minus.png" />
+    <Content Include="Images\Icons\plus.png" />
     <Content Include="Images\Icons\statistics-512.png" />
     <Content Include="Images\SurveyPhotos\12287516_1089958617715028_1626717926_o.jpg" />
     <Content Include="Narodowosc\Default.aspx" />

@@ -17,7 +17,6 @@ namespace inzPJATKSNM.Views
         {
             loadPhotosFromDB();
             
-
         }
         
         public void loadPhotosFromDB()
@@ -47,7 +46,7 @@ namespace inzPJATKSNM.Views
 
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
-            List<String> tempList = photoToSurvey;
+          List<String> tempList = photoToSurvey;
           int musicId = int.Parse(MusicDropDownList.SelectedValue);
           String nazwa = SurveyNameTextBox.Text;
           String opis = ServeyDescribtionTextBox.Text;
