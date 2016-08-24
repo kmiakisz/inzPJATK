@@ -62,6 +62,7 @@ namespace inzPJATKSNM.Views
             ankieta.Data_zak=DateTime.Parse(example1.Value);
             ankieta.Nazwa = SurveyNameTextBox1.Text;
             ankieta.Opis_ankiety=ServeyDescribtionTextBox1.Text;
+            ankieta.Type = TypeDropDownList.Text;
             try
             {
                 inzPJATKSNM.Controllers.EditExistingSurveyController.saveEditsurvey(ankieta, listaURLZdjec);//ladujemy te same zdjecia do zmiany po updejcie widoku

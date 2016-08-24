@@ -50,7 +50,8 @@ namespace inzPJATKSNM.Views
           int musicId = int.Parse(MusicDropDownList.SelectedValue);
           String nazwa = SurveyNameTextBox.Text;
           String opis = ServeyDescribtionTextBox.Text;
-          inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis);
+          String typ = TypeDropDownList.SelectedValue;
+          inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis,typ);
         }
 
         protected void CancelButton_Click(object sender, EventArgs e)

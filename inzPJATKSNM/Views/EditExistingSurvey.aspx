@@ -152,6 +152,9 @@
             <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MuzykaSDS" DataTextField="Tytul" DataValueField="Id_Muzyka">
                 <asp:ListItem Text="--Wybierz--" Value="" Enabled="true">dfg</asp:ListItem> 
             </asp:DropDownList>
+               <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="SqlDataSource1" DataTextField="Typ" DataValueField="Typ"></asp:DropDownList>
+
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Typ] FROM [Ankieta]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="MuzykaSDS" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Wybierz date zakonczenia: " CssClass="label label-danger"></asp:Label>
             <input type="text" placeholder="click to show datepicker" id="example1" class="form-control" runat="server">

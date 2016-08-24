@@ -92,6 +92,7 @@ namespace inzPJATKSNM.Controllers
                     command.Parameters.Add("@dataZak", SqlDbType.DateTime).Value = ankieta.Data_zak;
                     command.Parameters.Add("@idMuzyka", SqlDbType.Int).Value = ankieta.Id_Muzyka;
                     command.Parameters.Add("@active", SqlDbType.Int).Value = 1;//do zmiay po zaktualizowaniu modelu
+                    command.Parameters.Add("@Typ", SqlDbType.VarChar).Value = ankieta.Type;
                     command.ExecuteNonQuery();
 
                 }

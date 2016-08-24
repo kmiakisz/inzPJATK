@@ -35,7 +35,8 @@ namespace inzPJATKSNM.Views
 
                             if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
                             {
-                                throw new System.AccessViolationException("IP is in blocked address list", new Exception());
+                                Response.Redirect("Surveys.aspx?val=BlockedIp");
+                               // throw new System.AccessViolationException("IP is in blocked address list", new Exception());
                             }
 
                         }
@@ -58,13 +59,15 @@ namespace inzPJATKSNM.Views
                             }
                             else
                             {
-                                throw new System.AccessViolationException("Token was used before", new Exception());
+                                Response.Redirect("Surveys.aspx?val=UsedToken");
+                                //throw new System.AccessViolationException("Token was used before", new Exception());
                             }
                         }
                        
                         else
                         {
-                            throw new System.AccessViolationException("Token cannot be empty", new Exception());
+                            Response.Redirect("Surveys.aspx?val=EmptyToken");
+                           // throw new System.AccessViolationException("Token cannot be empty", new Exception());
                         }
                     }
                    
@@ -127,14 +130,22 @@ namespace inzPJATKSNM.Views
             inzPJATKSNM.Controllers.SurveyController.saveAll(ocenyDziel, id, "", idNarod, idWiek, idPlec);
             if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
             {
-                inzPJATKSNM.Controllers.SurveyController.saveIPAddress(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress(),id);
+                if (inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress() != null)
+                {
+                    inzPJATKSNM.Controllers.SurveyController.saveIPAddress(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress(), id);
+                }
+                else
+                {
+                    inzPJATKSNM.Controllers.SurveyController.saveIPAddress("127.0.0.1", id);
+                }
+               
             }
             else
             {
                 inzPJATKSNM.Controllers.SurveyController.changeTokenState(token, id);
             }
-            
-            
+
+            Response.Redirect("Surveys.aspx");
             ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
             
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)

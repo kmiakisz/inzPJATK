@@ -33,7 +33,7 @@ namespace inzPJATKSNM.Controllers
             }
             return photoList;
         }
-        public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis)
+        public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis,String typ)
         {
             List<int> imageIdList = new List<int>();
 
@@ -44,7 +44,7 @@ namespace inzPJATKSNM.Controllers
                 imageIdList.Add(getPhotoId(url));
             }
             //Tu wywolanie procedury dodajacej ankiete
-            saveSurveyToDB(musicID, nazwa, opis);
+            saveSurveyToDB(musicID, nazwa, opis,typ);
             ankietaId = getNewSurveyId();
             foreach (int zdjecieId in imageIdList)
             {
@@ -134,7 +134,7 @@ namespace inzPJATKSNM.Controllers
             }
 
         }
-        public static void saveSurveyToDB(int musicID, string nazwa, string opis)
+        public static void saveSurveyToDB(int musicID, string nazwa, string opis,string typ)
         {
             DateTime data_rozp = DateTime.Now;
             DateTime data_zak = DateTime.Now.AddDays(30);
@@ -157,6 +157,8 @@ namespace inzPJATKSNM.Controllers
                 command.Parameters["@Id_Muzyka"].Value = musicID;
                 command.Parameters.Add("@Active", SqlDbType.Bit);
                 command.Parameters["@Active"].Value = 1;
+                command.Parameters.Add("@Typ", SqlDbType.VarChar);
+                command.Parameters["@Typ"].Value = typ;
                 try
                 {
                     Sqlcon.Open();
