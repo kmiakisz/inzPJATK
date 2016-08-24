@@ -247,5 +247,95 @@ namespace inzPJATKSNM.Controllers
         {
 
         }
+        public static string getSurveyType(int id)
+        {
+            string type ="";
+  
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "select Typ from Ankieta where Id_Ankiety = @id;";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    command.Parameters.Add("@id", SqlDbType.Int);
+                    command.Parameters["@id"].Value = id;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                           type = reader.GetString(0);
+
+
+                        }
+                    }
+                }
+                Sqlcon.Close();
+            }
+            return type;
+        }
+        public static List<string> getSurveyTokens(int ankietaId)
+        {
+            List<string> tokens = new List<string>();
+
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "select Token from Tokens t inner join AnkietaTokens at on t.ID = at.Token_id where Ankieta_id = @id;";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    command.Parameters.Add("@id", SqlDbType.Int);
+                    command.Parameters["@id"].Value = ankietaId;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            tokens.Add(reader.GetString(0));
+
+
+                        }
+                    }
+                }
+                Sqlcon.Close();
+            }
+            return tokens;
+        }
+        public static Boolean checkToken(string token,int ankietaId)
+        {
+            Boolean isValid = true;
+                if(getSurveyTokens(ankietaId).Contains(token)){
+                    isValid = false;
+                }
+            
+            return isValid;
+        }
+        public static void insertToken(string token, int ankietaId)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "insert_token";
+
+                    cmd.Parameters.Add("@token", SqlDbType.VarChar);
+                    cmd.Parameters["@token"].Value = token;
+
+                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+
+                }
+            }
+        }
     }
 }

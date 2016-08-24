@@ -10,11 +10,12 @@ namespace inzPJATKSNM.Views
 {
     public partial class SendMailForm : System.Web.UI.Page
     {
+        public int id;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["Id"] != null)
             {
-                int id = int.Parse(Request.QueryString["Id"]);
+                id = int.Parse(Request.QueryString["Id"]);
                 if (!IsPostBack)
                 {
                     body.Value += " Ankieta pod adresem: http://localhost:11222/Views/StartPage.aspx?Id=" + id;
@@ -42,7 +43,16 @@ namespace inzPJATKSNM.Views
 
         protected void Accept_Click(object sender, EventArgs e)
         {
-            int il = inzPJATKSNM.Controllers.MailController.sendMail(subject.Value, body.Value, getMail());
+            int il = 0;
+            if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+            {
+                il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, getMail());
+            }
+            else
+            {
+                il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail());
+            }
+            
             Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
         }
     }

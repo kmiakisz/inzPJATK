@@ -33,5 +33,7 @@ namespace inzPJATKSNM.Models
         public virtual ICollection<Bierze_udzial> Bierze_udzial { get; set; }
         public virtual Muzyka Muzyka { get; set; }
         public virtual ICollection<Dzieło> Dzieło { get; set; }
+
+        public virtual string Type { get; set; }
     }
 }

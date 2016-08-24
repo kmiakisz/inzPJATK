@@ -70,7 +70,11 @@ namespace inzPJATKSNM.Controllers
                     {
                         while (reader.Read())
                         {
-                            urle.Add(reader.GetInt32(0), reader.GetString(1));
+                           
+                                urle.Add(reader.GetInt32(0), reader.GetString(1));
+                            
+                        
+                           
                         }
                     }
                 }

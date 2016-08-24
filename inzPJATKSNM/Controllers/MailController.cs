@@ -34,7 +34,7 @@ namespace inzPJATKSNM.Controllers
             return mailList;
         }
 
-        public static int sendMail(String subject,String body, List<String> listaMaili)
+        public static int sendPublicMail(String subject,String body, List<String> listaMaili)
         {
             int listaWyslanych = 0;
             
@@ -54,6 +54,36 @@ namespace inzPJATKSNM.Controllers
             //client.SendAsync(message,userToken);
             return listaWyslanych;
             
+        }
+        public static int sendPrivateMail(String subject, String body, List<String> listaMaili)
+        {
+            int listaWyslanych = 0;
+            //string userToken = "test";
+       
+            foreach (String mail in listaMaili)
+            {
+               
+                listaWyslanych++;
+                sendMessage(subject, body, mail);
+             
+            }         
+            //client.SendAsync(message,userToken);
+            return listaWyslanych;
+
+        }
+        public static void sendMessage(String subject, String body, String emailAddress)
+        {
+            String token = generateToken();
+            body += "&Token=" + token;
+            MailMessage message = new MailMessage("ankietySNM@gmail.com",emailAddress,subject,body);
+            SmtpClient client = new SmtpClient();
+            client.Send(message);
+
+
+        }
+        public static string generateToken()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         }
         
     }

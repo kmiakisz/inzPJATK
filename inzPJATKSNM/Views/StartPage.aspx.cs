@@ -18,29 +18,50 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
 
-      
+        
                 if (Request.QueryString["Id"] != null)
                 {
                     id = int.Parse(Request.QueryString["Id"]);
+                    string type = inzPJATKSNM.Controllers.SurveyController.getSurveyType(id);
                     blokowaneIP = inzPJATKSNM.Controllers.SurveyController.getBlockedIPs(id);
-                    if (blokowaneIP.Count != 0)
+                    if (type.Equals("PUBLIC"))
                     {
-                        
+                        if (blokowaneIP.Count != 0)
+                        {
+
                             if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
                             {
-                                //wyjebac modala ze juz glosowal i wyjebac ze strony
+                                throw new System.AccessViolationException("IP is in blocked address list", new Exception());
                             }
-                        
+
+                        }
+
+                        dziela = new List<Dzieło>();
+                        dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                        ilDziel = dziela.Count();
                     }
-                    
-                    dziela = new List<Dzieło>();
-                    dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
-                    ilDziel = dziela.Count();
+                    else
+                    {
+                        string token = Request.QueryString["Token"];
+                        if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
+                        {
+                            inzPJATKSNM.Controllers.SurveyController.insertToken(token, id);
+                            dziela = new List<Dzieło>();
+                            dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                            ilDziel = dziela.Count();
+                        }
+                        else
+                        {
+                            throw new System.AccessViolationException("Token was used before", new Exception());
+                        }
+                    }
+                   
                 }
                 else
                 {
-                    //tu dodac modal z errorem o pustym id
+                    // throw new System.ArgumentException("Parameter ID cannot be null", "original");
                 }
+                   
         }
 
         protected void Accept_Click(object sender, EventArgs e)
@@ -66,7 +87,7 @@ namespace inzPJATKSNM.Views
                
             }
             
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal();", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
             
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
