@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace inzPJATKSNM.Views
@@ -15,9 +17,11 @@ namespace inzPJATKSNM.Views
         int id,idNarod,idPlec,idWiek;
        public int ilDziel = 0;
        List<String> blokowaneIP;
+       public String token;
+       Dictionary<string, string> oceny = new Dictionary<string, string>();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
         
                 if (Request.QueryString["Id"] != null)
                 {
@@ -42,17 +46,25 @@ namespace inzPJATKSNM.Views
                     }
                     else
                     {
-                        string token = Request.QueryString["Token"];
-                        if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
+                        if (Request.QueryString["Token"] != null)
                         {
-                            inzPJATKSNM.Controllers.SurveyController.insertToken(token, id);
-                            dziela = new List<Dzieło>();
-                            dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
-                            ilDziel = dziela.Count();
+                            token = Request.QueryString["Token"];
+                            if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
+                            {
+                               
+                                dziela = new List<Dzieło>();
+                                dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                                ilDziel = dziela.Count();
+                            }
+                            else
+                            {
+                                throw new System.AccessViolationException("Token was used before", new Exception());
+                            }
                         }
+                       
                         else
                         {
-                            throw new System.AccessViolationException("Token was used before", new Exception());
+                            throw new System.AccessViolationException("Token cannot be empty", new Exception());
                         }
                     }
                    
@@ -81,11 +93,47 @@ namespace inzPJATKSNM.Views
 
         protected void vote_Click(object sender, EventArgs e)
         {
-            foreach(Dzieło dzielo in dziela){
-               String ocena = Request.Form["0"];
-                ocenyDziel.Add(dzielo.Id_dzieło,int.Parse(ocena));
-               
+            string cos = TextBox1.Text;
+            string removeString = "undefined";
+            cos = cos.Remove(cos.IndexOf(removeString), removeString.Length);
+            Dictionary<string, string> ocenyDziel2 = new Dictionary<string, string>();
+            String[] splitted = cos.Split(';');
+            int j = 0;
+            foreach (String ankietaOcena in splitted)    
+            {
+
+                if (j < dziela.Count)
+                {
+                    String[] pociete = ankietaOcena.Split(',');
+                    ocenyDziel2.Add(pociete[0], pociete[1]);
+                    j++;
+                }
+                   
+                  
             }
+            int i = 0;
+            foreach(KeyValuePair<string,string> kvp in ocenyDziel2){
+                
+                if (i <dziela.Count)
+                {
+                    ocenyDziel.Add(Int32.Parse(kvp.Key), Int32.Parse(kvp.Value)-1);
+                    i++;
+                }
+       
+            }
+            idNarod = (int)ViewState["idNarod"];
+            idPlec = (int)ViewState["idPlec"];
+            idWiek = (int)ViewState["idWiek"];
+            inzPJATKSNM.Controllers.SurveyController.saveAll(ocenyDziel, id, "", idNarod, idWiek, idPlec);
+            if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+            {
+                inzPJATKSNM.Controllers.SurveyController.saveIPAddress(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress(),id);
+            }
+            else
+            {
+                inzPJATKSNM.Controllers.SurveyController.changeTokenState(token, id);
+            }
+            
             
             ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
             

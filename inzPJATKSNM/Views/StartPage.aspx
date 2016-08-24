@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/VoteMaster.Master" AutoEventWireup="true" CodeBehind="StartPage.aspx.cs" Inherits="inzPJATKSNM.Views.StartPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/VoteMaster.Master" AutoEventWireup="true" CodeBehind="StartPage.aspx.cs" Inherits="inzPJATKSNM.Views.StartPage" runat="server"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../Content/modal.css" rel="stylesheet" />
@@ -94,7 +94,7 @@
              Response.Write("<h3>" + inzPJATKSNM.Controllers.SurveyController.getKategoria(dzielo.Id_Kat) + "</h3>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getTechnika(dzielo.Id_Tech) + "</p>");
              Response.Write("<p>" + inzPJATKSNM.Controllers.SurveyController.getAutor(dzielo.Id_Autora) + "</p>");
-             Response.Write("<p>Ocena: </p><select onChange=\"removeSameValue("+dzielo.URL+")\" id=\"" + dzielo.URL + "\" name =\""+ dzielo.URL + "\" class=\"form-control\">");
+             Response.Write("<p>Ocena: </p><select onChange=\"removeSameValue("+dzielo.Id_dzieło+")\" id=\"" + dzielo.Id_dzieło + "\" name =\""+ dzielo.Id_dzieło + "\" class=\"form-control\">");
              Response.Write("<option value=\"--wybierz--\">--wybierz--</option>");
              for (int i = 1; i <= dziela.Count; i++)
              {
@@ -111,19 +111,30 @@
      {
          //modal o pustych zdjeciach
      }
-     
    
         %>
-
+    <script type="text/javascript">
+        function getOceny() {
+            var nameValue;
+            $selects.each(function () {
+                $selects.not(this)
+                if (this.value != "--wybierz--") {
+                    $selects.find('option[value="' + this.value + '"]')
+                }
+                nameValue += this.name + ',' + this.value+';';
+               
+            });
+            document.getElementById('<%=TextBox1.ClientID %>').value = nameValue;
+        }
+    </script>
     <br/>
     <br />
     <div id="buttons">
-        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClick="vote_Click" OnClientClick="subscriptionOpenModal()"/>
-       
+        <asp:Button ID="vote" runat="server" Text="Zagłosuj" class="btn btn-success" OnClick="vote_Click" OnClientClick="getOceny()"/>
+        <asp:TextBox ID="TextBox1" name="TextBox1" runat="server" ClientIDMode="Static" style="display:none;"></asp:TextBox>
         &nbsp
         <asp:Button ID="cancel" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="cancel_Click"/>
-      
-        
+        <asp:HiddenField ID="HiddenField1" runat="server" />
     </div>
     
 
@@ -244,9 +255,9 @@
                    .prop('disabled', true);  
                 }else{
                     $selects.find('option[value="' + this.value + '"]')
-                                       .prop('disabled', false);  
+                                       .prop('disabled', false);
+
                 };
-                 
             });
 
         });

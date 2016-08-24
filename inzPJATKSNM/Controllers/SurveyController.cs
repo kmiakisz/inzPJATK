@@ -184,6 +184,65 @@ namespace inzPJATKSNM.Controllers
             return idOsoba;
         }
 
+        public static int saveGlosujacy(int idNar, int idWiek, int idPlec, int idAnkiety)
+        {
+            int idOsoba = 0;
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "insert_glosujacy";
+
+                    cmd.Parameters.Add("@idNar", SqlDbType.Int);
+                    cmd.Parameters["@idNar"].Value = idNar;
+
+                    cmd.Parameters.Add("@idWiek", SqlDbType.Int);
+                    cmd.Parameters["@idWiek"].Value = idWiek;
+
+                    cmd.Parameters.Add("@idPlec", SqlDbType.Int);
+                    cmd.Parameters["@idPlec"].Value = idPlec;
+
+                    cmd.Parameters.Add("@idAnkiety", SqlDbType.Int);
+                    cmd.Parameters["@idAnkiety"].Value = idAnkiety;
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+
+                }
+            }
+            return getLastGlosujacy();
+        }
+        public static int getLastGlosujacy()
+        {
+            int id = 0;
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                Sqlcon.Open();
+                string query = "select max(Id_Osoba) from Glosujący ";
+                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            id = reader.GetInt32(0);
+
+
+                        }
+                    }
+                }
+                Sqlcon.Close();
+            }
+            return id;
+        }
+
         public static List<String> getBlockedIPs(int surId)
         {
             List<String> blokowaneIP = new List<String>();
@@ -231,21 +290,41 @@ namespace inzPJATKSNM.Controllers
 
             }
         }
-        public static void saveAll(Dictionary<int,int> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec,String ipAddress)
+        public static void saveAll(Dictionary<int,int> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec)
         {
-            int idOsoba = saveGlosujacy(email,idNar,idWiek,idPlec,idAnkiety);
+            int idOsoba = saveGlosujacy(idNar,idWiek,idPlec,idAnkiety);
 
             foreach (KeyValuePair<int, int> mapa in ocenyDziel)
             {
                 saveVotes(mapa.Key, mapa.Value, idOsoba, idAnkiety);
                 // do something with entry.Value or entry.Key
             }
-            saveIPAddress(ipAddress);
 
         }
-        public static void saveIPAddress(String ip)
+        public static void saveIPAddress(String ip,int ankietaId)
         {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
 
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "insert_ip";
+
+                    cmd.Parameters.Add("@@ipAdress", SqlDbType.VarChar);
+                    cmd.Parameters["@@ipAdress"].Value = ip;
+
+                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+
+                }
+            }
         }
         public static string getSurveyType(int id)
         {
@@ -275,15 +354,15 @@ namespace inzPJATKSNM.Controllers
             }
             return type;
         }
-        public static List<string> getSurveyTokens(int ankietaId)
+        public static Dictionary<string,string> getSurveyTokens(int ankietaId)
         {
-            List<string> tokens = new List<string>();
+            Dictionary<string,string> tokens = new Dictionary<string,string>();
 
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 Sqlcon.Open();
-                string query = "select Token from Tokens t inner join AnkietaTokens at on t.ID = at.Token_id where Ankieta_id = @id;";
+                string query = "select Token,isUsed from Tokens t inner join AnkietaTokens at on t.ID = at.Token_id where Ankieta_id = @id;";
                 using (SqlCommand command = new SqlCommand(query, Sqlcon))
                 {
                     command.Parameters.Add("@id", SqlDbType.Int);
@@ -293,7 +372,7 @@ namespace inzPJATKSNM.Controllers
                         while (reader.Read())
                         {
 
-                            tokens.Add(reader.GetString(0));
+                            tokens.Add(reader.GetString(0),reader.GetString(1));
 
 
                         }
@@ -305,9 +384,9 @@ namespace inzPJATKSNM.Controllers
         }
         public static Boolean checkToken(string token,int ankietaId)
         {
-            Boolean isValid = true;
-                if(getSurveyTokens(ankietaId).Contains(token)){
-                    isValid = false;
+            Boolean isValid = false;
+                if(getSurveyTokens(ankietaId).ContainsKey(token) && getSurveyTokens(ankietaId)[token].Equals("f")){
+                    isValid = true;
                 }
             
             return isValid;
@@ -324,6 +403,31 @@ namespace inzPJATKSNM.Controllers
                     cmd.Connection = Sqlcon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "insert_token";
+
+                    cmd.Parameters.Add("@token", SqlDbType.VarChar);
+                    cmd.Parameters["@token"].Value = token;
+
+                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+
+                    cmd.ExecuteNonQuery();
+                    Sqlcon.Close();
+
+                }
+            }
+        }
+        public static void changeTokenState(string token, int ankietaId)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    Sqlcon.Open();
+                    cmd.Connection = Sqlcon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "change_token_state";
 
                     cmd.Parameters.Add("@token", SqlDbType.VarChar);
                     cmd.Parameters["@token"].Value = token;

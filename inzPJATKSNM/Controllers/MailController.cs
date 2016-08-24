@@ -55,7 +55,7 @@ namespace inzPJATKSNM.Controllers
             return listaWyslanych;
             
         }
-        public static int sendPrivateMail(String subject, String body, List<String> listaMaili)
+        public static int sendPrivateMail(String subject, String body, List<String> listaMaili,int ankietaId)
         {
             int listaWyslanych = 0;
             //string userToken = "test";
@@ -64,20 +64,21 @@ namespace inzPJATKSNM.Controllers
             {
                
                 listaWyslanych++;
-                sendMessage(subject, body, mail);
+                sendMessage(subject, body, mail,ankietaId);
              
             }         
             //client.SendAsync(message,userToken);
             return listaWyslanych;
 
         }
-        public static void sendMessage(String subject, String body, String emailAddress)
+        public static void sendMessage(String subject, String body, String emailAddress,int ankietaId)
         {
             String token = generateToken();
             body += "&Token=" + token;
             MailMessage message = new MailMessage("ankietySNM@gmail.com",emailAddress,subject,body);
             SmtpClient client = new SmtpClient();
             client.Send(message);
+            inzPJATKSNM.Controllers.SurveyController.insertToken(token,ankietaId);
 
 
         }

@@ -50,7 +50,7 @@ namespace inzPJATKSNM.Views
             }
             else
             {
-                il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail());
+                il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail(),id);
             }
             
             Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
