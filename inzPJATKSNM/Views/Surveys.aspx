@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script type="text/javascript">
         function mailOpenModal() {
-            $('#mailModal').modal('show');
+            $('#failModal').modal('show');
         }
     </script>
      <% 
