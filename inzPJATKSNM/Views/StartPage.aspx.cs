@@ -32,15 +32,12 @@ namespace inzPJATKSNM.Views
                     {
                         if (blokowaneIP.Count != 0)
                         {
-
                             if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
                             {
                                 Response.Redirect("Surveys.aspx?val=BlockedIp");
-                               // throw new System.AccessViolationException("IP is in blocked address list", new Exception());
+                                throw new System.AccessViolationException("Ip is in blocked list", new Exception());
                             }
-
                         }
-
                         dziela = new List<Dzieło>();
                         dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
                         ilDziel = dziela.Count();
@@ -51,30 +48,28 @@ namespace inzPJATKSNM.Views
                         {
                             token = Request.QueryString["Token"];
                             if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
-                            {
-                               
+                            {  
                                 dziela = new List<Dzieło>();
                                 dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
                                 ilDziel = dziela.Count();
                             }
                             else
                             {
-                                Response.Redirect("Surveys.aspx?val=UsedToken");
-                                //throw new System.AccessViolationException("Token was used before", new Exception());
+                                Response.Redirect("Surveys.aspx?val=UsedToken");        
                             }
-                        }
-                       
+                        }      
                         else
                         {
-                            Response.Redirect("Surveys.aspx?val=EmptyToken");
-                           // throw new System.AccessViolationException("Token cannot be empty", new Exception());
+                            Response.Redirect("Surveys.aspx?val=EmptyToken");        
                         }
                     }
                    
                 }
                 else
-                {
+                // throw new System.AccessViolationException("Token cannot be empty", new Exception());
+                { //throw new System.AccessViolationException("Token was used before", new Exception());
                     // throw new System.ArgumentException("Parameter ID cannot be null", "original");
+                    Response.Redirect("Surveys.aspx?val=EmptyId");
                 }
                    
         }
@@ -96,6 +91,7 @@ namespace inzPJATKSNM.Views
 
         protected void vote_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
             string cos = TextBox1.Text;
             string removeString = "undefined";
             cos = cos.Remove(cos.IndexOf(removeString), removeString.Length);
@@ -146,7 +142,7 @@ namespace inzPJATKSNM.Views
             }
 
             Response.Redirect("Surveys.aspx");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
+           
             
             //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }

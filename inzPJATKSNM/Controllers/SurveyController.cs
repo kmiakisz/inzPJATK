@@ -388,7 +388,6 @@ namespace inzPJATKSNM.Controllers
                 if(getSurveyTokens(ankietaId).ContainsKey(token) && getSurveyTokens(ankietaId)[token].Equals("f")){
                     isValid = true;
                 }
-            
             return isValid;
         }
         public static void insertToken(string token, int ankietaId)

@@ -26,8 +26,12 @@ namespace inzPJATKSNM.Views
                     val = "Jednorazowy link już został użyty!";
                 }else if(val.Equals("EmptyToken")){
                     val = "Sprawdź czy link do ankiety jest poprawny!";
-                }else{
+                }else if(val.Equals("BlockedIp")){
                     val = "W ankiecie można wziąć udział tylko raz!";
+                }
+                else
+                {
+                    val = "Nieprawidłowy identyfikator ankiety!";
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
             }

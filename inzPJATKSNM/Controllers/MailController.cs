@@ -18,7 +18,7 @@ namespace inzPJATKSNM.Controllers
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 Sqlcon.Open();
-                string query = "SELECT Email FROM Glosujący";
+                string query = "SELECT Email FROM Glosujący where email is not null";
                 using (SqlCommand command = new SqlCommand(query, Sqlcon))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -36,14 +36,13 @@ namespace inzPJATKSNM.Controllers
 
         public static int sendPublicMail(String subject,String body, List<String> listaMaili)
         {
-            int listaWyslanych = 0;
-            
+            int liczbaWyslanych = 0;          
             MailMessage message = new MailMessage();
             //string userToken = "test";
             message.From = new MailAddress("ankietySNM@gmail.com");
             foreach(String mail in listaMaili)
             {
-                listaWyslanych++;
+                liczbaWyslanych++;
                 message.To.Add(new MailAddress(mail));
             }
             message.Subject = subject;
@@ -52,24 +51,19 @@ namespace inzPJATKSNM.Controllers
             SmtpClient client = new SmtpClient();
             client.Send(message);
             //client.SendAsync(message,userToken);
-            return listaWyslanych;
-            
+            return liczbaWyslanych;          
         }
         public static int sendPrivateMail(String subject, String body, List<String> listaMaili,int ankietaId)
         {
-            int listaWyslanych = 0;
-            //string userToken = "test";
-       
+            int liczbaWyslanych = 0;
+            //string userToken = "test"; 
             foreach (String mail in listaMaili)
-            {
-               
-                listaWyslanych++;
-                sendMessage(subject, body, mail,ankietaId);
-             
+            {             
+                liczbaWyslanych++;
+                sendMessage(subject, body, mail,ankietaId);         
             }         
             //client.SendAsync(message,userToken);
-            return listaWyslanych;
-
+            return liczbaWyslanych;
         }
         public static void sendMessage(String subject, String body, String emailAddress,int ankietaId)
         {
