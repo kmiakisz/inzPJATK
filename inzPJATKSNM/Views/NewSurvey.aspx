@@ -68,9 +68,10 @@
             <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MusicDataSource" DataTextField="Tytul" DataValueField="Id_Muzyka">
                 <asp:ListItem Text="--Wybierz--" Value="0" Enabled="true">dfg</asp:ListItem>
             </asp:DropDownList>
-            <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="SqlDataSource1" DataTextField="Typ" DataValueField="Typ"></asp:DropDownList>
-
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Typ] FROM [Ankieta]"></asp:SqlDataSource>
+            <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%">
+                <asp:ListItem Text="PUBLICZNA" Value="PUBLIC" Enabled="true">PUBLICZNA</asp:ListItem>
+                <asp:ListItem Text="PRYWATNA" Value="PRIVATE" Enabled="true">PRYWATNA</asp:ListItem>
+            </asp:DropDownList>
 
             <asp:SqlDataSource ID="MusicDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <br />

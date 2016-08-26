@@ -14,66 +14,92 @@ namespace inzPJATKSNM.Controllers
         public static List<String> getSurveyPhotos(int id)
         {
             List<String> photoList = new List<String>();
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select dzielo.url from ankieta outer apply ( select url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where id_ankiety like @ID;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@ID", SqlDbType.Int);
-                    command.Parameters["@ID"].Value = id;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select dzielo.url from ankieta outer apply ( select url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where id_ankiety like @ID;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@ID", SqlDbType.Int);
+                        command.Parameters["@ID"].Value = id;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            photoList.Add(reader.GetString(0));
+                            while (reader.Read())
+                            {
+                                photoList.Add(reader.GetString(0));
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Pobieranie zdjęć się nie powiodło!");
+            }
+           
+            
+           
             return photoList;
         }
         public static inzPJATKSNM.Models.Ankieta getSurvey(int id)
         {
             inzPJATKSNM.Models.Ankieta Survey = new inzPJATKSNM.Models.Ankieta();
-            
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Nazwa,Opis_ankiety,Data_rozp,Data_zak from Ankieta where id_ankiety like @ID;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@ID", SqlDbType.Int);
-                    command.Parameters["@ID"].Value = id;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Nazwa,Opis_ankiety,Data_rozp,Data_zak from Ankieta where id_ankiety like @ID;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@ID", SqlDbType.Int);
+                        command.Parameters["@ID"].Value = id;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            
-                            Survey.Nazwa=reader.GetString(0);
-                            Survey.Opis_ankiety = reader.GetString(1);
-                            Survey.Data_rozp = reader.GetDateTime(2);
-                            Survey.Data_zak = reader.GetDateTime(3);
-   
+                            while (reader.Read())
+                            {
+
+                                Survey.Nazwa = reader.GetString(0);
+                                Survey.Opis_ankiety = reader.GetString(1);
+                                Survey.Data_rozp = reader.GetDateTime(2);
+                                Survey.Data_zak = reader.GetDateTime(3);
+
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Nie udało się pobrać ankiety o ID " + id);
+            }
+           
             return Survey;
         }
         public static void saveEditsurvey(Ankieta ankieta,List<String> zdjPoEdycji)
         {
+
             List<int> listaIdPoEdycji = new List<int>();
-            foreach (string url in zdjPoEdycji)
+            try
             {
-                listaIdPoEdycji.Add(getPhotoId(url));
+                foreach (string url in zdjPoEdycji)
+                {
+                    listaIdPoEdycji.Add(getPhotoId(url));
+                }
+                saveOnlyEditSurvey(ankieta);
+                saveEditPhotos(listaIdPoEdycji, ankieta.Id_ankiety);
             }
-            saveOnlyEditSurvey(ankieta);
-            saveEditPhotos(listaIdPoEdycji, ankieta.Id_ankiety);
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+           
            
         }
         public static void saveOnlyEditSurvey(Ankieta ankieta)
@@ -98,65 +124,89 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("SQL Error" + ex.Message.ToString());
+                    throw new Exception("Zapis ankiety o ID " + ankieta.Id_ankiety + " nie powiódł się");
                 }
             }
         }
         public static void saveEditPhotos(List<int> zdjPoEdycji, int id)
         {
-            deleteOldPhotos(id);
-            foreach (int id_zdj in zdjPoEdycji)
+            try
             {
-                insertNewPhotos(id_zdj, id);
+                deleteOldPhotos(id);
+                foreach (int id_zdj in zdjPoEdycji)
+                {
+                    insertNewPhotos(id_zdj, id);
+                }
             }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+           
             
 
         }
         public static void deleteOldPhotos(int id)
         {
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "delete from Skład where id_ankiety like @ID;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@ID", SqlDbType.Int);
-                    command.Parameters["@ID"].Value = id;
-                    command.ExecuteNonQuery();
+                    Sqlcon.Open();
+                    string query = "delete from Skład where id_ankiety like @ID;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                    {
+                        command.Parameters.Add("@ID", SqlDbType.Int);
+                        command.Parameters["@ID"].Value = id;
+                        command.ExecuteNonQuery();
+                    }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Wystąpił błąd podczas usuwania starych zdjęć");
+            }
+           
       
         }
         public static void insertNewPhotos(int Id_zdjecia,int id)
         {
-            string commandTextInsertSklad = "Insert into Skład values (@Id_ankiety,@Id_zdjęcia);";
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
-            {
-                SqlCommand command = new SqlCommand(commandTextInsertSklad, Sqlcon);
-                command.Parameters.Add("@Id_ankiety", SqlDbType.Int);
-                command.Parameters["@Id_ankiety"].Value = id;
-                command.Parameters.Add("@Id_zdjęcia", SqlDbType.Int);
-                command.Parameters["@Id_zdjęcia"].Value = Id_zdjecia;
-                try
+            
+                string commandTextInsertSklad = "Insert into Skład values (@Id_ankiety,@Id_zdjęcia);";
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    command.ExecuteNonQuery();
+                    SqlCommand command = new SqlCommand(commandTextInsertSklad, Sqlcon);
+                    command.Parameters.Add("@Id_ankiety", SqlDbType.Int);
+                    command.Parameters["@Id_ankiety"].Value = id;
+                    command.Parameters.Add("@Id_zdjęcia", SqlDbType.Int);
+                    command.Parameters["@Id_zdjęcia"].Value = Id_zdjecia;
+                    try
+                    {
+                        Sqlcon.Open();
+                        command.ExecuteNonQuery();
 
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Błąd poczas dodawania nowych zdjęć");
+                    }
+                    finally
+                    {
+                        Sqlcon.Close();
+                    }
+                    
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                Sqlcon.Close();
-            }
+            
+           
         }
         public static int getPhotoId(string url)
         {
             int imageId = 0;
             string commandText = "Select Id_dzieło from Dzieło where URL like '%' + @url + '%';";
+        
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
@@ -171,9 +221,13 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    throw new Exception("Błąd wyszukiwania zdjęcia o URl " + url);
                 }
-                Sqlcon.Close();
+                finally
+                {
+                    Sqlcon.Close();
+                }
+               
             }
             if (imageId == 0)
             {
@@ -213,9 +267,13 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.Message);
-                    }                    
-                    conn.Close();
+                        throw new Exception("Błąd poczas pobierania dostępnych zdjęć!");
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }                 
+                    
                 }
             }
             return freePhotos;
@@ -251,9 +309,13 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.Message);
+                        throw new Exception("Błąd poczas pobierania aktualnie używanych zdjęć");
                     }
-                    conn.Close();
+                    finally
+                    {
+                        conn.Close();
+                    }
+                   
                 }
             }
             return usedPhotos;

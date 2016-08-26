@@ -24,7 +24,15 @@ namespace inzPJATKSNM.Views
             Id_nar = int.Parse(NationalityDropDownList.SelectedValue);
             Id_plec = int.Parse(PlecDropDownList.SelectedValue);
             Id_epoka = int.Parse(EpokaDropDownList1.SelectedValue);
-            inzPJATKSNM.Controllers.AutorController.addNewAuthor(name, surname, Id_nar, Id_plec, Id_epoka);
+            try
+            {
+                inzPJATKSNM.Controllers.AutorController.addNewAuthor(name, surname, Id_nar, Id_plec, Id_epoka);
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("ShowSurveys.aspx?val=" + ex.Message);
+            }
+       
         }
     }
 }

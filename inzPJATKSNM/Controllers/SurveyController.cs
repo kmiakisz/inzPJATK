@@ -15,172 +15,210 @@ namespace inzPJATKSNM.Controllers
         public static List<Dzieło> getDziela(int idAnkieta)
         {
            List<Dzieło> dziela = new List<Dzieło>();
-          
-
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_autora from Dzieło inner join skład on Id_dzieło = Id_zdjecia where id_ankiety like @ID;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@ID", SqlDbType.Int);
-                    command.Parameters["@ID"].Value = idAnkieta;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_autora from Dzieło inner join skład on Id_dzieło = Id_zdjecia where id_ankiety like @ID;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@ID", SqlDbType.Int);
+                        command.Parameters["@ID"].Value = idAnkieta;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            Dzieło dzielo = new Dzieło();
-                            dzielo.Id_dzieło = reader.GetInt32(0);
-                            dzielo.URL = reader.GetString(1);
-                            dzielo.Id_Tech = reader.GetInt32(2);
-                            dzielo.Id_Kat = reader.GetInt32(3);
-                            dzielo.Id_Autora = reader.GetInt32(4);
-                            dziela.Add(dzielo);
+                            while (reader.Read())
+                            {
+                                Dzieło dzielo = new Dzieło();
+                                dzielo.Id_dzieło = reader.GetInt32(0);
+                                dzielo.URL = reader.GetString(1);
+                                dzielo.Id_Tech = reader.GetInt32(2);
+                                dzielo.Id_Kat = reader.GetInt32(3);
+                                dzielo.Id_Autora = reader.GetInt32(4);
+                                dziela.Add(dzielo);
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania dzieł!");
+            }
+        
             return dziela;
         }
         public static String getSurveyName(int idSurvey)
         {
             String nazwa = "";
-
-
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select nazwa from Ankieta where Id_ankiety = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = idSurvey;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select nazwa from Ankieta where Id_ankiety = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = idSurvey;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            nazwa = reader.GetString(0);
+                                nazwa = reader.GetString(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania nazwy ankiety");
+            }
+          
             return nazwa;
         }
         public static String getTechnika(int idTech)
         {
             String technika = "";
-
-
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Technika from technika where Id_Tech = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = idTech;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Technika from technika where Id_Tech = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = idTech;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                           technika = reader.GetString(0);
+                                technika = reader.GetString(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd poczas pobierania techniki");
+            }
+           
             return technika;
         }
         public static String getKategoria(int idKategoria)
         {
             String kategoria = "";
-
-
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Kategoria from Kategoria where Id_Kat = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = idKategoria;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Kategoria from Kategoria where Id_Kat = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = idKategoria;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            kategoria = reader.GetString(0);
+                                kategoria = reader.GetString(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania kategorii dzieła");
+            }
+            
             return kategoria;
         }
         public static String getAutor(int idAutor)
         {
             String autor = "";
-
-
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Nazwisko from Autor where Id_Autora = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = idAutor;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Nazwisko from Autor where Id_Autora = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = idAutor;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            autor = reader.GetString(0);
+                                autor = reader.GetString(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania autora");
+            }
+           
             return autor;
         }
         public static int saveGlosujacy(String email,int idNar, int idWiek, int idPlec,int idAnkiety)
         {
             int idOsoba = 0;
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connStr))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("glosowanie", con))
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@idnarod", idNar);
-                    cmd.Parameters.AddWithValue("@idwiek", idWiek);
-                    cmd.Parameters.AddWithValue("@idplec", idPlec);
-                    cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
-                    cmd.Parameters.AddWithValue("@tmpOsobaId", "@tmpOsobaId");
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    idOsoba = int.Parse((string)cmd.Parameters["@idOsoba"].Value);
-                }
+                    using (SqlCommand cmd = new SqlCommand("glosowanie", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@idnarod", idNar);
+                        cmd.Parameters.AddWithValue("@idwiek", idWiek);
+                        cmd.Parameters.AddWithValue("@idplec", idPlec);
+                        cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
+                        cmd.Parameters.AddWithValue("@tmpOsobaId", "@tmpOsobaId");
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        idOsoba = int.Parse((string)cmd.Parameters["@idOsoba"].Value);
+                    }
 
+                }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu głosującego");
+            }
+           
             return idOsoba;
         }
 
@@ -188,58 +226,75 @@ namespace inzPJATKSNM.Controllers
         {
             int idOsoba = 0;
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "insert_glosujacy";
 
-                    cmd.Parameters.Add("@idNar", SqlDbType.Int);
-                    cmd.Parameters["@idNar"].Value = idNar;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "insert_glosujacy";
 
-                    cmd.Parameters.Add("@idWiek", SqlDbType.Int);
-                    cmd.Parameters["@idWiek"].Value = idWiek;
+                        cmd.Parameters.Add("@idNar", SqlDbType.Int);
+                        cmd.Parameters["@idNar"].Value = idNar;
 
-                    cmd.Parameters.Add("@idPlec", SqlDbType.Int);
-                    cmd.Parameters["@idPlec"].Value = idPlec;
+                        cmd.Parameters.Add("@idWiek", SqlDbType.Int);
+                        cmd.Parameters["@idWiek"].Value = idWiek;
 
-                    cmd.Parameters.Add("@idAnkiety", SqlDbType.Int);
-                    cmd.Parameters["@idAnkiety"].Value = idAnkiety;
+                        cmd.Parameters.Add("@idPlec", SqlDbType.Int);
+                        cmd.Parameters["@idPlec"].Value = idPlec;
 
-                    cmd.ExecuteNonQuery();
-                    Sqlcon.Close();
+                        cmd.Parameters.Add("@idAnkiety", SqlDbType.Int);
+                        cmd.Parameters["@idAnkiety"].Value = idAnkiety;
 
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu głosującego");
+            }
+          
             return getLastGlosujacy();
         }
         public static int getLastGlosujacy()
         {
             int id = 0;
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select max(Id_Osoba) from Glosujący ";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select max(Id_Osoba) from Glosujący ";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            id = reader.GetInt32(0);
+                                id = reader.GetInt32(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu głosującego");
+            }
+            
+           
             return id;
         }
 
@@ -247,48 +302,65 @@ namespace inzPJATKSNM.Controllers
         {
             List<String> blokowaneIP = new List<String>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select IPAdress from Ip_table inner join BlokowaneAdresy on Ip_table.Id_ip = BlokowaneAdresy.Id_ip where Id_Ankiety = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = surId;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select IPAdress from Ip_table inner join BlokowaneAdresy on Ip_table.Id_ip = BlokowaneAdresy.Id_ip where Id_Ankiety = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = surId;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            blokowaneIP.Add(reader.GetString(0));
+                                blokowaneIP.Add(reader.GetString(0));
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania listy zablokowanych adresów IP");
+            }
+           
             return blokowaneIP;
         }
 
         public static void saveVotes(int idDzielo, int ocena, int idOsoba, int idAnkiety)
         {
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connStr))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("ankieta_glosowanie", con))
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ocena", ocena);
-                    cmd.Parameters.AddWithValue("@idosoba", idOsoba);
-                    cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
-                    cmd.Parameters.AddWithValue("@idzdjecia", idDzielo);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    
-                }
+                    using (SqlCommand cmd = new SqlCommand("ankieta_glosowanie", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ocena", ocena);
+                        cmd.Parameters.AddWithValue("@idosoba", idOsoba);
+                        cmd.Parameters.AddWithValue("@idAnkiety", idAnkiety);
+                        cmd.Parameters.AddWithValue("@idzdjecia", idDzielo);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
 
+                    }
+
+                }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisywania wyników głosowania");
+            }
+           
         }
         public static void saveAll(Dictionary<int,int> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec)
         {
@@ -296,7 +368,15 @@ namespace inzPJATKSNM.Controllers
 
             foreach (KeyValuePair<int, int> mapa in ocenyDziel)
             {
-                saveVotes(mapa.Key, mapa.Value, idOsoba, idAnkiety);
+                try
+                {
+                    saveVotes(mapa.Key, mapa.Value, idOsoba, idAnkiety);
+                }
+                catch (Exception u)
+                {
+                    throw new Exception(u.Message);
+                }
+          
                 // do something with entry.Value or entry.Key
             }
 
@@ -304,54 +384,69 @@ namespace inzPJATKSNM.Controllers
         public static void saveIPAddress(String ip,int ankietaId)
         {
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "insert_ip";
 
-                    cmd.Parameters.Add("@ipAdress", SqlDbType.VarChar);
-                    cmd.Parameters["@ipAdress"].Value = ip;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "insert_ip";
 
-                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
-                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+                        cmd.Parameters.Add("@ipAdress", SqlDbType.VarChar);
+                        cmd.Parameters["@ipAdress"].Value = ip;
 
-                    cmd.ExecuteNonQuery();
-                    Sqlcon.Close();
+                        cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                        cmd.Parameters["@ankietaId"].Value = ankietaId;
 
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisywania adresu IP");
+            }
+
         }
         public static string getSurveyType(int id)
         {
             string type ="";
-  
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Typ from Ankieta where Id_Ankiety = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = id;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Typ from Ankieta where Id_Ankiety = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = id;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                           type = reader.GetString(0);
+                                type = reader.GetString(0);
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania typu ankiety");
+            }
+           
             return type;
         }
         public static Dictionary<string,string> getSurveyTokens(int ankietaId)
@@ -359,129 +454,178 @@ namespace inzPJATKSNM.Controllers
             Dictionary<string,string> tokens = new Dictionary<string,string>();
 
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Token,isUsed from Tokens t inner join AnkietaTokens at on t.ID = at.Token_id where Ankieta_id = @id;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    command.Parameters.Add("@id", SqlDbType.Int);
-                    command.Parameters["@id"].Value = ankietaId;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Token,isUsed from Tokens t inner join AnkietaTokens at on t.ID = at.Token_id where Ankieta_id = @id;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        command.Parameters.Add("@id", SqlDbType.Int);
+                        command.Parameters["@id"].Value = ankietaId;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            tokens.Add(reader.GetString(0),reader.GetString(1));
+                                tokens.Add(reader.GetString(0), reader.GetString(1));
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania tokenów ankiety");
+            }
+            
             return tokens;
         }
         public static Boolean checkToken(string token,int ankietaId)
         {
             Boolean isValid = false;
-                if(getSurveyTokens(ankietaId).ContainsKey(token) && getSurveyTokens(ankietaId)[token].Equals("f")){
+            try
+            {
+                if (getSurveyTokens(ankietaId).ContainsKey(token) && getSurveyTokens(ankietaId)[token].Equals("f"))
+                {
                     isValid = true;
                 }
+            }
+            catch (Exception u)
+            {
+                throw new Exception(u.Message);
+            }
+               
+
             return isValid;
         }
         public static void insertToken(string token, int ankietaId)
         {
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "insert_token";
 
-                    cmd.Parameters.Add("@token", SqlDbType.VarChar);
-                    cmd.Parameters["@token"].Value = token;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "insert_token";
 
-                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
-                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+                        cmd.Parameters.Add("@token", SqlDbType.VarChar);
+                        cmd.Parameters["@token"].Value = token;
 
-                    cmd.ExecuteNonQuery();
-                    Sqlcon.Close();
+                        cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                        cmd.Parameters["@ankietaId"].Value = ankietaId;
 
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu ankiety");
+            }
+           
         }
         public static void changeTokenState(string token, int ankietaId)
         {
+            
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "change_token_state";
 
-                    cmd.Parameters.Add("@token", SqlDbType.VarChar);
-                    cmd.Parameters["@token"].Value = token;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "change_token_state";
 
-                    cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
-                    cmd.Parameters["@ankietaId"].Value = ankietaId;
+                        cmd.Parameters.Add("@token", SqlDbType.VarChar);
+                        cmd.Parameters["@token"].Value = token;
 
-                    cmd.ExecuteNonQuery();
-                    Sqlcon.Close();
+                        cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                        cmd.Parameters["@ankietaId"].Value = ankietaId;
 
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu wyników głosowania");
+            }
+           
         }
      
         public static Dictionary<int, String> getNazwy()
         {
             Dictionary<int, String> nazwy = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "select Id_ankiety,nazwa from ankieta where Typ = 'PUBLIC' and Active =1;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Id_ankiety,nazwa from ankieta where Typ = 'PUBLIC' and Active =1;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            nazwy.Add(reader.GetInt32(0), reader.GetString(1));
+                            while (reader.Read())
+                            {
+                                nazwy.Add(reader.GetInt32(0), reader.GetString(1));
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania ankiety");
+            }
+           
             return nazwy;
         }
         public static Dictionary<int, String> getOpis()
         {
             Dictionary<int, String> opisy = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
-            {
-                Sqlcon.Open();
-                string query = "select Id_ankiety,Opis_ankiety from ankieta where Typ = 'PUBLIC' and Active =1;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+            try{
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select Id_ankiety,Opis_ankiety from ankieta where Typ = 'PUBLIC' and Active =1;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            opisy.Add(reader.GetInt32(0), reader.GetString(1));
+                            while (reader.Read())
+                            {
+                                opisy.Add(reader.GetInt32(0), reader.GetString(1));
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
+            }
+           catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania ankiety");
             }
             return opisy;
         }
@@ -489,25 +633,31 @@ namespace inzPJATKSNM.Controllers
         {
             Dictionary<int, String> urle = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
-            {
-                Sqlcon.Open();
-                string query = "select ankieta.id_ankiety, dzielo.url from ankieta outer apply ( select top(1) url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where ankieta.Typ = 'PUBLIC' and ankieta.Active = 1;";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+            try{
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "select ankieta.id_ankiety, dzielo.url from ankieta outer apply ( select top(1) url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where ankieta.Typ = 'PUBLIC' and ankieta.Active = 1;";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            while (reader.Read())
+                            {
 
-                            urle.Add(reader.GetInt32(0), reader.GetString(1));
+                                urle.Add(reader.GetInt32(0), reader.GetString(1));
 
 
 
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
+            }      
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania ankiety");
             }
             return urle;
         }

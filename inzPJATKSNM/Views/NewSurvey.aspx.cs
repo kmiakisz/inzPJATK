@@ -21,15 +21,22 @@ namespace inzPJATKSNM.Views
         
         public void loadPhotosFromDB()
         {
-
-            photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
+            try
+            {
+                photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+            }
+           
         }
         [WebMethod]
         public static void addToPhotoToSurvey(String url)
         {
             if (photoToSurvey.Contains(url))
             {
-                removePhotoFromSurvey(url);
+                    removePhotoFromSurvey(url);              
             }
             else
             {
@@ -51,7 +58,15 @@ namespace inzPJATKSNM.Views
           String nazwa = SurveyNameTextBox.Text;
           String opis = ServeyDescribtionTextBox.Text;
           String typ = TypeDropDownList.SelectedValue;
-          inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis,typ);
+          try
+          {
+              inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis, typ);
+          }
+          catch (Exception ex)
+          {
+              Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+          }
+          
         }
 
         protected void CancelButton_Click(object sender, EventArgs e)

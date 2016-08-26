@@ -28,14 +28,26 @@ namespace inzPJATKSNM.Views
                     int val = int.Parse(Request.QueryString["val"]);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
                 }
+                if (Request.QueryString["err"] != null)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
+                }
             
                        
         }
         public void LoadSurveysFromDb()
         {
-            nazwyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getNazwy();
-            opisyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getOpis();
-            urlAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getFirstURL();
+            try
+            {
+                nazwyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getNazwy();
+                opisyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getOpis();
+                urlAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getFirstURL();
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("AdministratorPanel.aspx?err=" + ex.Message);
+            }
+         
 
         }
         public int policzAnkiety()
@@ -59,8 +71,9 @@ namespace inzPJATKSNM.Views
         [WebMethod]
         public static void usunAnkiete(int id)
         {
-            inzPJATKSNM.Controllers.ShowSurveysController.removeSurvey(id);
-           
+            
+                inzPJATKSNM.Controllers.ShowSurveysController.removeSurvey(id);
+
         }
         public void redirectToEdit()
         {

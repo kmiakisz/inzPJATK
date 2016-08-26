@@ -14,23 +14,29 @@ namespace inzPJATKSNM.Controllers
         {
             List<String> photoList = new List<String>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "SELECT URL FROM Dzieło";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
-                    
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "SELECT URL FROM Dzieło";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            photoList.Add(reader.GetString(0));
+                            while (reader.Read())
+                            {
+                                photoList.Add(reader.GetString(0));
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błą poczas pobierania listy dzieł");
+            } 
             return photoList;
         }
         public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis,String typ)
@@ -38,39 +44,55 @@ namespace inzPJATKSNM.Controllers
             List<int> imageIdList = new List<int>();
 
             int ankietaId=0;
-            
-            foreach (string url in imagesSurveyToDB)
+            try
             {
-                imageIdList.Add(getPhotoId(url));
+                foreach (string url in imagesSurveyToDB)
+                {
+                    imageIdList.Add(getPhotoId(url));
+                }
+                //Tu wywolanie procedury dodajacej ankiete
+                saveSurveyToDB(musicID, nazwa, opis, typ);
+                ankietaId = getNewSurveyId();
+                foreach (int zdjecieId in imageIdList)
+                {
+                    saveSkładToDB(ankietaId, zdjecieId);
+                }
             }
-            //Tu wywolanie procedury dodajacej ankiete
-            saveSurveyToDB(musicID, nazwa, opis,typ);
-            ankietaId = getNewSurveyId();
-            foreach (int zdjecieId in imageIdList)
+            catch (Exception u)
             {
-                saveSkładToDB(ankietaId, zdjecieId);
+                throw new Exception(u.Message);
             }
+           
         }
         public static int getNewSurveyId()
         {
+            
             int SurveyId = 0;
             string getSurveyIdCmd=("SELECT TOP 1 * FROM Ankieta ORDER BY Id_ankiety DESC;");
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                SqlCommand command = new SqlCommand(getSurveyIdCmd, Sqlcon);
-                try
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    SurveyId = (int) command.ExecuteScalar();
+                    SqlCommand command = new SqlCommand(getSurveyIdCmd, Sqlcon);
+                    try
+                    {
+                        Sqlcon.Open();
+                        SurveyId = (int)command.ExecuteScalar();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    Sqlcon.Close();
                 }
-                 catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania Id nowo stworzonej ankiety");
+            }
+            
             return SurveyId;
         }
         public static int getPhotoId(string url)
@@ -97,7 +119,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    throw new Exception("Błąd wyszukiwania dzieła o url " + url);
                 }
                 Sqlcon.Close();
             }
@@ -111,6 +133,7 @@ namespace inzPJATKSNM.Controllers
         }
         public static void saveSkładToDB(int Id_ankiety,int Id_zdjęcia)
         {
+            
             string commandTextInsertSklad = "Insert into Skład values (@Id_ankiety,@Id_zdjęcia);";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
@@ -126,16 +149,21 @@ namespace inzPJATKSNM.Controllers
                     command.ExecuteNonQuery();
 
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.Message);
+                    throw new Exception("Błąd podczas zapisywania składu ankiety");
                 }
-                Sqlcon.Close();
+                finally
+                {
+                    Sqlcon.Close();
+                }
+            
             }
 
         }
         public static void saveSurveyToDB(int musicID, string nazwa, string opis,string typ)
         {
+            
             DateTime data_rozp = DateTime.Now;
             DateTime data_zak = DateTime.Now.AddDays(30);
             string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Id_Muzyka,Active) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Id_Muzyka,@Active);";
@@ -165,11 +193,15 @@ namespace inzPJATKSNM.Controllers
                     command.ExecuteNonQuery();
 
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.Message);
+                    throw new Exception("Błąd podczas zapisu ankiety do bazy!");
                 }
-                Sqlcon.Close();
+                finally
+                {
+                    Sqlcon.Close();
+                }
+               
             }
         }
         

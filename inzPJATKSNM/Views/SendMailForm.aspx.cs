@@ -35,8 +35,16 @@ namespace inzPJATKSNM.Views
 
         public List<String> getMail()
         {
-            List<String> userMailList;
-            userMailList = inzPJATKSNM.Controllers.MailController.getMailList();
+            List<String> userMailList = new List<string>();
+            try
+            {
+                userMailList = inzPJATKSNM.Controllers.MailController.getMailList();
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
+            }
+            
             return userMailList;
 
         }
@@ -44,6 +52,7 @@ namespace inzPJATKSNM.Views
         protected void Accept_Click(object sender, EventArgs e)
         {
             int il = 0;
+            try{
             if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
             {
                 il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, getMail());
@@ -52,6 +61,12 @@ namespace inzPJATKSNM.Views
             {
                 il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail(),id);
             }
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
+            }
+            
             
             Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
         }

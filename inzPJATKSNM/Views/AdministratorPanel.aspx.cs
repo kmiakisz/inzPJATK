@@ -11,7 +11,10 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Request.QueryString["err"] != null)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
+            }
         }
 
         protected void AddAuthor_Click(object sender, EventArgs e)

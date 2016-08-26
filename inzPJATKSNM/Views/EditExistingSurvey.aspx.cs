@@ -23,10 +23,17 @@ namespace inzPJATKSNM.Views
         {
             freePhotos = new Dictionary<Int32, String>();
             usedPhotos = new Dictionary<Int32, String>();
-           
-            freePhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
-            usedPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getUsedPhotos(int.Parse(Request.QueryString["Id"]));
-           
+            try
+            {
+                freePhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
+                usedPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getUsedPhotos(int.Parse(Request.QueryString["Id"]));
+
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("ShowSurveys?+err=" + ex.Message);
+            }
+            
             if (!IsPostBack)
             {
                 if (Request.QueryString["Id"] != null)
@@ -34,8 +41,16 @@ namespace inzPJATKSNM.Views
                     currentValue = "";
                     currentKey = new Int32();
                     int id = int.Parse(Request.QueryString["Id"]);
-                    listaURLZdjec = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
-                    ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
+                    try
+                    {
+                        listaURLZdjec = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                        ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+                    }
+                   
                     MusicDropDownList.DataValueField = ankieta.Id_Muzyka.ToString();
                     example1.Value = ankieta.Data_zak.ToString();
                     SurveyNameTextBox1.Text = ankieta.Nazwa;
@@ -46,7 +61,7 @@ namespace inzPJATKSNM.Views
                 }
                 else
                 {
-                    //tu dodac modal z errorem o pustym id
+                    Response.Redirect("ShowSurveys.aspx?err=PusteId");
                 }
             }
            
@@ -69,7 +84,7 @@ namespace inzPJATKSNM.Views
             }
             catch (Exception ex)
             {
-                //wywalic modala o nieudanej edycji
+                Response.Redirect("ShowSurveys.aspx?err="+ex.Message);
 
             }
             Response.Redirect("ShowSurveys.aspx");

@@ -2,6 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
+         <script type="text/javascript">
+         function failOpenModal() {
+             $('#failModal').modal('show');
+         }
+    </script>
     <div id="content" class="container-fluid">
         <div class="row offset 3">
             <div class="col-sm-1 col-md-2">
@@ -43,5 +48,27 @@
 
         </div>
     </div>
+        <div id="failModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Wystąpił błąd</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            Response.Write("<p>"+Request.QueryString["err"]+"</p>");
+                             %>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 </asp:Content>

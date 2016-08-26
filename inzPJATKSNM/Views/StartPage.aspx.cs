@@ -18,6 +18,7 @@ namespace inzPJATKSNM.Views
        public int ilDziel = 0;
        List<String> blokowaneIP;
        public String token;
+       string type = "";
        Dictionary<string, string> oceny = new Dictionary<string, string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,21 +26,45 @@ namespace inzPJATKSNM.Views
         
                 if (Request.QueryString["Id"] != null)
                 {
+                
                     id = int.Parse(Request.QueryString["Id"]);
-                    string type = inzPJATKSNM.Controllers.SurveyController.getSurveyType(id);
-                    blokowaneIP = inzPJATKSNM.Controllers.SurveyController.getBlockedIPs(id);
+                    try
+                    {
+                        type = inzPJATKSNM.Controllers.SurveyController.getSurveyType(id);
+                        blokowaneIP = inzPJATKSNM.Controllers.SurveyController.getBlockedIPs(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Redirect("Surveys.aspx?err="+ex.Message);  
+                    }
+                  
                     if (type.Equals("PUBLIC"))
                     {
                         if (blokowaneIP.Count != 0)
                         {
-                            if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
+                            try
                             {
-                                Response.Redirect("Surveys.aspx?val=BlockedIp");
-                                throw new System.AccessViolationException("Ip is in blocked list", new Exception());
+                                if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
+                                {
+                                    Response.Redirect("Surveys.aspx?val=BlockedIp");
+                                }
                             }
+                            catch (Exception ex)
+                            {
+                                Response.Redirect("Surveys.aspx?err="+ex.Message);
+                            }
+                            
                         }
                         dziela = new List<Dzieło>();
-                        dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                        try
+                        {
+                            dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                        }
+                        catch (Exception ex)
+                        {
+                            Response.Redirect("Surveys.aspx?err=" + ex.Message);
+                        }
+                       
                         ilDziel = dziela.Count();
                     }
                     else
@@ -47,16 +72,24 @@ namespace inzPJATKSNM.Views
                         if (Request.QueryString["Token"] != null)
                         {
                             token = Request.QueryString["Token"];
-                            if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
-                            {  
-                                dziela = new List<Dzieło>();
-                                dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
-                                ilDziel = dziela.Count();
-                            }
-                            else
+                            try
                             {
-                                Response.Redirect("Surveys.aspx?val=UsedToken");        
+                                if (inzPJATKSNM.Controllers.SurveyController.checkToken(token, id))
+                                {
+                                    dziela = new List<Dzieło>();
+                                    dziela = inzPJATKSNM.Controllers.SurveyController.getDziela(id);
+                                    ilDziel = dziela.Count();
+                                }
+                                else
+                                {
+                                    Response.Redirect("Surveys.aspx?val=UsedToken");
+                                }
                             }
+                            catch (Exception ex)
+                            {
+                                Response.Redirect("Surveys.aspx?err=" + ex.Message);
+                            }
+                           
                         }      
                         else
                         {
@@ -123,43 +156,54 @@ namespace inzPJATKSNM.Views
             idNarod = (int)ViewState["idNarod"];
             idPlec = (int)ViewState["idPlec"];
             idWiek = (int)ViewState["idWiek"];
-            inzPJATKSNM.Controllers.SurveyController.saveAll(ocenyDziel, id, "", idNarod, idWiek, idPlec);
-            if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+            try
             {
-                if (inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress() != null)
+                inzPJATKSNM.Controllers.SurveyController.saveAll(ocenyDziel, id, "", idNarod, idWiek, idPlec);
+                if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
                 {
-                    inzPJATKSNM.Controllers.SurveyController.saveIPAddress(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress(), id);
+                    if (inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress() != null)
+                    {
+                        inzPJATKSNM.Controllers.SurveyController.saveIPAddress(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress(), id);
+                    }
+                    else
+                    {
+                        inzPJATKSNM.Controllers.SurveyController.saveIPAddress("127.0.0.1", id);
+                    }
+
                 }
                 else
                 {
-                    inzPJATKSNM.Controllers.SurveyController.saveIPAddress("127.0.0.1", id);
+                    inzPJATKSNM.Controllers.SurveyController.changeTokenState(token, id);
                 }
-               
             }
-            else
+            catch (Exception ex)
             {
-                inzPJATKSNM.Controllers.SurveyController.changeTokenState(token, id);
+                Response.Redirect("Surveys.aspx?err="+ex.Message);
             }
-
+          
             Response.Redirect("Surveys.aspx");
            
-            
-            //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
         }
 
         protected void cancel_Click(object sender, EventArgs e)
         {
-           
-            //Otworz kurwa ten modal
+
         }
         protected void subscription_Click(object sender, EventArgs e)
         {
             idNarod = int.Parse(ViewState["idNarod"].ToString());
             idWiek = int.Parse(ViewState["idWiek"].ToString());
             idPlec = int.Parse(ViewState["idPlec"].ToString());
-
-            inzPJATKSNM.Controllers.SurveyController.saveGlosujacy(null, idNarod, idWiek, idPlec, id);
-            //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami - lub wypierdalaj stąd (zamykamy okno)
+            try
+            {
+                inzPJATKSNM.Controllers.SurveyController.saveGlosujacy(null, idNarod, idWiek, idPlec, id);
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("Surveys.aspx?err=" + ex.Message);
+            }
+            Response.Redirect("Surveys.aspx");
+            //Modal z podziekowaniami i po ok przeniesienie na strone ze wszystkimi trwajacymi ankietami
         }
     }
 }

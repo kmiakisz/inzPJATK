@@ -35,6 +35,10 @@ namespace inzPJATKSNM.Views
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
             }
+            if (Request.QueryString["err"] != null)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
+            }
         }
         public void LoadSurveysFromDb()
         {

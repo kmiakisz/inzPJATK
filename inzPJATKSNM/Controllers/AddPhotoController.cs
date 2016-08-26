@@ -22,70 +22,85 @@ namespace inzPJATKSNM.Controllers
             //tu trzeba pobrac z bazy danych najwieksze ID zdjecia (albo i nie )
             string pathToCheck = savePath + fileName;
             string tempfileName = "";
-            if (System.IO.File.Exists(pathToCheck))
+            string toDBPath = "";
+            try
             {
-                int counter = 2;
-                while (System.IO.File.Exists(pathToCheck))
+                if (System.IO.File.Exists(pathToCheck))
                 {
-                    // if a file with this name already exists,
-                    // prefix the filename with a number.
-                    tempfileName = counter.ToString() + fileName;
-                    pathToCheck = savePath + tempfileName;
-                    counter++;
+                    int counter = 2;
+                    while (System.IO.File.Exists(pathToCheck))
+                    {
+                        // if a file with this name already exists,
+                        // prefix the filename with a number.
+                        tempfileName = counter.ToString() + fileName;
+                        pathToCheck = savePath + tempfileName;
+                        counter++;
+                    }
+
+                    fileName = tempfileName;
+
+                    // Notify the user that the file name was changed.
+                    status = -1;
                 }
-
-                fileName = tempfileName;
-
-                // Notify the user that the file name was changed.
-                status = -1;
+                else
+                {
+                    // Notify the user that the file was saved successfully.
+                    status = 0;
+                }
+                savePath += fileName;
+                string startupPath = Path.GetDirectoryName(Path.GetDirectoryName(
+                System.IO.Path.GetDirectoryName(
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
+                startupPath += savePath;
+                string fullPath = startupPath;
+                toDBPath = "../Images/SurveyPhotos/" + fileName;
+                startupPath = startupPath.Remove(0, 6);
+                inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
+            }catch(Exception e){
+                throw new Exception("Dodanie zdjęcia się nie powiodło!");
             }
-            else
-            {
-                // Notify the user that the file was saved successfully.
-                status = 0;
-            }
-            savePath += fileName;
-            string startupPath = Path.GetDirectoryName(Path.GetDirectoryName(
-            System.IO.Path.GetDirectoryName(
-            System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
-            startupPath += savePath;
-            string fullPath = startupPath;
-            string toDBPath = "../Images/SurveyPhotos/" + fileName;
-            startupPath = startupPath.Remove(0, 6);
-            inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
+            
             return toDBPath;
         }
 
         public static void storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora)
         {
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand())
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                   cmd.CommandType = CommandType.StoredProcedure;
-                   cmd.CommandText = "insert_dzielo";
 
-                   cmd.Parameters.Add("@URL",SqlDbType.VarChar);
-                   cmd.Parameters["@URL"].Value = URL;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "insert_dzielo";
 
-                   cmd.Parameters.Add("@technika", SqlDbType.Int);
-                   cmd.Parameters["@technika"].Value = idTechnika;
+                        cmd.Parameters.Add("@URL", SqlDbType.VarChar);
+                        cmd.Parameters["@URL"].Value = URL;
 
-                   cmd.Parameters.Add("@kategoria", SqlDbType.Int);
-                   cmd.Parameters["@kategoria"].Value = idKategorii;
+                        cmd.Parameters.Add("@technika", SqlDbType.Int);
+                        cmd.Parameters["@technika"].Value = idTechnika;
 
-                   cmd.Parameters.Add("@autor", SqlDbType.Int);
-                   cmd.Parameters["@autor"].Value = idAutora;
+                        cmd.Parameters.Add("@kategoria", SqlDbType.Int);
+                        cmd.Parameters["@kategoria"].Value = idKategorii;
 
-                   cmd.ExecuteNonQuery();
-                   Sqlcon.Close();
-                   
+                        cmd.Parameters.Add("@autor", SqlDbType.Int);
+                        cmd.Parameters["@autor"].Value = idAutora;
+
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Zapis zdjęcia do bazy się nie powiódł!");
+            }
+
         }
     }
 }

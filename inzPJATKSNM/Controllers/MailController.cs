@@ -15,42 +15,58 @@ namespace inzPJATKSNM.Controllers
         {
             List<String> mailList = new List<String>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            try
             {
-                Sqlcon.Open();
-                string query = "SELECT Email FROM Glosujący where email is not null";
-                using (SqlCommand command = new SqlCommand(query, Sqlcon))
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    Sqlcon.Open();
+                    string query = "SELECT Email FROM Glosujący where email is not null";
+                    using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            mailList.Add(reader.GetString(0));
+                            while (reader.Read())
+                            {
+                                mailList.Add(reader.GetString(0));
+                            }
                         }
                     }
+                    Sqlcon.Close();
                 }
-                Sqlcon.Close();
             }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas pobierania maili");
+            }
+           
             return mailList;
         }
 
         public static int sendPublicMail(String subject,String body, List<String> listaMaili)
         {
-            int liczbaWyslanych = 0;          
-            MailMessage message = new MailMessage();
-            //string userToken = "test";
-            message.From = new MailAddress("ankietySNM@gmail.com");
-            foreach(String mail in listaMaili)
+            int liczbaWyslanych = 0;
+            try
             {
-                liczbaWyslanych++;
-                message.To.Add(new MailAddress(mail));
-            }
-            message.Subject = subject;
-            message.Body = body;
+                MailMessage message = new MailMessage();
+                //string userToken = "test";
+                message.From = new MailAddress("ankietySNM@gmail.com");
+                foreach (String mail in listaMaili)
+                {
+                    liczbaWyslanych++;
+                    message.To.Add(new MailAddress(mail));
+                }
+                message.Subject = subject;
+                message.Body = body;
 
-            SmtpClient client = new SmtpClient();
-            client.Send(message);
-            //client.SendAsync(message,userToken);
+                SmtpClient client = new SmtpClient();
+                client.Send(message);
+                //client.SendAsync(message,userToken);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas wysyłania maili do publicznej ankiety");
+            }
+          
             return liczbaWyslanych;          
         }
         public static int sendPrivateMail(String subject, String body, List<String> listaMaili,int ankietaId)
@@ -68,11 +84,27 @@ namespace inzPJATKSNM.Controllers
         public static void sendMessage(String subject, String body, String emailAddress,int ankietaId)
         {
             String token = generateToken();
-            body += "&Token=" + token;
-            MailMessage message = new MailMessage("ankietySNM@gmail.com",emailAddress,subject,body);
-            SmtpClient client = new SmtpClient();
-            client.Send(message);
-            inzPJATKSNM.Controllers.SurveyController.insertToken(token,ankietaId);
+            try
+            {
+                
+                body += "&Token=" + token;
+                MailMessage message = new MailMessage("ankietySNM@gmail.com", emailAddress, subject, body);
+                SmtpClient client = new SmtpClient();
+                client.Send(message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas wysyłania wiadomości - prywatna ankieta");
+            }
+            try
+            {
+                inzPJATKSNM.Controllers.SurveyController.insertToken(token, ankietaId);
+            }
+            catch (Exception u)
+            {
+                throw new Exception(u.Message);
+            }
+         
 
 
         }
