@@ -63,7 +63,7 @@ namespace inzPJATKSNM.Controllers
             return toDBPath;
         }
 
-        public static void storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora)
+        public static void storePhotoToDb(string URL, int idTechnika, int idKategorii, int idAutora, string tytul)
         {
             try
             {
@@ -89,6 +89,9 @@ namespace inzPJATKSNM.Controllers
 
                         cmd.Parameters.Add("@autor", SqlDbType.Int);
                         cmd.Parameters["@autor"].Value = idAutora;
+
+                        cmd.Parameters.Add("@tytuł", SqlDbType.VarChar);
+                        cmd.Parameters["@tytuł"].Value = tytul;
 
                         cmd.ExecuteNonQuery();
                         Sqlcon.Close();

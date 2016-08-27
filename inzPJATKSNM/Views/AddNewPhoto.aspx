@@ -7,6 +7,8 @@
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
 
     <asp:FileUpload ID="FileUpload1" runat="server" ClientIDMode="Static"  Height="24px" Width="258px" />
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Proszę wybrać zdjęcie!" ControlToValidate="FileUpload1" Font-Bold="true" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
+    <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Wybrano plik o złym rozszerzeniu!" ControlToValidate="FileUpload1" OnServerValidate="CustomValidator1_ServerValidate" Font-Bold="true" ForeColor="Red" Display="Dynamic"></asp:CustomValidator>
     <div id="dZUpload" class="dropzone">
         <div class="dz-default dz-message"></div>
     </div>
@@ -36,6 +38,10 @@
     <asp:Label ID="StatusLabel" runat="server" Text="" CssClass="label label-danger"></asp:Label>
 
         <div class="container">
+            <br />
+            <asp:Label ID="NazwaLabel" runat="server" Text="Nazwa" class="label label-danger"></asp:Label>
+            <asp:TextBox ID="NazwaTextBox" runat="server" class="form-control" Width="250px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Pole Nazwa jest wymagane!" ControlToValidate="NazwaTextBox" ForeColor="Red" Font-Bold="true" Display="Dynamic"></asp:RequiredFieldValidator>
             <br />
             <asp:Label ID="TechnikaLabel" runat="server" Text="Technika" class="label label-danger"></asp:Label>
             <asp:DropDownList ID="TechnikaDropDownList" class="form-control" Width="250px" runat="server" DataSourceID="SqlDataSource1" DataTextField="Technika" DataValueField="Id_Tech"></asp:DropDownList>

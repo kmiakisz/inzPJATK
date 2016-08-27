@@ -21,7 +21,9 @@ namespace inzPJATKSNM.Models
         }
         [Key]
         public int Id_Autora { get; set; }
+        [Required]
         public string Imie { get; set; }
+        [Required]
         public string Nazwisko { get; set; }
         public int Id_Narod { get; set; }
         public int Id_Plec { get; set; }

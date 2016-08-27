@@ -18,6 +18,8 @@
         }
         </script>
     <asp:FileUpload ID="MusicFileUpload" runat="server" />
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nie wybrano pliku z muzyką!" Display="Dynamic" Font-Bold="true" ForeColor="Red" ControlToValidate="MusicFileUpload"></asp:RequiredFieldValidator>
+    <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Wybrano plik o złym rozszerzeniu. Akceptowane formaty to .mp3 i .wav" ControlToValidate="MusicFileUpload" Font-Bold="true" ForeColor="Red" Display="Dynamic" OnServerValidate="CustomValidator1_ServerValidate" ></asp:CustomValidator>
     <br />
     <asp:Button ID="ZapiszButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="ZapiszButton_Click"/>
     <asp:Button ID="AnulujButton" runat="server" Text="Anuluj" class="btn btn-danger" OnClick="AnulujButton_Click"/>

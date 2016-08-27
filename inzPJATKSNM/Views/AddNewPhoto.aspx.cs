@@ -12,6 +12,7 @@ namespace inzPJATKSNM.Views
     {
         public static FileUpload fileupload2;
         String filePath = "";
+        String title = "";
         int technikaId,kategoriaId,autorId;
         String errorMessage = "";
         
@@ -21,7 +22,7 @@ namespace inzPJATKSNM.Views
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
             }
-         
+            
         }
 
         public void UploadButton_Click(object sender, EventArgs e)
@@ -40,25 +41,45 @@ namespace inzPJATKSNM.Views
                     errorMessage = ex.Message;
                     Response.Redirect("ShowSurveys.aspx"+"?err="+errorMessage);
                 }
-
-                technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
-                kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
-                autorId = int.Parse(AutorDropDownList.SelectedValue);
-                try
-                {
-                    inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
-                }
-                catch (Exception ex)
-                {
-                    errorMessage = ex.Message;
+                    
+            technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
+            kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
+            autorId = int.Parse(AutorDropDownList.SelectedValue);
+            title = NazwaTextBox.Text.ToString();
+            
+            try
+            {
+                inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
+                Response.Redirect("ShowSurveys.aspx");
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
                     Response.Redirect("ShowSurveys.aspx" + "?err=" + errorMessage);
                 }
             }else{
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
                 Response.Redirect("AddNewPhoto.aspx" + "?err=" + "Nie udało się dodać zdjęcia! Spróbuj jeszcze raz!");
             }
-            
         
+        
+        }
+       
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int dotIdx = args.Value.IndexOf('.');
+            int len = args.Value.Length;
+            string str = args.Value.ToString();
+            string extension = str.Substring(dotIdx+1,len-dotIdx-1);
+
+            if (extension.Equals("jpg") || extension.Equals("jpeg") || extension.Equals("png") || extension.Equals("bmp") || extension.Equals("psd"))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
         }
        
 
