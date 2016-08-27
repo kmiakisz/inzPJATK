@@ -32,13 +32,6 @@
             });
         });
     </script>
-     <form id="frmMain" runat="server" class="dropzone">
-            <div>
-                <div class="fallback">
-                    <input name="file" type="file" multiple />
-                </div>
-            </div>
-        </form>
     <br />
     <asp:Label ID="StatusLabel" runat="server" Text="" CssClass="label label-danger"></asp:Label>
 

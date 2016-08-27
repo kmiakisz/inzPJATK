@@ -49,24 +49,6 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.TextBox ServeyDescribtionTextBox;
         
         /// <summary>
-        /// MusicLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MusicLabel;
-        
-        /// <summary>
-        /// MusicDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MusicDropDownList;
-        
-        /// <summary>
         /// TypeDropDownList control.
         /// </summary>
         /// <remarks>
@@ -74,15 +56,6 @@ namespace inzPJATKSNM.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList TypeDropDownList;
-        
-        /// <summary>
-        /// MusicDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource MusicDataSource;
         
         /// <summary>
         /// AcceptButton control.

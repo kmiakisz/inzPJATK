@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Views
 {
     public partial class NewSurvey : System.Web.UI.Page
     {
+        private List<String> surveyPhotos = new List<string>();
         private List<String> photoFromDB;
         private static List<String> photoToSurvey = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
@@ -18,7 +19,10 @@ namespace inzPJATKSNM.Views
             loadPhotosFromDB();
             
         }
-        
+        public List<String> getSurveyPhotos()
+        {
+            return surveyPhotos;
+        }
         public void loadPhotosFromDB()
         {
             try
@@ -54,13 +58,13 @@ namespace inzPJATKSNM.Views
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
           List<String> tempList = photoToSurvey;
-          int musicId = int.Parse(MusicDropDownList.SelectedValue);
+          int music_id = 0;
           String nazwa = SurveyNameTextBox.Text;
           String opis = ServeyDescribtionTextBox.Text;
           String typ = TypeDropDownList.SelectedValue;
           try
           {
-              inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList, musicId, nazwa, opis, typ);
+              inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(tempList,music_id, nazwa, opis, typ);
           }
           catch (Exception ex)
           {

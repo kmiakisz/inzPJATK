@@ -64,16 +64,10 @@
             <asp:TextBox ID="SurveyNameTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
-            <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
-            <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MusicDataSource" DataTextField="Tytul" DataValueField="Id_Muzyka">
-                <asp:ListItem Text="--Wybierz--" Value="0" Enabled="true">dfg</asp:ListItem>
-            </asp:DropDownList>
             <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%">
                 <asp:ListItem Text="PUBLICZNA" Value="PUBLIC" Enabled="true">PUBLICZNA</asp:ListItem>
                 <asp:ListItem Text="PRYWATNA" Value="PRIVATE" Enabled="true">PRYWATNA</asp:ListItem>
             </asp:DropDownList>
-
-            <asp:SqlDataSource ID="MusicDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <br />
             <br />
             <div id="Buttons" style="float: left; width: 56%">
@@ -88,9 +82,8 @@
             <ul id="lightSlider">
                 <% 
                     int x = 0;
-                    foreach (String s in GetList())
+                    foreach (String s in getSurveyPhotos())
                     {
-
                         Response.Write("<li data-thumb=" + s + ">"
                             + " <div class=\"show-image\" id=" + x + ">"
                             + " <img src=" + s + " />"
@@ -99,14 +92,16 @@
                             + "</li>  ");
 
                         x++;
-
                     }
                 %>
             </ul>
-
-
-
         </div>
-
+        <br />
+        <%
+            foreach(String s in GetList()){
+                Response.Write("<a href=\"" + s + ">"
+                    + "<IMG HEIGHT=50 WIDTH=50 SRC=\"" + s + "\"></A>");
+            }
+             %>
     </div>
 </asp:Content>
