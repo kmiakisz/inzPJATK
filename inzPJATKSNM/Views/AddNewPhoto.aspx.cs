@@ -12,6 +12,7 @@ namespace inzPJATKSNM.Views
     {
         public static FileUpload fileupload2;
         String filePath = "";
+        String title = "";
         int technikaId,kategoriaId,autorId;
         String errorMessage = "";
         
@@ -45,9 +46,12 @@ namespace inzPJATKSNM.Views
             technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
             kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
             autorId = int.Parse(AutorDropDownList.SelectedValue);
+            title = NazwaTextBox.Text.ToString();
+            
             try
             {
-                inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId);
+                inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
+                Response.Redirect("ShowSurveys.aspx");
             }
             catch (Exception ex)
             {
@@ -55,6 +59,23 @@ namespace inzPJATKSNM.Views
                 Response.Redirect("ShowSurveys.aspx" + "?val=" + errorMessage);
             }
         
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int dotIdx = args.Value.IndexOf('.');
+            int len = args.Value.Length;
+            string str = args.Value.ToString();
+            string extension = str.Substring(dotIdx+1,len-dotIdx-1);
+
+            if (extension.Equals("jpg") || extension.Equals("jpeg") || extension.Equals("png") || extension.Equals("bmp") || extension.Equals("psd"))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
         }
        
 

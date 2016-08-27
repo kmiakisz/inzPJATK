@@ -38,6 +38,23 @@ namespace inzPJATKSNM.Views
             }
         }
 
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int dotIdx = args.Value.IndexOf('.');
+            int len = args.Value.Length;
+            string str = args.Value.ToString();
+            string extension = str.Substring(dotIdx, len - dotIdx);
+
+            if (extension.Equals("mp3") || extension.Equals("wav"))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
+
      
     }
 }
