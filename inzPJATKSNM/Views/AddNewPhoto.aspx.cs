@@ -50,7 +50,7 @@ namespace inzPJATKSNM.Views
             try
             {
                 inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
-                Response.Redirect("ShowSurveys.aspx");
+              
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace inzPJATKSNM.Views
                 StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
                 Response.Redirect("AddNewPhoto.aspx" + "?err=" + "Nie udało się dodać zdjęcia! Spróbuj jeszcze raz!");
             }
-        
+            Response.Redirect("ShowSurveys.aspx");
         
         }
        

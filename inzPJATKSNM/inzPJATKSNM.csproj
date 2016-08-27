@@ -195,6 +195,7 @@
     <Content Include="Content\modal.css" />
     <Content Include="Content\pagestyle.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Thumnails.css" />
     <Content Include="DynamicData\FieldTemplates\Boolean.ascx" />
     <Content Include="DynamicData\FieldTemplates\Boolean_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Children.ascx" />
@@ -669,6 +670,7 @@
     <Compile Include="Views\AddNewPhoto.aspx.designer.cs">
       <DependentUpon>AddNewPhoto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dictionary.cs" />
     <Compile Include="Views\EditExistingSurvey.aspx.cs">
       <DependentUpon>EditExistingSurvey.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
