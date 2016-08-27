@@ -18,8 +18,11 @@ namespace inzPJATKSNM.Views
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["err"] != null)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
+            }
             
-         
         }
 
         public void UploadButton_Click(object sender, EventArgs e)
@@ -36,13 +39,9 @@ namespace inzPJATKSNM.Views
                 catch (Exception ex)
                 {
                     errorMessage = ex.Message;
-                    Response.Redirect("ShowSurveys.aspx"+"?val="+errorMessage);
+                    Response.Redirect("ShowSurveys.aspx"+"?err="+errorMessage);
                 }
                     
-                
-            }else{
-                StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
-            }
             technikaId = int.Parse(TechnikaDropDownList.SelectedValue);
             kategoriaId = int.Parse(KategoriaDropDownList.SelectedValue);
             autorId = int.Parse(AutorDropDownList.SelectedValue);
@@ -56,11 +55,16 @@ namespace inzPJATKSNM.Views
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
-                Response.Redirect("ShowSurveys.aspx" + "?val=" + errorMessage);
+                    Response.Redirect("ShowSurveys.aspx" + "?err=" + errorMessage);
+                }
+            }else{
+                StatusLabel.Text="Nie wybrano żadnego pliku!!! .....";
+                Response.Redirect("AddNewPhoto.aspx" + "?err=" + "Nie udało się dodać zdjęcia! Spróbuj jeszcze raz!");
             }
         
+        
         }
-
+       
         protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
         {
             int dotIdx = args.Value.IndexOf('.');

@@ -12,7 +12,11 @@
     <div id="dZUpload" class="dropzone">
         <div class="dz-default dz-message"></div>
     </div>
-   
+    <script type="text/javascript">
+        function failOpenModal() {
+            $('#failModal').modal('show');
+        }
+    </script>
     <script>
         $(document).ready(function () {
             Dropzone.autoDiscover = false;
@@ -30,6 +34,13 @@
             });
         });
     </script>
+     <form id="frmMain" runat="server" class="dropzone">
+            <div>
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </div>
+        </form>
     <br />
     <asp:Label ID="StatusLabel" runat="server" Text="" CssClass="label label-danger"></asp:Label>
 
@@ -64,4 +75,27 @@
             <br />
             <asp:Button ID="UploadButton" runat="server" Text="Zapisz" class="btn btn-danger" OnClick="UploadButton_Click" />
         </div>
+     <div id="failModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Wystąpił błąd</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            Response.Write("<p>"+Request.QueryString["err"]+"</p>");
+                             %>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
 </asp:Content>
