@@ -186,6 +186,12 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="App_Data\aspnet-inzPJATKSNM-20151017063417.mdf" />
     <Content Include="App_Data\aspnet-inzPJATKSNM-20151017063417_log.ldf" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Demo.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fullscreenstyle.css" />
@@ -213,6 +219,7 @@
     <Content Include="DynamicData\FieldTemplates\Text_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Url.ascx" />
     <Content Include="DynamicData\FieldTemplates\Url_Edit.ascx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\Icons\controls.png" />
     <Content Include="Images\Icons\minus.png" />
     <Content Include="Images\Icons\plus.png" />
@@ -325,6 +332,8 @@
     <Content Include="Content\metro-bootstrap\checkbox.less" />
     <Content Include="Content\metro-bootstrap\alerts.less" />
     <Content Include="Controllers\hn_FileUpload.ashx" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CustomValidate.js" />
@@ -339,6 +348,18 @@
     <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -355,6 +376,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\lightslider.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
@@ -393,6 +418,7 @@
     <Content Include="Views\SendMailForm.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Views\StartPage.aspx" />
+    <Content Include="Views\Statistics.aspx" />
     <Content Include="Views\Surveys.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -485,6 +511,8 @@
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\NewSurveyController.cs" />
     <Compile Include="Controllers\ShowSurveysController.cs" />
+    <Compile Include="Controllers\Statistic.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
       <DependentUpon>Boolean.ascx</DependentUpon>
@@ -807,6 +835,13 @@
     </Compile>
     <Compile Include="Views\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics.aspx.cs">
+      <DependentUpon>Statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Statistics.aspx.designer.cs">
+      <DependentUpon>Statistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Surveys.aspx.cs">
       <DependentUpon>Surveys.aspx</DependentUpon>

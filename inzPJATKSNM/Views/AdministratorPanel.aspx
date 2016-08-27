@@ -40,9 +40,7 @@
             </div>
             <div class="col-sm-1 col-md-2">
                 <div class="thumbnail tile tile-medium tile-green">
-                    <a href="#">
-                        <h4 class="tile-text">Statystyki</h4>
-                    </a>
+                    <a href="Statistics.aspx" style="color:transparent">Statistics.aspx<h4>Statystyki</h4></a>
                 </div>
             </div>
 

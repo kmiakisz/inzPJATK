@@ -42,13 +42,18 @@ namespace inzPJATKSNM.Controllers
         public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis,String typ)
         {
             List<int> imageIdList = new List<int>();
-
+            int i = imageIdList.Count();
             int ankietaId=0;
             try
             {
                 foreach (string url in imagesSurveyToDB)
                 {
                     imageIdList.Add(getPhotoId(url));
+                    i++;
+                    if(i > 10)
+                    {
+                        throw new Exception("Limit zdjęć w ankiecie został przekroczony!");
+                    }
                 }
                 //Tu wywolanie procedury dodajacej ankiete
                 saveSurveyToDB(musicID, nazwa, opis, typ);

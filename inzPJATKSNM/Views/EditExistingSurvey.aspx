@@ -6,6 +6,13 @@
     <script src="../Scripts/jquery-2.1.4.js"></script>
     <script src="../Scripts/lightslider.js"></script>
     <script src="../Scripts/datapicker.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/jquery-3.1.0.js"></script>
+    <script src="../Scripts/bootstrap-datetimepicker.js"></script>
+    <script src="../Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="../Scripts/moment.js"></script>
+    <script src="../Scripts/moment.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -41,36 +48,36 @@
                     }
                 });
             });
-           // $(".update").dblclick(function (event) {
-           //     $("#" + event.target.id).css("background-color", "transparent");
-           // });
+            // $(".update").dblclick(function (event) {
+            //     $("#" + event.target.id).css("background-color", "transparent");
+            // });
 
         });
 
     </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                $('#lightSlider2').lightSlider({
-                    gallery: true,
-                    item: 1,
-                    loop: true,
-                    slideMargin: 0,
-                    thumbItem: 9
-                });
-                $(".update").click(function (event) {
+            $('#lightSlider2').lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                slideMargin: 0,
+                thumbItem: 9
+            });
+            $(".update").click(function (event) {
 
-                    debugger;
-                    $("#" + event.target.id).css("background-color", "transparent");
-                    //if($("#"+event.target.id).data('clicked')){
-                    //  $(".show-image").click(function(event) {
-                    //       $("#"+event.target.id).css("border-color","green");
-                    // });
+                debugger;
+                $("#" + event.target.id).css("background-color", "transparent");
+                //if($("#"+event.target.id).data('clicked')){
+                //  $(".show-image").click(function(event) {
+                //       $("#"+event.target.id).css("border-color","green");
+                // });
 
-                    //  }
-                    var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
-                    $.ajax({
-                        url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
+                //  }
+                var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+                $.ajax({
+                    url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
                     method: 'post',
                     contentType: 'application/json',
                     data: '{"url":' + link + ' }',
@@ -83,9 +90,9 @@
                     }
                 });
             });
-           // $(".update").dblclick(function (event) {
+            // $(".update").dblclick(function (event) {
             //    $("#" + event.target.id).css("background-color", "transparent");
-           // });
+            // });
 
         });
 
@@ -99,7 +106,7 @@
             });
 
         });
-        </script>
+    </script>
 
     <script runat="server">
         protected List<String> GetList()
@@ -109,30 +116,30 @@
             return photoFromDB;
         }
     </script>
-      <script runat="server">
-        protected void removeFromSurvey(int id,string url)
+    <script runat="server">
+        protected void removeFromSurvey(int id, string url)
         {
             usedPhotos.Remove(id);
             freePhotos.Add(id, url);
         }
     </script>
-      <script runat="server">
-        protected void addToSurvey(int id,string url)
+    <script runat="server">
+        protected void addToSurvey(int id, string url)
         {
             freePhotos.Remove(id);
-            usedPhotos.Add(id, url);   
+            usedPhotos.Add(id, url);
         }
     </script>
     <script runat="server">
-        protected Dictionary<Int32,String> GetFreePhotos()
+        protected Dictionary<Int32, String> GetFreePhotos()
         {
             Dictionary<Int32, String> freePhotosFromDB;
             freePhotosFromDB = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
             return freePhotosFromDB;
         }
     </script>
-        <script runat="server">
-        protected Dictionary<Int32,String> GetUsedPhotos()
+    <script runat="server">
+        protected Dictionary<Int32, String> GetUsedPhotos()
         {
             int surveyId = int.Parse(Request.QueryString["Id"]);
             Dictionary<Int32, String> usedPhotosFromDB;
@@ -145,18 +152,39 @@
         <h3><span class="label label-danger">Edycja Ankiety</span></h3>
         <div id="left" style="float: left; width: 30%">
             <asp:Label ID="SurveyNameLabel" runat="server" Text="Nazwa Ankiety" class="label label-danger"></asp:Label>
-            <asp:TextBox ID="SurveyNameTextBox1" runat="server" Text="" CssClass="form-control" ></asp:TextBox>
+            <asp:TextBox ID="SurveyNameTextBox1" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox1" Display="Dynamic" Font-Bold="true" ForeColor="Red"></asp:RequiredFieldValidator>
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox1" runat="server" class="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Opis ankiety nie może być pusty!" ControlToValidate="ServeyDescribtionTextBox1" ForeColor="Red" Display="Dynamic" Font-Bold="true"></asp:RequiredFieldValidator>
             <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
             <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MuzykaSDS" DataTextField="Tytul" DataValueField="Id_Muzyka">
-                <asp:ListItem Text="--Wybierz--" Value="" Enabled="true">dfg</asp:ListItem> 
+                <asp:ListItem Text="--Wybierz--" Value="" Enabled="true">dfg</asp:ListItem>
             </asp:DropDownList>
-               <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="SqlDataSource1" DataTextField="Typ" DataValueField="Typ"></asp:DropDownList>
+            <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="SqlDataSource1" DataTextField="Typ" DataValueField="Typ"></asp:DropDownList>
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Typ] FROM [Ankieta]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="MuzykaSDS" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Wybierz date zakonczenia: " CssClass="label label-danger"></asp:Label>
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker();
+                        });
+                    </script>
+                </div>
+            </div>
             <input type="text" placeholder="click to show datepicker" id="example1" class="form-control" runat="server">
             <br />
             <asp:Label ID="Data_zakLAb" runat="server" Text=""></asp:Label>
@@ -167,14 +195,14 @@
                 <asp:ListItem Value="1">Aktywna</asp:ListItem>
                 <asp:ListItem Value="0">Nieaktywna</asp:ListItem>
             </asp:DropDownList>
-           
+
             <br />
             <br />
             <div id="Buttons" style="float: left; width: 56%">
                 <asp:Button ID="AcceptButton" runat="server" Text="Zapisz" class="btn btn-success" Style="float: left" OnClick="AcceptButton_Click" />
                 <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
             </div>
-            
+
         </div>
         <div id="right" style="float: right; width: 40%">
             <div class="demo">
@@ -199,8 +227,8 @@
                 </ul>
             </div>
             <div id="buttons" align="center">
-                <asp:Button ID="Add_Button" runat="server" Text="Dodaj ↓ " CssClass="btn btn-success" OnClick="Add_Button_Click"/>
-                <asp:Button ID="Del_Button" runat="server" Text="Usuń ↑ " CssClass="btn btn-danger" OnClick="Del_Button_Click"/>
+                <asp:Button ID="Add_Button" runat="server" Text="Dodaj ↓ " CssClass="btn btn-success" OnClick="Add_Button_Click" />
+                <asp:Button ID="Del_Button" runat="server" Text="Usuń ↑ " CssClass="btn btn-danger" OnClick="Del_Button_Click" />
             </div>
             <div class="demo">
                 <ul id="lightSlider2">
@@ -216,7 +244,7 @@
                                 + " </div>"
                                 + "</li>  ");
 
-                                x_1++;
+                            x_1++;
 
                         }
                     %>
