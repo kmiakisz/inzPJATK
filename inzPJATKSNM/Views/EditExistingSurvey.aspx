@@ -105,8 +105,8 @@
         protected List<String> GetList()
         {
             List<String> photoFromDB;
-            photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
-            return photoFromDB;
+           // photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
+            return new List<String>();
         }
     </script>
       <script runat="server">

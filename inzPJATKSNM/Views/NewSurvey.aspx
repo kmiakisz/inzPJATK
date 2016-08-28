@@ -13,7 +13,6 @@
             $(".addPhoto").click(function (event) {
 
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
-                alert(link);
                 $.ajax({
                     url: '<%= ResolveUrl("NewSurvey.aspx/addPhoto") %>',
                            method: 'post',
@@ -21,6 +20,7 @@
                            data: '{"url":' + link + ' }',
                            dataType: 'json',
                            success: function () {
+                              
                            },
                            error: function (er) {
                                Alert("Zdarzył się potworny błąd!!!")
@@ -44,6 +44,7 @@
                         data: '{"url":' + link + ' }',
                         dataType: 'json',
                         success: function () {
+                            location.reload();
                         },
                         error: function (er) {
                             Alert("Zdarzył się potworny błąd!!!")
@@ -85,7 +86,7 @@
            %>
             <ul id="lightSlider">
                 <% 
-                    foreach (inzPJATKSNM.Models.Dzieło dzielo in getSurveyPhotos().Values)
+                    foreach (inzPJATKSNM.Models.Dzieło dzielo in  getSurveyPhotos())
                     {
                         Response.Write("<li data-thumb=" + dzielo.URL + ">"
                             + " <div class=\"show-image\" id=" + dzielo.Id_dzieło + ">"
@@ -98,11 +99,30 @@
                 %>
             </ul>
             <br />
+            
                <div >
-           <% 
-               Response.Write("<h3>Dostępne zdjęcia</h3>");
+               
+               <h3>Dostępne zdjęcia</h3>
+                       <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="KategorieDataSource" DataTextField="Kategoria" DataValueField="Id_Kat" OnTextChanged="kategoriaChanged" AutoPostBack="True" 
+                    onselectedindexchanged="kategoriaChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="KategorieDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Kat], [Kategoria] FROM [Kategoria]"></asp:SqlDataSource>
+                   &nbsp<asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="TechnikaDataSource" DataTextField="Technika" DataValueField="Id_Tech" AutoPostBack="True" 
+                    onselectedindexchanged="technikaChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="TechnikaDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Tech], [Technika] FROM [Technika]"></asp:SqlDataSource>
+                   &nbsp<asp:DropDownList ID="DropDownList3" runat="server" DataSourceID="AutorDataSource" DataTextField="Nazwisko" DataValueField="Id_Autora" AutoPostBack="True" 
+                    onselectedindexchanged="autorChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="AutorDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Autora], [Nazwisko] FROM [Autor]"></asp:SqlDataSource>
+          <br />
+                    <% 
                Response.Write("<div class = \"row\">");
-               foreach (inzPJATKSNM.Models.Dzieło dzielo in getPhotoFromDB().Values)
+              
+               foreach (inzPJATKSNM.Models.Dzieło dzielo in getFilteredPhoto())
                {
                 Response.Write("<div class=\"col-sm-6 col-md-3\">");
                 Response.Write("<div class=\"thumbnail\" width=100 height=100>");
