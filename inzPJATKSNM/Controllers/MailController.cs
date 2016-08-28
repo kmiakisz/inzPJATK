@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
@@ -11,7 +12,7 @@ namespace inzPJATKSNM.Controllers
     public class MailController
     {
         static bool isSend = false;
-        public static  List<String> getMailList()
+        public static List<String> getMailList()
         {
             List<String> mailList = new List<String>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
@@ -38,11 +39,10 @@ namespace inzPJATKSNM.Controllers
             {
                 throw new Exception("Błąd podczas pobierania maili");
             }
-           
+
             return mailList;
         }
-
-        public static int sendPublicMail(String subject,String body, List<String> listaMaili)
+        public static int sendPublicMail(String subject, String body, List<String> listaMaili)
         {
             int liczbaWyslanych = 0;
             try
@@ -66,27 +66,27 @@ namespace inzPJATKSNM.Controllers
             {
                 throw new Exception("Błąd podczas wysyłania maili do publicznej ankiety");
             }
-          
-            return liczbaWyslanych;          
+
+            return liczbaWyslanych;
         }
-        public static int sendPrivateMail(String subject, String body, List<String> listaMaili,int ankietaId)
+        public static int sendPrivateMail(String subject, String body, List<String> listaMaili, int ankietaId)
         {
             int liczbaWyslanych = 0;
             //string userToken = "test"; 
             foreach (String mail in listaMaili)
-            {             
+            {
                 liczbaWyslanych++;
-                sendMessage(subject, body, mail,ankietaId);         
-            }         
+                sendMessage(subject, body, mail, ankietaId);
+            }
             //client.SendAsync(message,userToken);
             return liczbaWyslanych;
         }
-        public static void sendMessage(String subject, String body, String emailAddress,int ankietaId)
+        public static void sendMessage(String subject, String body, String emailAddress, int ankietaId)
         {
             String token = generateToken();
             try
             {
-                
+
                 body += "&Token=" + token;
                 MailMessage message = new MailMessage("ankietySNM@gmail.com", emailAddress, subject, body);
                 SmtpClient client = new SmtpClient();
@@ -104,7 +104,7 @@ namespace inzPJATKSNM.Controllers
             {
                 throw new Exception(u.Message);
             }
-         
+
 
 
         }
@@ -112,6 +112,6 @@ namespace inzPJATKSNM.Controllers
         {
             return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         }
-        
+
     }
 }

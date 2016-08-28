@@ -1,30 +1,28 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SendMailForm.aspx.cs" Inherits="inzPJATKSNM.Views.SendMailForm" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   
-   
     <div class="row" runat="server" id="row">
         <div class="col-lg-6">
-            <table ID="tab2"  class="table table-striped"> 
+            <table id="tab2" class="table table-striped">
                 <%
                     int ID = 0;
                     foreach (String mail in inzPJATKSNM.Controllers.MailController.getMailList())
                     {
-                    Response.Write(
-                         "<asp:TableRow>"
-                        + "<asp:TableCell>"
-                        + "<asp:CheckBox ID=\"mailCheckBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" />"
-                        + "</asp:TableCell"
-                        + "<asp:TableCell>"
-                        + "<asp:TextBox ID=\"mailTextBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" Text=\"" + mail + "\"" + " />"
-                        + "</asp:TableCell>"
-                        + "</asp:TableRow>"
-                        );
-                    ID++;
+                        Response.Write(
+                             "<asp:TableRow>"
+                            + "<asp:TableCell>"
+                            + "<asp:CheckBox ID=\"mailCheckBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" />"
+                            + "</asp:TableCell"
+                            + "<asp:TableCell>"
+                            + "<asp:TextBox ID=\"mailTextBox" + ID + "\"" + " runat=\"server\" CssClass=\"form-control\" Text=\"" + mail + "\"" + " />"
+                            + "</asp:TableCell>"
+                            + "</asp:TableRow>"
+                            );
+                        ID++;
                     }
                 %>
             </table>
-            
+
         </div>
     </div>
 
@@ -46,14 +44,47 @@
                 <textarea class="form-control" rows="5" id="body" runat="server"></textarea>
             </div>
             <div id="popupfoot">
-                <a href="#" class="close agree">Anuluj</a>
-                <asp:Button ID="Accept" class="btn btn-success" runat="server" Text="Akceptuj" OnClick="Accept_Click" OnClientClick="closeModal();" />
+                <a href="HomePage.aspx" class="close agree">Anuluj</a>
+                <asp:Button ID="Accept" class="btn btn-success" runat="server" Text="Akceptuj" OnClientClick="closeModal();" />
+                <%-- OnClick="Accept_Click" --%>
             </div>
+
         </div>
         <div id="mask"></div>
     </div>
+    <div id="horizon">
+        <br />
+        <div id="content" class="container-fluid">
+            <div>
+                <asp:CheckBox ID="AllMailList" runat="server" OnCheckedChanged="AllMailList_CheckedChanged" />
+                <asp:Label ID="Label1" runat="server" Text="Listy Grup Studentów" CssClass="label label-danger"></asp:Label>
+                <div id="mailgroup">
+                    <asp:ListBox ID="AllMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource1" DataTextField="Grupa" DataValueField="Grupa" OnDataBound="AllMailListLst_DataBound" OnSelectedIndexChanged="AllMailListLst_SelectedIndexChanged" SelectionMode="Multiple"></asp:ListBox>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Grupa] FROM [Grupa_Mail]"></asp:SqlDataSource>
+                </div>
+            </div>
+            <div>
+                <asp:CheckBox ID="SubsMailList" runat="server" />
+                <asp:Label ID="Label2" runat="server" Text="Lista Subskrybentów" CssClass="label label-danger"></asp:Label>
+                <div id="subsMail">
+                    <asp:ListBox ID="SubsMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource2" DataTextField="Email" DataValueField="Email" OnSelectedIndexChanged="SubsMailListLst_SelectedIndexChanged" SelectionMode="Multiple"></asp:ListBox>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT Email FROM Glosujący WHERE Email IS NOT NULL;"></asp:SqlDataSource>
+                </div>
+            </div>
+            <div>
+                <asp:CheckBox ID="CustomMail" runat="server" />
+                <asp:Label ID="Label3" runat="server" Text="Własny Mail -> (maile wpisujemy odzielając je znakiem średnika - ';')" CssClass="label label-danger"></asp:Label>
+                <div id="customMail">
+                    <asp:TextBox ID="CustomMailTxt" runat="server" CssClass="form-control" OnTextChanged="CustomMailTxt_TextChanged" Style="width: 400px"></asp:TextBox>
+                </div>
+            </div>
+        </div> 
+        <div id="button">
+            <asp:Button ID="SendMailButton" runat="server" Text="Wyślij" CssClass="btn btn-success" OnClick="SendMailButton_Click" />
+        </div>
+    </div>
 
-    
+
     <script>
         $('.window .btn btn-success').click(function (e) {
             //Cancel the link behavior

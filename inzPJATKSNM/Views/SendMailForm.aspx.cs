@@ -11,6 +11,9 @@ namespace inzPJATKSNM.Views
     public partial class SendMailForm : System.Web.UI.Page
     {
         public int id;
+        public List<String> lstitems;
+        public List<String> lstitems2;
+        public List<String> lstitems3;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["Id"] != null)
@@ -20,7 +23,11 @@ namespace inzPJATKSNM.Views
                 {
                     body.Value += " Ankieta pod adresem: http://localhost:11222/Views/StartPage.aspx?Id=" + id;
                 }
-               
+                if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+                {
+                    CustomMail.Visible = false;
+                    CustomMailTxt.Visible = false;
+                }
             }
             else
             {
@@ -30,7 +37,7 @@ namespace inzPJATKSNM.Views
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         public List<String> getMail()
@@ -44,31 +51,137 @@ namespace inzPJATKSNM.Views
             {
                 Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
             }
-            
+
             return userMailList;
 
         }
-
         protected void Accept_Click(object sender, EventArgs e)
         {
             int il = 0;
-            try{
-            if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+            try
             {
-                il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, getMail());
-            }
-            else
-            {
-                il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail(),id);
-            }
+                if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+                {
+                    il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, getMail());
+                }
+                else
+                {
+                    il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, getMail(), id);
+                }
             }
             catch (Exception ex)
             {
                 Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
             }
-            
-            
+
+
             Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
+        }
+
+        protected void AllMailListLst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstitems = new List<String>();
+            for (int i = 0; i < AllMailListLst.Items.Count; i++)
+            {
+                if (AllMailListLst.Items[i].Selected)
+                    lstitems.Add(AllMailListLst.Items[i].Value);
+            }
+        }
+
+        protected void AllMailListLst_DataBound(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SendMailButton_Click(object sender, EventArgs e)
+        {
+            int il = 0;
+            if (CustomMail.Checked)
+            {
+                try
+                {
+                    if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, lstitems3);
+                    }
+                    else
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, lstitems3, id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
+                }
+            }
+            if (SubsMailList.Checked)
+            {
+                try
+                {
+                    if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, lstitems2);
+                    }
+                    else
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, lstitems2, id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
+                }
+            }
+            if (AllMailList.Checked)
+            {
+                try
+                {
+                    if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPublicMail(subject.Value, body.Value, lstitems);
+                    }
+                    else
+                    {
+                        il = inzPJATKSNM.Controllers.MailController.sendPrivateMail(subject.Value, body.Value, lstitems, id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Redirect("/Views/ShowSurveys.aspx?err=" + ex.Message);
+                }
+            }
+            if (!CustomMail.Checked && !SubsMailList.Checked && !AllMailList.Checked)
+            {
+                //blad ze nie zaznaczono checkboxa
+            }
+            Response.Redirect("/Views/ShowSurveys.aspx?val=" + il);
+        }
+
+        protected void SubsMailListLst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstitems2 = new List<String>();
+            for (int i = 0; i < SubsMailListLst.Items.Count; i++)
+            {
+                if (SubsMailListLst.Items[i].Selected)
+                    lstitems2.Add(SubsMailListLst.Items[i].Value);
+            }
+
+        }
+
+        protected void AllMailList_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        protected void CustomMailTxt_TextChanged(object sender, EventArgs e)
+        {
+            lstitems3 = new List<String>();
+            string str = CustomMailTxt.Text;
+            String[] splitted = str.Split(';');
+
+            foreach (String s in splitted)
+            {
+                lstitems3.Add(s);
+            }
         }
     }
 }
