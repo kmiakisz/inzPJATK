@@ -3,7 +3,6 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery-3.1.0.js"></script>
         <div id="autorDiv">
             <div id="NameControls">

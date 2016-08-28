@@ -27,12 +27,12 @@ namespace inzPJATKSNM.Views
             }
             // Stop Caching in IE
             Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-
+           
             // Stop Caching in Firefox
             Response.Cache.SetNoStore();
             if (!IsPostBack)
             {
-                loadPhotosFromDB();  
+                loadPhotosFromDB();      
                 filteredList = getPhotoFromDB();
             }
             
@@ -85,7 +85,7 @@ namespace inzPJATKSNM.Views
         {
             List<Dzieło> dzielaDostp = new List<Dzieło>();
             foreach (Dzieło dzielo in photoFromDB.Values)
-            {
+        {
                 dzielaDostp.Add(dzielo);
             }
           
@@ -104,7 +104,7 @@ namespace inzPJATKSNM.Views
         {
             List<Dzieło> dzielaWankiecie = new List<Dzieło>();
             foreach (Dzieło dzielo in surveyPhotos.Values)
-            {
+        {
                 dzielaWankiecie.Add(dzielo);
             }
 
@@ -135,9 +135,9 @@ namespace inzPJATKSNM.Views
             surveyPhotos.Add(url,photoFromDB[url]);
             filteredList.Remove(photoFromDB[url]);
             photoFromDB.Remove(url);
-           
+            
         }
-      
+
         [WebMethod]
         public static void removePhotoFromSurvey(String url)
         {

@@ -13,3 +13,6 @@
 /// <reference path="jquery-2.1.4.js" />
 /// <reference path="jquery-3.1.0.slim.js" />
 /// <reference path="jquery-3.1.0.js" />
+/// <reference path="moment-with-locales.js" />
+/// <reference path="moment.js" />
+/// <reference path="bootstrap-datetimepicker.js" />

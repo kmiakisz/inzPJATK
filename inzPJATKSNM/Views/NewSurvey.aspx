@@ -58,12 +58,21 @@
         });
 
     </script>
+    <script type="text/javascript">
+        function toMuchPhotosModal() {
+            $('#toMuchPhotosModal').modal('show');
+        }
+    </script>
 
     <div id="content" class="container-fluid">
         <h3><span class="label label-danger">Nowa ankieta</span></h3>
         <div id="left" style="float: left; width: 30%">
+            <div id="SurveyName">
             <asp:Label ID="SurveyNameLabel" runat="server" Text="Nazwa Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="SurveyNameTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox" ForeColor="Red" Font-Bold="true" Display="Dynamic"></asp:RequiredFieldValidator>
+            </div>
+            <div id="SurveyDescribtion">
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
              <asp:Label ID="TypeLabel" runat="server" Text="Typ ankiety" class="label label-danger"></asp:Label>
@@ -77,8 +86,8 @@
                 <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" Style="float: left" OnClick="AcceptButton_Click" />
                 <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
             </div>
-
         </div>
+    </div>
 
         <div class="demo" style="float: right; width: 40%">
       <%
@@ -93,7 +102,13 @@
                             + " <img src=" + dzielo.URL + " />"
                             + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + ">"
                             + " </div>"
-                            + "</li>  " );
+                        + "</li>  ");
+
+
+                    if (getSurveyPhotos().Values.Count > 10) //walidacja na ilosc zdjec w ankiecie.
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "toMuchPhotosModal();", true);
+                    }
                       
                     }
                 %>
@@ -119,7 +134,7 @@
                    </asp:DropDownList>
                    <asp:SqlDataSource ID="AutorDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Autora], [Nazwisko] FROM [Autor]"></asp:SqlDataSource>
           <br />
-                    <% 
+           <% 
                Response.Write("<div class = \"row\">");
               
                foreach (inzPJATKSNM.Models.Dzieło dzielo in getFilteredPhoto())
@@ -127,7 +142,7 @@
                 Response.Write("<div class=\"col-sm-6 col-md-3\">");
                 Response.Write("<div class=\"thumbnail\" width=100 height=100>");
                 Response.Write("<input id=\"" + dzielo.URL + "\" name=\"" + dzielo.URL + "\" type=\"submit\" class=\"addPhoto\" runat=\"server\" style=\"background-color:transparent; border-color:transparent;\" onserverclick=\"addPhoto\">"); 
-                Response.Write("<img src=\""+dzielo.URL+"\"/>");
+                    Response.Write("<img src=\"" + dzielo.URL + "\"/>");
                 Response.Write("</input>");
                 Response.Write("</div>");             
                 Response.Write("</div>");
@@ -135,10 +150,28 @@
             Response.Write("</div>");
         %>
         </div>
+
+        
+
+    </div>
+    </div>
+    <div id="toMuchPhotosModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Wystąpił błąd!</h3>
         </div>
-               <script>
+                <div class="modal-body">
+                    <h5 class="modal-title">Limit zdjęć w ankiecie - 10, został przekroczony!</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
                   
-    </script>
+        </div>
     </div>
 </asp:Content>
-        

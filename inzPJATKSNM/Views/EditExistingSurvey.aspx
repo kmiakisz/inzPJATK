@@ -6,6 +6,13 @@
     <script src="../Scripts/jquery-2.1.4.js"></script>
     <script src="../Scripts/lightslider.js"></script>
     <script src="../Scripts/datapicker.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/jquery-3.1.0.js"></script>
+    <script src="../Scripts/bootstrap-datetimepicker.js"></script>
+    <script src="../Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="../Scripts/moment.js"></script>
+    <script src="../Scripts/moment.min.js"></script>
     <script type="text/javascript">
        
         $(document).ready(function () {
@@ -39,7 +46,7 @@
 
                 debugger;
                 $("#" + event.target.id).css("background-color", "transparent");
-              
+
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                
                 $.ajax({
@@ -56,7 +63,7 @@
                     }
                 });
             });
-        
+
         });
 
     </script>
@@ -74,7 +81,7 @@
 
                     debugger;
                     $("#" + event.target.id).css("background-color", "transparent");
-               
+
                     var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                     $.ajax({
                         url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
@@ -90,7 +97,7 @@
                     }
                 });
             });
-          
+
         });
 
     </script>
@@ -114,21 +121,21 @@
         }
     </script>
       <script runat="server">
-        protected void removeFromSurvey(int id,string url)
+        protected void removeFromSurvey(int id, string url)
         {
             usedPhotos.Remove(id);
             freePhotos.Add(id, url);
         }
     </script>
       <script runat="server">
-        protected void addToSurvey(int id,string url)
+        protected void addToSurvey(int id, string url)
         {
             freePhotos.Remove(id);
             usedPhotos.Add(id, url);   
         }
     </script>
     <script runat="server">
-        protected Dictionary<Int32,String> GetFreePhotos()
+        protected Dictionary<Int32, String> GetFreePhotos()
         {
             Dictionary<Int32, String> freePhotosFromDB;
             freePhotosFromDB = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
@@ -136,7 +143,7 @@
         }
     </script>
         <script runat="server">
-        protected Dictionary<Int32,String> GetUsedPhotos()
+        protected Dictionary<Int32, String> GetUsedPhotos()
         {
             int surveyId = int.Parse(Request.QueryString["Id"]);
             Dictionary<Int32, String> usedPhotosFromDB;
@@ -149,7 +156,8 @@
         <h3><span class="label label-danger">Edycja Ankiety</span></h3>
         <div id="left" style="float: left; width: 30%">
             <asp:Label ID="SurveyNameLabel" runat="server" Text="Nazwa Ankiety" class="label label-danger"></asp:Label>
-            <asp:TextBox ID="SurveyNameTextBox1" runat="server" Text="" CssClass="form-control" ></asp:TextBox>
+            <asp:TextBox ID="SurveyNameTextBox1" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox1" Display="Dynamic" Font-Bold="true" ForeColor="Red"></asp:RequiredFieldValidator>
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox1" runat="server" class="form-control"></asp:TextBox>
             <asp:Label ID="MusicLabel" runat="server" Text="Typ ankiety:" class="label label-danger"></asp:Label>
@@ -158,6 +166,25 @@
                 <asp:ListItem Text="PRYWATNA" Value="PRIVATE" Enabled="true">PRYWATNA</asp:ListItem>
             </asp:DropDownList>
             <asp:Label ID="Label1" runat="server" Text="Wybierz date zakonczenia: " CssClass="label label-danger"></asp:Label>
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker();
+                        });
+                    </script>
+                </div>
+            </div>
             <input type="text" placeholder="click to show datepicker" id="example1" class="form-control" runat="server">
             <br />
             <asp:Label ID="Data_zakLAb" runat="server" Text=""></asp:Label>
@@ -177,24 +204,24 @@
       <%
           Response.Write("<h3>Zdjęcia w ankiecie</h3>");
            %>
-            <ul id="lightSlider">
-                <% 
+                <ul id="lightSlider">
+                    <% 
                     foreach (inzPJATKSNM.Models.Dzieło dzielo in  getSurveyPhotos())
-                    {
+                        {
                         Response.Write("<li data-thumb=" + dzielo.URL + ">"
                             + " <div class=\"show-image\" id=" + dzielo.Id_dzieło + ">"
                             + " <img src=" + dzielo.URL + " />"
                             + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + ">"
-                            + " </div>"
+                                + " </div>"
                             + "</li>  " );
-                      
-                    }
-                %>
-            </ul>
+
+                        }
+                    %>
+                </ul>
             <br />
-            
+
                <div >
-               
+
                <h3>Dostępne zdjęcia</h3>
                        <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="KategorieDataSource" DataTextField="Kategoria" DataValueField="Id_Kat" OnTextChanged="kategoriaChanged" AutoPostBack="True" 
                     onselectedindexchanged="kategoriaChanged" AppendDataBoundItems="true">
@@ -214,7 +241,7 @@
           <br />
                     <% 
                Response.Write("<div class = \"row\">");
-              
+
                foreach (inzPJATKSNM.Models.Dzieło dzielo in getFilteredPhoto())
                {
                 Response.Write("<div class=\"col-sm-6 col-md-3\">");
@@ -233,7 +260,7 @@
      <script type="text/javascript">
          function failOpenModal() {
              $('#failModal').modal('show');
-         }
+                        }
     </script>
        <div id="failModal"  class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -247,12 +274,12 @@
                     <div class="modal-body">
                         <%
                             Response.Write("<p>"+Request.QueryString["err"]+"</p>");
-                             %>                      
+                    %>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                     </div>
-                </div>
             </div>
         </div>
+    </div>
 </asp:Content>
