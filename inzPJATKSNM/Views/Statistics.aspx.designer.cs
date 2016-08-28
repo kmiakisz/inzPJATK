@@ -67,6 +67,15 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label Lbl6;
         
         /// <summary>
+        /// BackButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BackButton;
+        
+        /// <summary>
         /// StatButton control.
         /// </summary>
         /// <remarks>

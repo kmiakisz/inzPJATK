@@ -28,6 +28,8 @@ namespace inzPJATKSNM.Models
         public int Id_Kat { get; set; }
         public string Rozmiar { get; set; }
         public int Id_Autora { get; set; }
+
+        public string tytuł { get; set; }
     
         public virtual Autor Autor { get; set; }
         public virtual ICollection<Ocena> Ocena { get; set; }

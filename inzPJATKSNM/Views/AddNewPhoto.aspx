@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNewPhoto.aspx.cs" Inherits="inzPJATKSNM.Views.AddNewPhoto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <link href="../Scripts/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+ <link href="../Scripts/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
  <script src="../Scripts/dropzone/dropzone.js" type="text/javascript"></script>
   
     <h3><span class="label label-danger">Dodaj zdjęcie</span></h3>
@@ -91,4 +91,5 @@
             </div>
         </div>
     
+
 </asp:Content>

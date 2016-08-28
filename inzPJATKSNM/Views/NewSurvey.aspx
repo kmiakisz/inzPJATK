@@ -2,13 +2,31 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link href="../Content/Demo.css" rel="stylesheet" />
+    <link href="../Content/Thumbnails.css" rel="stylesheet" />
     <link href="../Content/lightSlider.css" rel="stylesheet" />
     <script src="../Scripts/jquery-2.1.4.js"></script>
     <script src="../Scripts/dropzone.js"></script>
     <script src="../Scripts/lightSlider.js"></script>
     <script type="text/javascript">
+        
         $(document).ready(function () {
+            $(".addPhoto").click(function (event) {
 
+                var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+                alert(link);
+                $.ajax({
+                    url: '<%= ResolveUrl("NewSurvey.aspx/addPhoto") %>',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: '{"url":' + link + ' }',
+                    dataType: 'json',
+                    success: function () {
+                    },
+                    error: function (er) {
+                        Alert("Zdarzył się potworny błąd!!!")
+                    }
+                });
+            });
             $('#lightSlider').lightSlider({
                 gallery: true,
                 item: 1,
@@ -18,17 +36,9 @@
             });
             $(".update").click(function (event) {
 
-                debugger;
-                $("#" + event.target.id).css("background-color", "lightgreen");
-                //if($("#"+event.target.id).data('clicked')){
-                //  $(".show-image").click(function(event) {
-                //       $("#"+event.target.id).css("border-color","green");
-                // });
-
-                //  }
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                 $.ajax({
-                    url: '<%= ResolveUrl("NewSurvey.aspx/addToPhotoToSurvey") %>',
+                    url: '<%= ResolveUrl("NewSurvey.aspx/removePhotoFromSurvey") %>',
                     method: 'post',
                     contentType: 'application/json',
                     data: '{"url":' + link + ' }',
@@ -47,18 +57,9 @@
         });
 
     </script>
-        <script type="text/javascript">
-            function toMuchPhotosModal() {
-                $('#toMuchPhotosModal').modal('show');
-            }
-    </script>
-
-    <script runat="server">
-        protected List<String> GetList()
-        {
-            List<String> photoFromDB;
-            photoFromDB = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
-            return photoFromDB;
+    <script type="text/javascript">
+        function toMuchPhotosModal() {
+            $('#toMuchPhotosModal').modal('show');
         }
     </script>
 
@@ -73,78 +74,84 @@
             <div id="SurveyDescribtion">
                 <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
                 <asp:TextBox ID="ServeyDescribtionTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Opis ankiety nie może być pusty!" ControlToValidate="ServeyDescribtionTextBox" ForeColor="Red" Font-Bold="true" Display="Dynamic"></asp:RequiredFieldValidator>
-            </div>
-            <div id="SurveyMusic">
-                <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
-                <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MusicDataSource" DataTextField="Tytul" DataValueField="Id_Muzyka">
-                    <asp:ListItem Text="--Wybierz--" Value="0" Enabled="true">dfg</asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div id="SurveyType">
-                <asp:Label ID="TypeLabel" runat="server" Text="Typ Ankiety" class="label label-danger"></asp:Label>
+                <asp:Label ID="TypeLabel" runat="server" Text="Typ ankiety" class="label label-danger"></asp:Label>
                 <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%">
                     <asp:ListItem Text="PUBLICZNA" Value="PUBLIC" Enabled="true">PUBLICZNA</asp:ListItem>
                     <asp:ListItem Text="PRYWATNA" Value="PRIVATE" Enabled="true">PRYWATNA</asp:ListItem>
                 </asp:DropDownList>
-            </div>
-            <asp:SqlDataSource ID="MusicDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
-            <br />
-            <br />
-            <div id="Buttons" style="float: left; width: 56%">
-                <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" Style="float: left" OnClick="AcceptButton_Click" />
-                <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
-            </div>
-
-        </div>
-
-        <div class="demo" style="float: right; width: 40%">
-
-            <ul id="lightSlider">
-                <% 
-                    int x = 0;
-                    foreach (String s in GetList())
-                    {
-
-                        Response.Write("<li data-thumb=" + s + ">"
-                            + " <div class=\"show-image\" id=" + x + ">"
-                            + " <img src=" + s + " />"
-                            + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x + " name =" + s + " />"
-                            + " </div>"
-                            + "</li>  ");
-
-                        x++;
-                        if (x > 10) //walidacja na ilosc zdjec w ankiecie.
-                        {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "toMuchPhotosModal();", true);  
-                        }
-
-                    }
-                %>
-            </ul>
-
-
-
-        </div>
-               <div id="toMuchPhotosModal"  class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Wystąpił błąd!</h3>
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="modal-title">Limit zdjęć w ankiecie - 10, został przekroczony!</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                    </div>
+                <br />
+                <br />
+                <div id="Buttons" style="float: left; width: 56%">
+                    <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" Style="float: left" OnClick="AcceptButton_Click" />
+                    <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
                 </div>
-
             </div>
+    </div>
+
+    <div class="demo" style="float: right; width: 40%">
+        <%
+            Response.Write("<h3>Zdjęcia w ankiecie</h3>");
+        %>
+        <ul id="lightSlider">
+            <% 
+                foreach (inzPJATKSNM.Models.Dzieło dzielo in getSurveyPhotos().Values)
+                {
+                    Response.Write("<li data-thumb=" + dzielo.URL + ">"
+                        + " <div class=\"show-image\" id=" + dzielo.Id_dzieło + ">"
+                        + " <img src=" + dzielo.URL + " />"
+                        + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + " />"
+                        + " </div>"
+                        + "</li>  ");
+
+
+                    if (getSurveyPhotos().Values.Count > 10) //walidacja na ilosc zdjec w ankiecie.
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "toMuchPhotosModal();", true);
+                    }
+
+                }
+            %>
+        </ul>
+        <br />
+        <div>
+            <% 
+                Response.Write("<h3>Dostępne zdjęcia</h3>");
+                Response.Write("<div class = \"row\">");
+                foreach (inzPJATKSNM.Models.Dzieło dzielo in getPhotoFromDB().Values)
+                {
+                    Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                    Response.Write("<div class=\"thumbnail\" width=100 height=100>");
+                    Response.Write("<input id=\"" + dzielo.URL + "\" name=\"" + dzielo.URL + "\" type=\"submit\" class=\"addPhoto\" runat=\"server\" style=\"background-color:transparent; border-color:transparent;\" onserverclick=\"addPhoto\">");
+                    Response.Write("<img src=\"" + dzielo.URL + "\"/>");
+                    Response.Write("</input>");
+                    Response.Write("</div>");
+                    Response.Write("</div>");
+                }
+                Response.Write("</div>");
+            %>
         </div>
 
+        
+
+    </div>
+    </div>
+    <div id="toMuchPhotosModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Wystąpił błąd!</h3>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title">Limit zdjęć w ankiecie - 10, został przekroczony!</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 </asp:Content>

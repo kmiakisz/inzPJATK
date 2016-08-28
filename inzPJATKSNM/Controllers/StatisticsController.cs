@@ -19,47 +19,37 @@ namespace inzPJATKSNM.Controllers
                 using (SqlCommand cmd = new SqlCommand("OverallStatistics", Sqlcon)) //statystyki ogólne
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     SqlParameter outPutParameter = new SqlParameter();
 
-                    outPutParameter.ParameterName = "@avgImgInSurv";
-                    outPutParameter.SqlDbType = System.Data.SqlDbType.Int;
-                    outPutParameter.Direction = System.Data.ParameterDirection.Output;
-                    s.avgImgInSurv = Convert.ToInt32(cmd.Parameters.Add(outPutParameter));
+                    cmd.Parameters.Add("@avgImgInSurv", SqlDbType.Int);
+                    cmd.Parameters["@avgImgInSurv"].Direction = ParameterDirection.Output;
 
-                    //cmd.Parameters.Add("@avgImgInSurv", SqlDbType.Int);
-                    //cmd.Parameters["@avgImgInSurv"].Direction = ParameterDirection.Output;
-                    //s.avgImgInSurv = Convert.ToInt32(cmd.Parameters["@avgImgInSurv"].Value);
-                    outPutParameter.ParameterName = "@avgVoteNum";
-                    outPutParameter.SqlDbType = System.Data.SqlDbType.Int;
-                    outPutParameter.Direction = System.Data.ParameterDirection.Output;
-                    s.avgVoteNum = Convert.ToInt32(cmd.Parameters.Add(outPutParameter));
-
-                    //cmd.Parameters.Add("@avgVoteNum", SqlDbType.Int);
-                    //cmd.Parameters["@avgVoteNum"].Direction = ParameterDirection.Output;
-                    //s.avgVoteNum = Convert.ToInt32(cmd.Parameters["@avgVoteNum"].Value);
+                    cmd.Parameters.Add("@avgVoteNum", SqlDbType.Int);
+                    cmd.Parameters["@avgVoteNum"].Direction = ParameterDirection.Output;
 
                     cmd.Parameters.Add("@voteNum", SqlDbType.Int);
                     cmd.Parameters["@voteNum"].Direction = ParameterDirection.Output;
-                    s.voteNum = Convert.ToInt32(cmd.Parameters["@voteNum"].Value);
 
                     cmd.Parameters.Add("@numOfCreatedSurv", SqlDbType.Int);
                     cmd.Parameters["@numOfCreatedSurv"].Direction = ParameterDirection.Output;
-                    s.numOfCreatedSurv = Convert.ToInt32(cmd.Parameters["@numOfCreatedSurv"].Value);
 
                     cmd.Parameters.Add("@numOfVisitors", SqlDbType.Int);
                     cmd.Parameters["@numOfVisitors"].Direction = ParameterDirection.Output;
-                    s.numOfVisitors = Convert.ToInt32(cmd.Parameters["@numOfVisitors"].Value);
 
                     cmd.Parameters.Add("@numOfEmails", SqlDbType.Int);
                     cmd.Parameters["@numOfEmails"].Direction = ParameterDirection.Output;
-                    s.numOfEmails = Convert.ToInt32(cmd.Parameters["@numOfEmails"].Value);
                     try
                     {
                         Sqlcon.Open();
                         cmd.ExecuteNonQuery();
-
-                    }catch(Exception e)
+                        s.avgImgInSurv = Convert.ToInt32(cmd.Parameters["@avgImgInSurv"].Value);
+                        s.avgVoteNum = Convert.ToInt32(cmd.Parameters["@avgVoteNum"].Value);
+                        s.voteNum = Convert.ToInt32(cmd.Parameters["@voteNum"].Value);
+                        s.numOfCreatedSurv = Convert.ToInt32(cmd.Parameters["@numOfCreatedSurv"].Value);
+                        s.numOfVisitors = Convert.ToInt32(cmd.Parameters["@numOfVisitors"].Value);
+                        s.numOfEmails = Convert.ToInt32(cmd.Parameters["@numOfEmails"].Value);
+                    }
+                    catch (Exception e)
                     {
                         throw new Exception("Błąd podczas aktualizacji statystyk!");
                     }
@@ -67,6 +57,58 @@ namespace inzPJATKSNM.Controllers
                     {
                         Sqlcon.Close();
                     }
+                }
+            }
+            return s;
+        }
+
+        public static Statistic StatisticPerSurvey(int surveyId)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            Statistic s = new Statistic();
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand("StatisticsPerSurvey", Sqlcon)) //statystyki oper ankieta
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter outPutParameter = new SqlParameter();
+
+                    cmd.Parameters.Add("@NumOfVotersOnSurvey", SqlDbType.Int);
+                    cmd.Parameters["@NumOfVotersOnSurvey"].Direction = ParameterDirection.Output;
+
+                    cmd.Parameters.Add("@NumOfVisitors", SqlDbType.Int);
+                    cmd.Parameters["@NumOfVisitors"].Direction = ParameterDirection.Output;
+
+                    cmd.Parameters.Add("@NumOfSubs", SqlDbType.Int);
+                    cmd.Parameters["@NumOfSubs"].Direction = ParameterDirection.Output;
+
+                    cmd.Parameters.Add("@ImgMaxVoteNumName", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMaxVoteNumName"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMaxVoteNumName"].Size = 250;
+                    cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
+                   // try
+                   // {
+                        Sqlcon.Open();
+                        cmd.Parameters.Add("@SurveyId", SqlDbType.Int);
+                        cmd.Parameters["@SurveyId"].Value = surveyId;
+                        cmd.ExecuteNonQuery();
+                        s.NumOfVotersOnSurvey = Convert.ToInt32(cmd.Parameters["@NumOfVotersOnSurvey"].Value);
+                        s.NumOfVisitors = Convert.ToInt32(cmd.Parameters["@NumOfVisitors"].Value);
+                        s.NumOfSubs = Convert.ToInt32(cmd.Parameters["@NumOfSubs"].Value);
+                        s.ImgMaxVoteNumName = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumName"].Value);
+                        s.ImgMinVoteNumName = Convert.ToString(cmd.Parameters["@ImgMinVoteNumName"].Value);
+                        
+                   // }
+                   // catch (Exception e)
+                   // {
+                   //     throw new Exception(e.Message);
+                   // }
+                   // finally
+                    //{
+                        Sqlcon.Close();
+                  //  }
                 }
             }
             return s;

@@ -201,6 +201,7 @@
     <Content Include="Content\modal.css" />
     <Content Include="Content\pagestyle.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Thumnails.css" />
     <Content Include="DynamicData\FieldTemplates\Boolean.ascx" />
     <Content Include="DynamicData\FieldTemplates\Boolean_Edit.ascx" />
     <Content Include="DynamicData\FieldTemplates\Children.ascx" />
@@ -418,6 +419,7 @@
     <Content Include="Views\SendMailForm.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Views\StartPage.aspx" />
+    <Content Include="Views\StaticticsPerSurveys.aspx" />
     <Content Include="Views\Statistics.aspx" />
     <Content Include="Views\Surveys.aspx" />
     <Content Include="Web.config" />
@@ -835,6 +837,13 @@
     </Compile>
     <Compile Include="Views\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StaticticsPerSurveys.aspx.cs">
+      <DependentUpon>StaticticsPerSurveys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StaticticsPerSurveys.aspx.designer.cs">
+      <DependentUpon>StaticticsPerSurveys.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics.aspx.cs">
       <DependentUpon>Statistics.aspx</DependentUpon>

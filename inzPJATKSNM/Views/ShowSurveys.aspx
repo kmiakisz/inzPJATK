@@ -83,7 +83,6 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
                     </div>
                 </div>
-
             </div>
         </div>
     <!--Modal z Maili-->
@@ -106,7 +105,6 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                     </div>
                 </div>
-
             </div>
         </div>
        <div id="failModal"  class="modal fade" role="dialog">
@@ -121,14 +119,12 @@
                     <div class="modal-body">
                         <%
                             Response.Write("<p>"+Request.QueryString["err"]+"</p>");
-                             %>
-                       
+                             %>                      
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                     </div>
                 </div>
-
             </div>
         </div>
     

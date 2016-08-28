@@ -14,30 +14,33 @@
                     </div>
                     <div class="panel-body">
                         <div id="1">
-                            <asp:Label ID="Lbl1" runat="server" Text="Średnia ilość dzieł w ankietach : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl1" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                         <div id="2">
-                            <asp:Label ID="Lbl2" runat="server" Text="Średnia ilość głosów : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl2" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                         <div id="3">
-                            <asp:Label ID="Lbl3" runat="server" Text="Ogólna liczba głosów : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl3" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                         <div id="4">
-                            <asp:Label ID="Lbl4" runat="server" Text="Ilość stworzonych ankiet : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl4" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                         <div id="5">
-                            <asp:Label ID="Lbl5" runat="server" Text="Ilość odwiedzin : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl5" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                         <div id="6">
-                            <asp:Label ID="Lbl6" runat="server" Text="Ilość subskrybentów : " CssClass="label label-default"></asp:Label>
+                            <asp:Label ID="Lbl6" runat="server" Text="" CssClass="label label-default"></asp:Label>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <asp:Button ID="BackButton" runat="server" Text="Powrót do statystyk" CssClass="btn btn-success" OnClick="BackButton_Click"/>
                 </div>
             </div>
 
 
             <div id="right" style="float: right; width: 40%">
-                <asp:Button ID="StatButton" runat="server" Text="Pokaż statystyki szczegółowe" CssClass="btn btn-success" />
+                <asp:Button ID="StatButton" runat="server" Text="Pokaż statystyki szczegółowe" CssClass="btn btn-success" OnClick="StatButton_Click" />
             </div>
         </div>
     </div>

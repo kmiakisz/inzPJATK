@@ -1,4 +1,5 @@
-﻿using System;
+﻿using inzPJATKSNM.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -10,23 +11,30 @@ namespace inzPJATKSNM.Controllers
 {
     public class NewSurveyController
     {
-        public static List<String> getPhotoList()
+        public static List<Dzieło> getPhotoList()
         {
-            List<String> photoList = new List<String>();
+            List<Dzieło> photoList = new List<Dzieło>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "SELECT URL FROM Dzieło";
+                    string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_Autora,Tytuł from dzieło where id_dzieło not in (select id_zdjecia from skład);";
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                photoList.Add(reader.GetString(0));
+                                Dzieło dzielo = new Dzieło();
+                                dzielo.Id_dzieło=reader.GetInt32(0);
+                                dzielo.URL = reader.GetString(1);
+                                dzielo.Id_Tech = reader.GetInt32(2);
+                                dzielo.Id_Kat = reader.GetInt32(3);
+                                dzielo.Id_Autora = reader.GetInt32(4);
+                                dzielo.tytuł = reader.GetString(5);
+                                photoList.Add(dzielo);
                             }
                         }
                     }
@@ -39,16 +47,16 @@ namespace inzPJATKSNM.Controllers
             } 
             return photoList;
         }
-        public static void saveSurveyAndSkładToDB(List<String> imagesSurveyToDB,int musicID,String nazwa,String opis,String typ)
+        public static void saveSurveyAndSkładToDB(List<Dzieło> imagesSurveyToDB,String nazwa,String opis,String typ)
         {
             List<int> imageIdList = new List<int>();
             int i = imageIdList.Count();
             int ankietaId=0;
             try
             {
-                foreach (string url in imagesSurveyToDB)
+                foreach (Dzieło dzieło in imagesSurveyToDB)
                 {
-                    imageIdList.Add(getPhotoId(url));
+                    imageIdList.Add(getPhotoId(dzieło.URL));
                     i++;
                     if(i > 10)
                     {
@@ -56,7 +64,7 @@ namespace inzPJATKSNM.Controllers
                     }
                 }
                 //Tu wywolanie procedury dodajacej ankiete
-                saveSurveyToDB(musicID, nazwa, opis, typ);
+                saveSurveyToDB(nazwa, opis, typ);
                 ankietaId = getNewSurveyId();
                 foreach (int zdjecieId in imageIdList)
                 {
@@ -166,12 +174,12 @@ namespace inzPJATKSNM.Controllers
             }
 
         }
-        public static void saveSurveyToDB(int musicID, string nazwa, string opis,string typ)
+        public static void saveSurveyToDB(string nazwa, string opis,string typ)
         {
             
             DateTime data_rozp = DateTime.Now;
             DateTime data_zak = DateTime.Now.AddDays(30);
-            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Id_Muzyka,Active) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Id_Muzyka,@Active);";
+            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Active) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Active);";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
@@ -186,8 +194,6 @@ namespace inzPJATKSNM.Controllers
                 command.Parameters["@data_zak"].Value = data_zak;
                 command.Parameters.Add("@Id_admin", SqlDbType.Int);
                 command.Parameters["@Id_admin"].Value = 1;
-                command.Parameters.Add("@Id_Muzyka", SqlDbType.Int);
-                command.Parameters["@Id_Muzyka"].Value = musicID;
                 command.Parameters.Add("@Active", SqlDbType.Bit);
                 command.Parameters["@Active"].Value = 1;
                 command.Parameters.Add("@Typ", SqlDbType.VarChar);

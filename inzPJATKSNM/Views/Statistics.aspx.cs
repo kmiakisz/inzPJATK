@@ -11,7 +11,16 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FillStatistics();
+            
+            if(Request.QueryString["Id"] != null)
+            {
+                int par = Convert.ToInt32(Request.QueryString["Id"]);
+                FillStatisticsPerSurvey(par);
+            }
+            else
+            {
+                FillStatistics();
+            }
         }
 
         public void FillStatistics()
@@ -27,11 +36,46 @@ namespace inzPJATKSNM.Views
                 Lbl4.Text = "Ilość stworzonych ankiet : " + Convert.ToString(s.numOfCreatedSurv);
                 Lbl5.Text = "Ilość odwiedzin : " + Convert.ToString(s.numOfVisitors);
                 Lbl6.Text = "Ilość subskrybentów : " + Convert.ToString(s.numOfEmails);
+
+                BackButton.Visible = false;
+                
             }
             catch (Exception e)
             {
                 throw new Exception("Błąd podczas aktualizacji statystyk!");
             }
+        }
+        public void FillStatisticsPerSurvey(int surverId)
+        {
+            //try
+            //{
+                inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
+                s = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(surverId);
+
+                Lbl1.Text = "Liczba głosujących : " + Convert.ToString(s.NumOfVotersOnSurvey);
+                Lbl2.Text = "Liczba odwiedzających : " + Convert.ToString(s.NumOfVisitors);
+                Lbl3.Text = "Liczba subskrybentów po ankiecie : " + Convert.ToString(s.NumOfSubs);
+                Lbl4.Text = "Nazwa zdjęcia z największą sumą głosów : " + Convert.ToString(s.ImgMaxVoteNumName);
+                Lbl5.Text = "Nazwa zdjęcia z najmniejszą sumą głosów : " + Convert.ToString(s.ImgMinVoteNumName);
+
+                Lbl6.Visible = false;
+                StatButton.Visible = false;
+                
+            //}
+            //catch (Exception e)
+            //{
+              //  throw new Exception(e.Message);
+            //}
+        }
+
+        protected void StatButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StaticticsPerSurveys.aspx");
+        }
+
+        protected void BackButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StaticticsPerSurveys.aspx");
         }
     }
 }
