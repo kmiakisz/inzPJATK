@@ -34,7 +34,7 @@
                 slideMargin: 0,
                 thumbItem: 9
             });
-            $(".update").click(function (event) {
+            $(".delete").click(function (event) {
 
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
                 $.ajax({
@@ -51,7 +51,7 @@
                         }
                     });
            });
-            $(".update").dblclick(function (event) {
+            $(".delete").dblclick(function (event) {
                 $("#" + event.target.id).css("background-color", "transparent");
             });
 
@@ -91,7 +91,7 @@
                         Response.Write("<li data-thumb=" + dzielo.URL + ">"
                             + " <div class=\"show-image\" id=" + dzielo.Id_dzieło + ">"
                             + " <img src=" + dzielo.URL + " />"
-                            + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + " />"
+                            + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + ">"
                             + " </div>"
                             + "</li>  " );
                       
