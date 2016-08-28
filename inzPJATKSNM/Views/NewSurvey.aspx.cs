@@ -146,9 +146,9 @@ namespace inzPJATKSNM.Views
             surveyPhotos.Remove(url);
         }
      
-     
         protected void AcceptButton_Click(object sender, EventArgs e)
-        {
+        {     
+
           String nazwa = SurveyNameTextBox.Text;
           String opis = ServeyDescribtionTextBox.Text;
           String typ = TypeDropDownList.SelectedValue.ToString();

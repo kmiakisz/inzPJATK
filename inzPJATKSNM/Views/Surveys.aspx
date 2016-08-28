@@ -10,6 +10,32 @@
               $('#mailModal').modal('show');
           }
     </script>
+        <script type="text/javascript">
+            function subscriptionOpenModal() {
+                $('#subscriptionModal').modal('show');
+            }
+    </script>
+     <script type="text/javascript">
+         $(document).ready(function () {
+
+             $(".addEmail").click(function (event) {
+                 var link = Sys.Serialization.JavaScriptSerializer.serialize("chuj");
+                $.ajax({
+                    url: '<%= ResolveUrl("Surveys.aspx/addEmail") %>',
+                           method: 'post',
+                           contentType: 'application/json',
+                           data: '{"email":' + link + ' }',
+                           dataType: 'json',
+                           success: function () {
+                              
+                           },
+                           error: function (er) {
+                               alert(JSON.stringify(er))
+                           }
+                });
+            });
+    });
+         </script>
      <% 
      Response.Write("<div class = \"row\">");
             foreach(KeyValuePair<int, String> kvp in getURLDict()){
@@ -66,6 +92,32 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+            <!-- subscriptionModal -->
+        <div id="subscriptionModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Dziękujemy!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Dziękujemy za uzupełnienie ankiety.</p>
+                        <br/>
+                        <p>Jeżeli Ci się podobało, bądź na bieżąco i subskrybuj nas!</p>
+                        <br />
+                        <label for="comment"><span class="glyphicon glyphicon-envelope"></span>Email: </label>
+                        <br />
+                        <input class="email" name="email" id="email" runat="server" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="addEmail" onclick="subscription_Click">OK</button>
                     </div>
                 </div>
 

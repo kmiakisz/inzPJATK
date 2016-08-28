@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,7 +13,7 @@ namespace inzPJATKSNM.Views
         Dictionary<int, String> nazwyAnkiet;
         Dictionary<int, String> opisyAnkiet;
         Dictionary<int, String> urlAnkiet;
-        public string val;
+        public static string val;
         public int liczbaAnkiet = 0;
         public int CsVariable = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -31,7 +32,16 @@ namespace inzPJATKSNM.Views
                 }
                 else
                 {
-                    val = "Nieprawidłowy identyfikator ankiety!";
+                    if (Request.QueryString["val"].Substring(0, 6).Equals("thanks"))
+                    {
+                        val = Request.QueryString["val"];
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "subscriptionOpenModal();", true);
+                    }
+                    else
+                    {
+                        val = "Nieprawidłowy identyfikator ankiety!";
+                    }
+                    
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
             }
@@ -64,6 +74,12 @@ namespace inzPJATKSNM.Views
         public Dictionary<int, String> getNazwyDict()
         {
             return nazwyAnkiet;
+        }
+        [WebMethod]
+        public static void addEmail(string email)
+        {
+            int id = Int32.Parse(val.Substring(6, (val.Length-1)-5));
+            inzPJATKSNM.Controllers.SurveyController.saveSubscriptionEmail(email, id);
         }
     }
 }

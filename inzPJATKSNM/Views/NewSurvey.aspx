@@ -105,7 +105,7 @@
                         + "</li>  ");
 
 
-                    if (getSurveyPhotos().Values.Count > 10) //walidacja na ilosc zdjec w ankiecie.
+                    if (getSurveyPhotos().Count > 10) //walidacja na ilosc zdjec w ankiecie.
                     {
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "toMuchPhotosModal();", true);
                     }

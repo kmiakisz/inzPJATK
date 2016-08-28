@@ -633,7 +633,7 @@ namespace inzPJATKSNM.Controllers
         {
             Dictionary<int, String> urle = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            try{
+           try{
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
@@ -660,6 +660,46 @@ namespace inzPJATKSNM.Controllers
                 throw new Exception("Błąd podczas pobierania ankiety");
             }
             return urle;
+        }
+        public static void saveSubscriptionEmail(String email, int survey_id)
+        {
+            if (!email.Equals(""))
+            {
+                 String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            try
+            {
+                using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                {
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "Subscription_Update";
+
+                        cmd.Parameters.Add("@email", SqlDbType.VarChar);
+                        cmd.Parameters["@email"].Value = email;
+                        cmd.Parameters["@email"].Size =250;
+
+
+                        cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                        cmd.Parameters["@ankietaId"].Value = survey_id;
+
+                        cmd.ExecuteNonQuery();
+                        Sqlcon.Close();
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Błąd podczas zapisu adresu email");
+            }
+           
+            }
+               
+           
         }
     }
 }

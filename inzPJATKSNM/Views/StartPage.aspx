@@ -8,8 +8,14 @@
     
   <script type="text/javascript">
       function subscriptionOpenModal() {
-          $('#subscriptionModal').modal('show');
+          $('#mailModal').modal('show');
       }
+    </script>
+     <script type="text/javascript">
+         function mailOpenModal() {
+             alert("duzy chuj");
+             $('#subscriptionModal').modal('show');
+         }
     </script>
     <%
         Response.Write("<h1>" + inzPJATKSNM.Controllers.SurveyController.getSurveyName(int.Parse(Request.QueryString["Id"])) + "</h1>");
@@ -178,6 +184,27 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+      <div id="mailModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Wysłano maile</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            Response.Write("<p>Udało się wysłać  maili!!!</p>");
+                             %>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
             </div>
         </div>
    
