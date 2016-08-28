@@ -18,22 +18,30 @@ namespace inzPJATKSNM.Views
         public Dictionary<Int32, String> usedPhotos {get;set;}
         public Int32 currentKey { get; set; }
         public String currentValue { get; set; }
+        private static Dictionary<string, Dzieło> surveyPhotos = new Dictionary<string, Dzieło>();
+        private static Dictionary<string, Dzieło> photoFromDB = new Dictionary<string, Dzieło>();
+        public static List<Dzieło> filteredList = new List<Dzieło>();
+        private static List<Dzieło> photoToSurvey = new List<Dzieło>();
+        int katFilter = 0;
+        int techFilter = 0;
+        int autFilter = 0;
+        public static String err;
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            freePhotos = new Dictionary<Int32, String>();
-            usedPhotos = new Dictionary<Int32, String>();
-            try
+            foreach (System.Collections.DictionaryEntry entry in HttpContext.Current.Cache)
             {
-                freePhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getFreePhotos();
-                usedPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getUsedPhotos(int.Parse(Request.QueryString["Id"]));
+                HttpContext.Current.Cache.Remove((string)entry.Key);
+            }
 
-            }
-            catch (Exception ex)
+            Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+
+            Response.Cache.SetNoStore();
+
+            if (err !=null)
             {
-                Response.Redirect("ShowSurveys?+err=" + ex.Message);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
             }
-            
             if (!IsPostBack)
             {
                 if (Request.QueryString["Id"] != null)
@@ -43,7 +51,20 @@ namespace inzPJATKSNM.Views
                     int id = int.Parse(Request.QueryString["Id"]);
                     try
                     {
-                        listaURLZdjec = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                        if (surveyPhotos.Count == 0)
+                        {
+                            surveyPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                        }
+                        if (photoFromDB.Count == 0)
+                        {
+                            loadPhotosFromDB();
+                        }
+                        if (filteredList.Count == 0)
+                        {
+                            filteredList = getPhotoFromDB();
+                        }
+                        
+                    
                         ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
                     }
                     catch (Exception ex)
@@ -51,7 +72,6 @@ namespace inzPJATKSNM.Views
                         Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
                     }
                    
-                    MusicDropDownList.DataValueField = ankieta.Id_Muzyka.ToString();
                     example1.Value = ankieta.Data_zak.ToString();
                     SurveyNameTextBox1.Text = ankieta.Nazwa;
                     ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
@@ -67,20 +87,114 @@ namespace inzPJATKSNM.Views
            
     
         }
+        public List<Dzieło> getSurveyPhotos()
+        {
+            List<Dzieło> dzielaWankiecie = new List<Dzieło>();
+            foreach (Dzieło dzielo in surveyPhotos.Values)
+            {
+                dzielaWankiecie.Add(dzielo);
+            }
 
+            return dzielaWankiecie;
+        }
+        public List<Dzieło> filterList(int id_kat, int id_autor, int id_technika, int flag)
+        {
+            if (id_kat == 0 && id_autor == 0 && id_technika == 0)
+            {
+                filteredList = getPhotoFromDB();
+                return filteredList;
+            }
+            else
+            {
+                if (flag == 0)
+                {
+                    filteredList = getPhotoFromDB();
+                }
+                for (int i = filteredList.Count - 1; i >= 0; i--)
+                {
+                    if (id_kat != 0)
+                    {
+                        if (filteredList[i].Id_Kat != id_kat)
+                        {
+                            filteredList.RemoveAt(i);
+                            continue;
+                        }
+                    }
+                    if (id_autor != 0)
+                    {
+                        if (filteredList[i].Id_Autora != id_autor)
+                        {
+                            filteredList.RemoveAt(i);
+                            continue;
+                        }
+                    }
+                    if (id_technika != 0)
+                    {
+                        if (filteredList[i].Id_Tech != id_technika)
+                        {
+                            filteredList.RemoveAt(i);
+                            continue;
+                        }
+                    }
+                }
+
+            }
+            return filteredList;
+        }
+        public List<Dzieło> getFilteredPhoto()
+        {
+            List<Dzieło> photoList = new List<Dzieło>();
+            foreach (Dzieło dzielo in filteredList)
+            {
+                photoList.Add(dzielo);
+            }
+
+            return photoList;
+        }
+        public void loadPhotosFromDB()
+        {
+            List<Dzieło> tempList = new List<Dzieło>();
+
+            try
+            {
+                if (photoFromDB.Count == 0)
+                {
+                    tempList = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
+                    foreach (Dzieło dzielo in tempList)
+                    {
+                        photoFromDB.Add(dzielo.URL, dzielo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+            }
+                
+               
+
+        }
+        public List<Dzieło> getPhotoFromDB()
+        {
+            List<Dzieło> dzielaDostp = new List<Dzieło>();
+            foreach (Dzieło dzielo in photoFromDB.Values)
+            {
+                dzielaDostp.Add(dzielo);
+            }
+
+            return dzielaDostp;
+        }
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
             
             ankieta.Id_ankiety = int.Parse(Request.QueryString["Id"]);
-            ankieta.Id_Muzyka = 4;
-           // ankieta.Id_Muzyka=int.Parse(MusicDropDownList.SelectedValue);
             ankieta.Data_zak=DateTime.Parse(example1.Value);
             ankieta.Nazwa = SurveyNameTextBox1.Text;
             ankieta.Opis_ankiety=ServeyDescribtionTextBox1.Text;
             ankieta.Type = TypeDropDownList.Text;
             try
             {
-                inzPJATKSNM.Controllers.EditExistingSurveyController.saveEditsurvey(ankieta, listaURLZdjec);//ladujemy te same zdjecia do zmiany po updejcie widoku
+                inzPJATKSNM.Controllers.EditExistingSurveyController.saveEditsurvey(ankieta, surveyPhotos);
             }
             catch (Exception ex)
             {
@@ -94,37 +208,52 @@ namespace inzPJATKSNM.Views
         {
             Response.Redirect("ShowSurveys.aspx");
         }
-  /*      protected void addToSurvey(int id, string url)
-        {
-            freePhotos.Remove(id);
-            usedPhotos.Add(id, url);
-        }
-        protected void removeFromSurvey(int id, string url)
-        {
-            usedPhotos.Remove(id);
-            freePhotos.Add(id, url);
-        }
-*/
-        protected void Add_Button_Click(object sender, EventArgs e)
-        {
-            //addToSurvey(currentKey, currentValue);
-        }
 
-        protected void Del_Button_Click(object sender, EventArgs e)
+
+        [WebMethod]
+        public static void removePhotoFromSurvey(String url)
         {
-            //removeFromSurvey(currentKey, currentValue);
+            if (surveyPhotos.Count != 1)
+            {
+            photoFromDB.Add(url, surveyPhotos[url]);
+            filteredList.Add(surveyPhotos[url]);
+           
+                surveyPhotos.Remove(url);
+            }
+            else
+            {
+                err = "Nie można usunąć wszystkich zdjęć z ankiety!!!";
+            }
+          
         }
         [WebMethod]
-        public void RemovePhotoFromSurvey(int id, string url)
+        public static void AddPhoto(String url)
         {
-            usedPhotos.Remove(id);
-            freePhotos.Add(id, url);
+            surveyPhotos.Add(url, photoFromDB[url]);
+            filteredList.Remove(photoFromDB[url]);
+            photoFromDB.Remove(url);
         }
-        [WebMethod]
-        public void AddPhotoToSurvey(int id, string url)
+        protected void kategoriaChanged(object sender, EventArgs e)
         {
-            freePhotos.Remove(id);
-            usedPhotos.Add(id, url);
+            katFilter = Int32.Parse(DropDownList2.SelectedValue);
+            techFilter = Int32.Parse(DropDownList3.SelectedValue);
+            autFilter = Int32.Parse(DropDownList4.SelectedValue);
+            filterList(katFilter, autFilter, techFilter, 0);
         }
+        protected void technikaChanged(object sender, EventArgs e)
+        {
+            katFilter = Int32.Parse(DropDownList2.SelectedValue);
+            techFilter = Int32.Parse(DropDownList3.SelectedValue);
+            autFilter = Int32.Parse(DropDownList4.SelectedValue);
+            filterList(katFilter, autFilter, techFilter, 0);
+        }
+        protected void autorChanged(object sender, EventArgs e)
+        {
+            katFilter = Int32.Parse(DropDownList2.SelectedValue);
+            techFilter = Int32.Parse(DropDownList3.SelectedValue);
+            autFilter = Int32.Parse(DropDownList4.SelectedValue);
+            filterList(katFilter, autFilter, techFilter, 0);
+        }
+       
     }
 }
