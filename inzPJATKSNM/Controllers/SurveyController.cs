@@ -335,7 +335,7 @@ namespace inzPJATKSNM.Controllers
             return blokowaneIP;
         }
 
-        public static void saveVotes(int idDzielo, int ocena, int idOsoba, int idAnkiety)
+        public static void saveVotes(int idDzielo, float ocena, int idOsoba, int idAnkiety)
         {
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             try
@@ -362,11 +362,11 @@ namespace inzPJATKSNM.Controllers
             }
            
         }
-        public static void saveAll(Dictionary<int,int> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec)
+        public static void saveAll(Dictionary<int,float> ocenyDziel,int idAnkiety,String email,int idNar, int idWiek, int idPlec)
         {
             int idOsoba = saveGlosujacy(idNar,idWiek,idPlec,idAnkiety);
 
-            foreach (KeyValuePair<int, int> mapa in ocenyDziel)
+            foreach (KeyValuePair<int, float> mapa in ocenyDziel)
             {
                 try
                 {

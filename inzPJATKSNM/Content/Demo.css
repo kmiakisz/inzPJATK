@@ -51,7 +51,9 @@ div.show-image input.delete {
     top:50%;
     margin-left:50%;
     margin-right:50%;
-    background-image: url(../Images/Icons/minus.png);
+    width:100px;
+    height:100px;
+    background-image: url(../Images/Icons/minus.jpg);
     background-size:cover;
     background-color:transparent;
     border:none;

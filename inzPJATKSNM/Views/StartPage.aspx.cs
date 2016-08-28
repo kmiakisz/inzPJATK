@@ -12,7 +12,7 @@ namespace inzPJATKSNM.Views
 {
     public partial class StartPage : System.Web.UI.Page
     {
-        Dictionary<int, int> ocenyDziel = new Dictionary<int, int>();
+        Dictionary<int, float> ocenyDziel = new Dictionary<int, float>();
         public List<Dzieło> dziela;
         int id,idNarod,idPlec,idWiek;
        public int ilDziel = 0;
@@ -144,11 +144,12 @@ namespace inzPJATKSNM.Views
                   
             }
             int i = 0;
+            float mnoznik = 10 / ocenyDziel2.Count;
             foreach(KeyValuePair<string,string> kvp in ocenyDziel2){
                 
                 if (i <dziela.Count)
                 {
-                    ocenyDziel.Add(Int32.Parse(kvp.Key), Int32.Parse(kvp.Value)-1);
+                    ocenyDziel.Add(Int32.Parse(kvp.Key), (Int32.Parse(kvp.Value)-1)*mnoznik);
                     i++;
                 }
        
