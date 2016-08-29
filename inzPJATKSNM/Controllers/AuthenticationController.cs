@@ -353,7 +353,7 @@ namespace inzPJATKSNM.Controllers
         public static Boolean checkUser(User user,String haslo)
         {
             Boolean isValid = false;
-            if(encryptPass(getUser(user.login).haslo).Equals(encryptPass(haslo)){
+            if(encryptPass(getUser(user.login).haslo).Equals(encryptPass(haslo))){
                 return true;
             }
             return isValid;
@@ -448,7 +448,7 @@ namespace inzPJATKSNM.Controllers
                             cmd.CommandText = "DELETE_PRIVILEDGE";
 
                             cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
-                            cmd.Parameters["@ID_USER"].Value = user.userId
+                            cmd.Parameters["@ID_USER"].Value = user.userId;
 
                             cmd.ExecuteNonQuery();
                             Sqlcon.Close();

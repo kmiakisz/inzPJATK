@@ -21,7 +21,7 @@
             </div>
         </div>
         <div id="loginbutton">
-            <asp:Button ID="LogInButton" runat="server" Text="Zaloguj."  CssClass="btn btn-success"/>
+            <asp:Button ID="LogInButton" runat="server" Text="Zaloguj."  CssClass="btn btn-success" OnClick="LogInButton_Click"/>
             <asp:Button ID="ResetPwdButton" runat="server" Text="Nie pamiętam hasła." CssClass="btn btn-danger" />
         </div>
     </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using inzPJATKSNM.AuthModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,13 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void LogInButton_Click(object sender, EventArgs e)
+        {
+            User user = new User();
+            user.login = LoginTxt.Text;
+            user.haslo = TextBox2.Text;
         }
     }
 }
