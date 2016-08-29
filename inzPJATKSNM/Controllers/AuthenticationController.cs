@@ -165,7 +165,7 @@ namespace inzPJATKSNM.Controllers
              }
          }
         public static void resetPass(User user,String token){
-            if (token.Equals(user.odpowiedz))
+            if (token.Equals(user.token))
             {
                 user.haslo = passGen();
                 try
@@ -251,9 +251,8 @@ namespace inzPJATKSNM.Controllers
                                     user.haslo = reader.GetString(2);
                                     user.imie = reader.GetString(3);
                                     user.nazwisko = reader.GetString(4);
-                                    user.pytanie = reader.GetString(5);
-                                    user.odpowiedz = reader.GetString(6);
-                                    user.rola.roleId = reader.GetInt32(7);
+                                    user.token = reader.GetString(5);
+                                    user.rola.roleId = reader.GetInt32(6);
                                 }
                             }
                         }
@@ -336,12 +335,6 @@ namespace inzPJATKSNM.Controllers
                         cmd.Parameters.Add("@PWD", SqlDbType.VarChar);
                         cmd.Parameters["@PWD"].Value = encryptPass(user.haslo);
 
-                        cmd.Parameters.Add("@SQ_Q", SqlDbType.VarChar);
-                        cmd.Parameters["@SQ_Q"].Value = user.pytanie;
-
-                        cmd.Parameters.Add("@SQ_A", SqlDbType.VarChar);
-                        cmd.Parameters["@SQ_A"].Value = user.odpowiedz;
-
                         cmd.ExecuteNonQuery();
                         Sqlcon.Close();
 
@@ -356,6 +349,119 @@ namespace inzPJATKSNM.Controllers
         public static string generateToken()
         {
             return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        }
+        public static Boolean checkUser(User user,String haslo)
+        {
+            Boolean isValid = false;
+            if(encryptPass(getUser(user.login).haslo).Equals(encryptPass(haslo)){
+                return true;
+            }
+            return isValid;
+
+        }
+        public static void changePriviledges(User user){
+            try
+            {
+                deletePrivliges(user);
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                foreach (Uprawnienia uprawnienie in user.uprawnieniaUsera)
+                {
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "CHANGE_PRIVILEDGE";
+
+                            cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
+                            cmd.Parameters["@ID_USER"].Value = user.userId;
+
+                            cmd.Parameters.Add("@ID_PRIV", SqlDbType.Int);
+                            cmd.Parameters["@ID_PRIV"].Value = uprawnienie.uprawnienieId;
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+                }
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
+        }
+        public static void changeRole(User user)
+        {
+            try
+            {
+                deletePrivliges(user);
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+               
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "CHANGE_ROLE";
+
+                            cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar);
+                            cmd.Parameters["@LOGIN"].Value = user.login;
+
+                            cmd.Parameters.Add("@ID_ROLE", SqlDbType.Int);
+                            cmd.Parameters["@ID_ROLE"].Value = user.rola.roleId;
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
+        }
+        public static void deletePrivliges(User user)
+        {
+            try
+            {
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                foreach (Uprawnienia uprawnienie in user.uprawnieniaUsera)
+                {
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "DELETE_PRIVILEDGE";
+
+                            cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
+                            cmd.Parameters["@ID_USER"].Value = user.userId
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
         }
     }
        
