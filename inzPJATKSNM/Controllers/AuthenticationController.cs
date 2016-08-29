@@ -228,41 +228,62 @@ namespace inzPJATKSNM.Controllers
         public static User getUser(String login)
         {
             User user = new User();
+            Rola role = new Rola();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            try
-            {
+          //  try
+          //  {
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (SqlCommand cmd = new SqlCommand("GET_USER", Sqlcon))
                     {
-                        Sqlcon.Open();
-                        cmd.Connection = Sqlcon;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GET_USER";
-                       
+                            SqlParameter outPutParameter = new SqlParameter();
+
+                            cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
+                            cmd.Parameters["@ID_USER"].Direction = ParameterDirection.Output;
                             cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar);
-                            cmd.Parameters["@LOGIN"].Value = user.login;
-                            using (SqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    user.userId = reader.GetInt32(0);
-                                    user.login = reader.GetString(1);
-                                    user.haslo = reader.GetString(2);
-                                    user.imie = reader.GetString(3);
-                                    user.nazwisko = reader.GetString(4);
-                                    user.token = reader.GetString(5);
-                                    user.rola.roleId = reader.GetInt32(6);
-                                }
-                            }
+                            cmd.Parameters["@LOGIN"].Direction = ParameterDirection.Output;
+                            cmd.Parameters["@LOGIN"].Size = 250;
+                            cmd.Parameters.Add("@PWD", SqlDbType.VarChar);
+                            cmd.Parameters["@PWD"].Direction = ParameterDirection.Output;
+                            cmd.Parameters["@PWD"].Size = 250;
+                            cmd.Parameters.Add("@NAME", SqlDbType.VarChar);
+                            cmd.Parameters["@NAME"].Direction = ParameterDirection.Output;
+                            cmd.Parameters["@NAME"].Size = 250;
+                            cmd.Parameters.Add("@SURNAME", SqlDbType.VarChar);
+                            cmd.Parameters["@SURNAME"].Direction = ParameterDirection.Output;
+                            cmd.Parameters["@SURNAME"].Size = 250;
+                            cmd.Parameters.Add("@TOKEN", SqlDbType.VarChar);
+                            cmd.Parameters["@TOKEN"].Direction = ParameterDirection.Output;
+                            cmd.Parameters["@TOKEN"].Size = 250;
+                            cmd.Parameters.Add("@ID_ROLE", SqlDbType.Int);
+                            cmd.Parameters["@ID_ROLE"].Direction = ParameterDirection.Output;
+                            // try
+                            // {
+                            Sqlcon.Open();
+                            cmd.Parameters.Add("@LOGIN2", SqlDbType.VarChar);
+                            cmd.Parameters["@LOGIN2"].Value = login;
+                            cmd.Parameters["@LOGIN2"].Size = 100;
+
+                            cmd.ExecuteNonQuery();
+                            user.userId = Convert.ToInt32(cmd.Parameters["@ID_USER"].Value);
+                            user.login = cmd.Parameters["@LOGIN"].Value.ToString();
+                            user.haslo = cmd.Parameters["@PWD"].Value.ToString();
+                            user.imie = cmd.Parameters["@NAME"].Value.ToString();
+                            user.nazwisko = cmd.Parameters["@SURNAME"].Value.ToString();
+                            user.token = cmd.Parameters["@TOKEN"].Value.ToString();
+                            role.roleId = Convert.ToInt32(cmd.Parameters["@ID_ROLE"].Value);
+                            user.rola = role;
+                            user.rola.roleId = role.roleId;
+                        
                         }
                         Sqlcon.Close();
                     }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Autor o podanym loginie nie istnieje w systemie!");
-            }
+          //  }
+         //   catch (Exception e)
+           // {
+             //   throw new Exception("Autor o podanym loginie nie istnieje w systemie!");
+            //}
             return user;
         }
         public static void deleteUser(User user, User administrator)
@@ -353,9 +374,13 @@ namespace inzPJATKSNM.Controllers
         public static Boolean checkUser(User user,String haslo)
         {
             Boolean isValid = false;
-            if(encryptPass(getUser(user.login).haslo).Equals(encryptPass(haslo))){
+            String encryptedPass = getUser(user.login).haslo;
+            String passPassed = encryptPass(haslo);
+            if(encryptedPass.Equals(passPassed))
+            {
                 return true;
             }
+
             return isValid;
 
         }
