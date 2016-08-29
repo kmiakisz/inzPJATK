@@ -359,6 +359,110 @@ namespace inzPJATKSNM.Controllers
             return isValid;
 
         }
+        public static void changePriviledges(User user){
+            try
+            {
+                deletePrivliges(user);
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                foreach (Uprawnienia uprawnienie in user.uprawnieniaUsera)
+                {
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "CHANGE_PRIVILEDGE";
+
+                            cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
+                            cmd.Parameters["@ID_USER"].Value = user.userId;
+
+                            cmd.Parameters.Add("@ID_PRIV", SqlDbType.Int);
+                            cmd.Parameters["@ID_PRIV"].Value = uprawnienie.uprawnienieId;
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+                }
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
+        }
+        public static void changeRole(User user)
+        {
+            try
+            {
+                deletePrivliges(user);
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+               
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "CHANGE_ROLE";
+
+                            cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar);
+                            cmd.Parameters["@LOGIN"].Value = user.login;
+
+                            cmd.Parameters.Add("@ID_ROLE", SqlDbType.Int);
+                            cmd.Parameters["@ID_ROLE"].Value = user.rola.roleId;
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
+        }
+        public static void deletePrivliges(User user)
+        {
+            try
+            {
+                String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+                foreach (Uprawnienia uprawnienie in user.uprawnieniaUsera)
+                {
+                    using (SqlConnection Sqlcon = new SqlConnection(connStr))
+                    {
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            Sqlcon.Open();
+                            cmd.Connection = Sqlcon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "DELETE_PRIVILEDGE";
+
+                            cmd.Parameters.Add("@ID_USER", SqlDbType.Int);
+                            cmd.Parameters["@ID_USER"].Value = user.userId
+
+                            cmd.ExecuteNonQuery();
+                            Sqlcon.Close();
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Zmiana uprawnień się nie powiodła!");
+            }
+        }
     }
        
 
