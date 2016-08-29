@@ -13,40 +13,22 @@ namespace inzPJATKSNM.Views {
     public partial class NewUserView {
         
         /// <summary>
-        /// LoginLbl control.
+        /// EmailLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LoginLbl;
+        protected global::System.Web.UI.WebControls.Label EmailLbl;
         
         /// <summary>
-        /// LoginTxt control.
+        /// EmailTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LoginTxt;
-        
-        /// <summary>
-        /// HasłoLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label HasłoLbl;
-        
-        /// <summary>
-        /// PwdTxt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PwdTxt;
+        protected global::System.Web.UI.WebControls.TextBox EmailTxt;
         
         /// <summary>
         /// ImięLbl control.

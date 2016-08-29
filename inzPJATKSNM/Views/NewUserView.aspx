@@ -10,13 +10,9 @@
                 <h3 class="panel-title">Dane nowego użytkownika</h3>
             </div>
             <div class="panel-body">
-                <div id="login">
-                    <asp:Label ID="LoginLbl" runat="server" Text="Login" CssClass="label label-danger"></asp:Label>
-                    <asp:TextBox ID="LoginTxt" runat="server" CssClass="form-control"></asp:TextBox>
-                </div>
-                <div id="pwd">
-                    <asp:Label ID="HasłoLbl" runat="server" Text="Hasło" CssClass="label label-danger"></asp:Label>
-                    <asp:TextBox ID="PwdTxt" runat="server" CssClass="form-control"></asp:TextBox>
+                <div id="email">
+                    <asp:Label ID="EmailLbl" runat="server" Text="Email" CssClass="label label-danger"></asp:Label>
+                    <asp:TextBox ID="EmailTxt" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div id="name">
                     <asp:Label ID="ImięLbl" runat="server" Text="Imię" CssClass="label label-danger"></asp:Label>
