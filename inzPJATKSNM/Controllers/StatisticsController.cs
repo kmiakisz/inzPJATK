@@ -113,5 +113,59 @@ namespace inzPJATKSNM.Controllers
             }
             return s;
         }
+        public static List<Statistic> DrawChart(int surveyId)
+        {
+            List<Statistic> statList = new List<Statistic>();
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;          
+            string query = "select ocena , id_zdjecia from Ocena where id_ankiety =" + surveyId;
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                SqlCommand command = new SqlCommand(query, Sqlcon);
+                Sqlcon.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Statistic s = new Statistic();
+                        s.mark = Convert.ToInt32(reader[0]);
+                        s.photoId = Convert.ToInt32(reader[1]);
+                        statList.Add(s);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    Sqlcon.Close();
+                }
+                //using (SqlCommand cmd = new SqlCommand()) //wykres source
+                //{
+                    //try
+                    //{
+                        //Sqlcon.Open();
+                        //cmd.Connection = Sqlcon;
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        //cmd.CommandText = "wykres_glosy";
+
+                        //cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
+                        //cmd.Parameters["@ankietaId"].Value = surveyId;
+                        //cmd.ExecuteNonQuery();
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    throw new Exception(e.Message);
+                    //}
+                    //finally
+                    //{
+                        Sqlcon.Close();
+                    //}
+
+                //}
+            }
+            return statList;
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace inzPJATKSNM.Views {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TypeLabel;
+        //protected global::System.Web.UI.WebControls.Label TypeLabel;
         
         /// <summary>
         /// TypeDropDownList control.

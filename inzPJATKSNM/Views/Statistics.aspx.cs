@@ -1,4 +1,5 @@
-﻿using System;
+﻿using inzPJATKSNM.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,11 +10,15 @@ namespace inzPJATKSNM.Views
 {
     public partial class Statistics : System.Web.UI.Page
     {
+        public static Statistic s;
+        public static List<Statistic> listaS;
+        public static int id;
         protected void Page_Load(object sender, EventArgs e)
         {
             
             if(Request.QueryString["Id"] != null)
             {
+                id =  Int32.Parse(Request.QueryString["Id"]);
                 int par = Convert.ToInt32(Request.QueryString["Id"]);
                 FillStatisticsPerSurvey(par);
             }
@@ -38,6 +43,7 @@ namespace inzPJATKSNM.Views
                 Lbl6.Text = "Ilość subskrybentów : " + Convert.ToString(s.numOfEmails);
 
                 BackButton.Visible = false;
+                Chart1.Visible = false;
                 
             }
             catch (Exception e)
@@ -67,6 +73,12 @@ namespace inzPJATKSNM.Views
               //  throw new Exception(e.Message);
             //}
         }
+        public static List<inzPJATKSNM.Controllers.Statistic> FillChart()
+        {
+            listaS = inzPJATKSNM.Controllers.StatisticsController.DrawChart(id);
+            return listaS;           
+        }
+      
 
         protected void StatButton_Click(object sender, EventArgs e)
         {

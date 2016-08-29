@@ -10,96 +10,96 @@
 namespace inzPJATKSNM.Views {
     
     
-    public partial class Statistics {
+    public partial class NewUserView {
         
         /// <summary>
-        /// Lbl1 control.
+        /// EmailLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl1;
+        protected global::System.Web.UI.WebControls.Label EmailLbl;
         
         /// <summary>
-        /// Lbl2 control.
+        /// EmailTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl2;
+        protected global::System.Web.UI.WebControls.TextBox EmailTxt;
         
         /// <summary>
-        /// Lbl3 control.
+        /// ImięLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl3;
+        protected global::System.Web.UI.WebControls.Label ImięLbl;
         
         /// <summary>
-        /// Lbl4 control.
+        /// NameTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl4;
+        protected global::System.Web.UI.WebControls.TextBox NameTxt;
         
         /// <summary>
-        /// Lbl5 control.
+        /// NazwiskoLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl5;
+        protected global::System.Web.UI.WebControls.Label NazwiskoLbl;
         
         /// <summary>
-        /// Lbl6 control.
+        /// SurnameTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Lbl6;
+        protected global::System.Web.UI.WebControls.TextBox SurnameTxt;
         
         /// <summary>
-        /// BackButton control.
+        /// RolaLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BackButton;
+        protected global::System.Web.UI.WebControls.Label RolaLbl;
         
         /// <summary>
-        /// StatButton control.
+        /// RoleDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button StatButton;
+        protected global::System.Web.UI.WebControls.DropDownList RoleDDL;
         
         /// <summary>
-        /// Chart1 control.
+        /// RoleDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
+        protected global::System.Web.UI.WebControls.SqlDataSource RoleDataSource;
         
         /// <summary>
-        /// ObjectDataSource1 control.
+        /// AcceptButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
+        protected global::System.Web.UI.WebControls.Button AcceptButton;
     }
 }
