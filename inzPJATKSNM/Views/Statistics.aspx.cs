@@ -11,6 +11,7 @@ namespace inzPJATKSNM.Views
     public partial class Statistics : System.Web.UI.Page
     {
         public static Statistic s;
+        public static List<Statistic> listaS;
         public static int id;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -72,10 +73,10 @@ namespace inzPJATKSNM.Views
               //  throw new Exception(e.Message);
             //}
         }
-        public static inzPJATKSNM.Controllers.Statistic FillChart()
+        public static List<inzPJATKSNM.Controllers.Statistic> FillChart()
         {
-            s = inzPJATKSNM.Controllers.StatisticsController.DrawChart(id);
-            return s;           
+            listaS = inzPJATKSNM.Controllers.StatisticsController.DrawChart(id);
+            return listaS;           
         }
       
 

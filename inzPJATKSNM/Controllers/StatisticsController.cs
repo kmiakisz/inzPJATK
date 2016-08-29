@@ -113,10 +113,10 @@ namespace inzPJATKSNM.Controllers
             }
             return s;
         }
-        public static Statistic DrawChart(int surveyId)
+        public static List<Statistic> DrawChart(int surveyId)
         {
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            Statistic s = new Statistic();
+            List<Statistic> statList = new List<Statistic>();
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;          
             string query = "select ocena , id_zdjecia from Ocena where id_ankiety =" + surveyId;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
@@ -127,8 +127,10 @@ namespace inzPJATKSNM.Controllers
                 {
                     while (reader.Read())
                     {
+                        Statistic s = new Statistic();
                         s.mark = Convert.ToInt32(reader[0]);
                         s.photoId = Convert.ToInt32(reader[1]);
+                        statList.Add(s);
                     }
                 }
                 catch (Exception e)
@@ -163,7 +165,7 @@ namespace inzPJATKSNM.Controllers
 
                 //}
             }
-            return s;
+            return statList;
         }
     }
 }
