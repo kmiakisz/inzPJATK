@@ -10,60 +10,51 @@
 namespace inzPJATKSNM.Views {
     
     
-    public partial class LogInView {
+    public partial class ResetCredentials {
         
         /// <summary>
-        /// LoginLbl control.
+        /// PwdLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LoginLbl;
+        protected global::System.Web.UI.WebControls.Label PwdLabel;
         
         /// <summary>
-        /// LoginTxt control.
+        /// PwdTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LoginTxt;
+        protected global::System.Web.UI.WebControls.TextBox PwdTxt;
         
         /// <summary>
-        /// PwdLbl control.
+        /// RePwdLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PwdLbl;
+        protected global::System.Web.UI.WebControls.Label RePwdLabel;
         
         /// <summary>
-        /// TextBox2 control.
+        /// RePwdTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox RePwdTxt;
         
         /// <summary>
-        /// LogInButton control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LogInButton;
-        
-        /// <summary>
-        /// ResetPwdButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ResetPwdButton;
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

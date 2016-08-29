@@ -420,6 +420,7 @@
     <Content Include="Views\ManageUsers.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
     <Content Include="Views\NewUserView.aspx" />
+    <Content Include="Views\ResetCredentials.aspx" />
     <Content Include="Views\SendMailForm.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Views\StartPage.aspx" />
@@ -845,6 +846,13 @@
     </Compile>
     <Compile Include="Views\NewUserView.aspx.designer.cs">
       <DependentUpon>NewUserView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResetCredentials.aspx.cs">
+      <DependentUpon>ResetCredentials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ResetCredentials.aspx.designer.cs">
+      <DependentUpon>ResetCredentials.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\SendMailForm.aspx.cs">
       <DependentUpon>SendMailForm.aspx</DependentUpon>
