@@ -13,5 +13,10 @@ namespace inzPJATKSNM.Views
         {
 
         }
+
+        protected void NewUserBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewUserView.aspx");
+        }
     }
 }
