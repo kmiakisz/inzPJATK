@@ -43,7 +43,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("Błą poczas pobierania listy dzieł");
+                throw new Exception("Błąd poczas pobierania listy dzieł");
             } 
             return photoList;
         }

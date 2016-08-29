@@ -20,13 +20,17 @@ namespace inzPJATKSNM.Views
         public int CsVariable = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+                 
                 LoadSurveysFromDb();
                 liczbaAnkiet = policzAnkiety();
                 if (Request.QueryString["val"] != null)
                 {
-                    int val = int.Parse(Request.QueryString["val"]);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
+                   
+                  
+                        int val = int.Parse(Request.QueryString["val"]);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "mailOpenModal();", true);
+                    
+                    
                 }
                 if (Request.QueryString["err"] != null)
                 {

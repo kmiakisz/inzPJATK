@@ -42,17 +42,12 @@ namespace inzPJATKSNM.Views
                     {
                         if (blokowaneIP.Count != 0)
                         {
-                            try
-                            {
+                            
                                 if (blokowaneIP.Contains(inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress()))
                                 {
                                     Response.Redirect("Surveys.aspx?val=BlockedIp");
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                Response.Redirect("Surveys.aspx?err="+ex.Message);
-                            }
+                            
                             
                         }
                         dziela = new List<Dzieło>();
@@ -124,7 +119,8 @@ namespace inzPJATKSNM.Views
 
         protected void vote_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "text", "subscriptionOpenModal+();", true);
+          
+          
             string cos = TextBox1.Text;
             string removeString = "undefined";
             cos = cos.Remove(cos.IndexOf(removeString), removeString.Length);
@@ -182,7 +178,7 @@ namespace inzPJATKSNM.Views
                 Response.Redirect("Surveys.aspx?err="+ex.Message);
             }
           
-            Response.Redirect("Surveys.aspx");
+            Response.Redirect("Surveys.aspx?val=thanks"+id);
            
         }
 

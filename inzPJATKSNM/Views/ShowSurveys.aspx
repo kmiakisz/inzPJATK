@@ -14,6 +14,7 @@
              $('#failModal').modal('show');
          }
     </script>
+  
     <% 
      Response.Write("<div class = \"row\">");
             foreach(KeyValuePair<int, String> kvp in getURLDict()){

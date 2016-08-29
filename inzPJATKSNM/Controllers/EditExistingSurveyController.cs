@@ -11,16 +11,16 @@ namespace inzPJATKSNM.Controllers
 {
     public class EditExistingSurveyController
     {
-        public static List<String> getSurveyPhotos(int id)
+        public static Dictionary<string,Dzieło> getSurveyPhotos(int id)
         {
-            List<String> photoList = new List<String>();
+            Dictionary<string, Dzieło> photoList = new Dictionary<string, Dzieło>();
             try
             {
                 String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "select dzielo.url from ankieta outer apply ( select url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where id_ankiety like @ID;";
+                    string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_Autora,Tytuł from ankieta outer apply ( select Id_dzieło,URL,Id_Tech,Id_Kat,Id_Autora,Tytuł from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where id_ankiety like @ID;";
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         command.Parameters.Add("@ID", SqlDbType.Int);
@@ -29,7 +29,14 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-                                photoList.Add(reader.GetString(0));
+                                Dzieło dzielo = new Dzieło();
+                                dzielo.Id_dzieło = reader.GetInt32(0);
+                                dzielo.URL = reader.GetString(1);
+                                dzielo.Id_Tech = reader.GetInt32(2);
+                                dzielo.Id_Kat = reader.GetInt32(3);
+                                dzielo.Id_Autora = reader.GetInt32(4);
+                                dzielo.tytuł = reader.GetString(5);
+                                photoList.Add(dzielo.URL,dzielo);
                             }
                         }
                     }
@@ -82,13 +89,13 @@ namespace inzPJATKSNM.Controllers
            
             return Survey;
         }
-        public static void saveEditsurvey(Ankieta ankieta,List<String> zdjPoEdycji)
+        public static void saveEditsurvey(Ankieta ankieta,Dictionary<string,Dzieło> zdjPoEdycji)
         {
 
             List<int> listaIdPoEdycji = new List<int>();
             try
             {
-                foreach (string url in zdjPoEdycji)
+                foreach (string url in zdjPoEdycji.Keys)
                 {
                     listaIdPoEdycji.Add(getPhotoId(url));
                 }
@@ -116,7 +123,6 @@ namespace inzPJATKSNM.Controllers
                     command.Parameters.Add("@nazwa", SqlDbType.VarChar).Value = ankieta.Nazwa;
                     command.Parameters.Add("@opis", SqlDbType.VarChar).Value = ankieta.Opis_ankiety;
                     command.Parameters.Add("@dataZak", SqlDbType.DateTime).Value = ankieta.Data_zak;
-                    command.Parameters.Add("@idMuzyka", SqlDbType.Int).Value = ankieta.Id_Muzyka;
                     command.Parameters.Add("@active", SqlDbType.Int).Value = 1;//do zmiay po zaktualizowaniu modelu
                     command.Parameters.Add("@Typ", SqlDbType.VarChar).Value = ankieta.Type;
                     command.ExecuteNonQuery();

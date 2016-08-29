@@ -416,7 +416,10 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\AdministratorPanel.aspx" />
+    <Content Include="Views\LogInView.aspx" />
+    <Content Include="Views\ManageUsers.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
+    <Content Include="Views\NewUserView.aspx" />
     <Content Include="Views\SendMailForm.aspx" />
     <Content Include="Views\ShowSurveys.aspx" />
     <Content Include="Views\StartPage.aspx" />
@@ -811,12 +814,33 @@
     <Compile Include="Views\AdministratorPanel.aspx.designer.cs">
       <DependentUpon>AdministratorPanel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\LogInView.aspx.cs">
+      <DependentUpon>LogInView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\LogInView.aspx.designer.cs">
+      <DependentUpon>LogInView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\NewSurvey.aspx.cs">
       <DependentUpon>NewSurvey.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\NewSurvey.aspx.designer.cs">
       <DependentUpon>NewSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewUserView.aspx.cs">
+      <DependentUpon>NewUserView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\NewUserView.aspx.designer.cs">
+      <DependentUpon>NewUserView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\SendMailForm.aspx.cs">
       <DependentUpon>SendMailForm.aspx</DependentUpon>

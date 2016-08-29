@@ -14,6 +14,7 @@
     <script src="../Scripts/moment.js"></script>
     <script src="../Scripts/moment.min.js"></script>
     <script type="text/javascript">
+       
         $(document).ready(function () {
 
             $('#lightSlider').lightSlider({
@@ -23,61 +24,67 @@
                 slideMargin: 0,
                 thumbItem: 9
             });
+            $(".addPhoto").click(function (event) {
+
+                var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+                
+                $.ajax({
+                    url: '<%= ResolveUrl("EditExistingSurvey.aspx/AddPhoto") %>',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: '{"url":' + link + ' }',
+                    dataType: 'json',
+                    success: function () {
+
+                    },
+                    error: function (er) {
+                      
+                    }
+                });
+            });
             $(".delete").click(function (event) {
 
                 debugger;
                 $("#" + event.target.id).css("background-color", "transparent");
-                //if($("#"+event.target.id).data('clicked')){
-                //  $(".show-image").click(function(event) {
-                //       $("#"+event.target.id).css("border-color","green");
-                // });
 
-                //  }
                 var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+               
                 $.ajax({
-                    url: '<%= ResolveUrl("NewSurvey.aspx/RemovePhotoFromSurvey") %>',
+                    url: '<%= ResolveUrl("EditExistingSurvey.aspx/removePhotoFromSurvey") %>',
                     method: 'post',
                     contentType: 'application/json',
                     data: '{"url":' + link + ' }',
                     dataType: 'json',
                     success: function () {
-
+                        location.reload();
                     },
                     error: function (er) {
-                        Alert("Zdarzył się potworny błąd!!!")
+                       
                     }
                 });
             });
-            // $(".update").dblclick(function (event) {
-            //     $("#" + event.target.id).css("background-color", "transparent");
-            // });
 
         });
 
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-            $('#lightSlider2').lightSlider({
-                gallery: true,
-                item: 1,
-                loop: true,
-                slideMargin: 0,
-                thumbItem: 9
-            });
-            $(".update").click(function (event) {
+                $('#lightSlider2').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    loop: true,
+                    slideMargin: 0,
+                    thumbItem: 9
+                });
+                $(".update").click(function (event) {
 
-                debugger;
-                $("#" + event.target.id).css("background-color", "transparent");
-                //if($("#"+event.target.id).data('clicked')){
-                //  $(".show-image").click(function(event) {
-                //       $("#"+event.target.id).css("border-color","green");
-                // });
+                    debugger;
+                    $("#" + event.target.id).css("background-color", "transparent");
 
-                //  }
-                var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
-                $.ajax({
-                    url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
+                    var link = Sys.Serialization.JavaScriptSerializer.serialize(event.target.name);
+                    $.ajax({
+                        url: '<%= ResolveUrl("NewSurvey.aspx/AddPhotoToSurvey") %>',
                     method: 'post',
                     contentType: 'application/json',
                     data: '{"url":' + link + ' }',
@@ -86,13 +93,10 @@
 
                     },
                     error: function (er) {
-                        Alert("Zdarzył się potworny błąd!!!")
+                        Alert(er)
                     }
                 });
             });
-            // $(".update").dblclick(function (event) {
-            //    $("#" + event.target.id).css("background-color", "transparent");
-            // });
 
         });
 
@@ -106,7 +110,7 @@
             });
 
         });
-    </script>
+        </script>
 
     <script runat="server">
         protected List<String> GetList()
@@ -116,18 +120,18 @@
             return new List<String>();
         }
     </script>
-    <script runat="server">
+      <script runat="server">
         protected void removeFromSurvey(int id, string url)
         {
             usedPhotos.Remove(id);
             freePhotos.Add(id, url);
         }
     </script>
-    <script runat="server">
+      <script runat="server">
         protected void addToSurvey(int id, string url)
         {
             freePhotos.Remove(id);
-            usedPhotos.Add(id, url);
+            usedPhotos.Add(id, url);   
         }
     </script>
     <script runat="server">
@@ -138,7 +142,7 @@
             return freePhotosFromDB;
         }
     </script>
-    <script runat="server">
+        <script runat="server">
         protected Dictionary<Int32, String> GetUsedPhotos()
         {
             int surveyId = int.Parse(Request.QueryString["Id"]);
@@ -156,15 +160,11 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox1" Display="Dynamic" Font-Bold="true" ForeColor="Red"></asp:RequiredFieldValidator>
             <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
             <asp:TextBox ID="ServeyDescribtionTextBox1" runat="server" class="form-control"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Opis ankiety nie może być pusty!" ControlToValidate="ServeyDescribtionTextBox1" ForeColor="Red" Display="Dynamic" Font-Bold="true"></asp:RequiredFieldValidator>
-            <asp:Label ID="MusicLabel" runat="server" Text="Wybierz muzykę: " class="label label-danger"></asp:Label>
-            <asp:DropDownList ID="MusicDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="MuzykaSDS" DataTextField="Tytul" DataValueField="Id_Muzyka">
-                <asp:ListItem Text="--Wybierz--" Value="" Enabled="true">dfg</asp:ListItem>
+            <asp:Label ID="MusicLabel" runat="server" Text="Typ ankiety:" class="label label-danger"></asp:Label>
+       <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%">
+                <asp:ListItem Text="PUBLICZNA" Value="PUBLIC" Enabled="true">PUBLICZNA</asp:ListItem>
+                <asp:ListItem Text="PRYWATNA" Value="PRIVATE" Enabled="true">PRYWATNA</asp:ListItem>
             </asp:DropDownList>
-            <asp:DropDownList ID="TypeDropDownList" runat="server" class="form-control" Style="width: 80%" DataSourceID="SqlDataSource1" DataTextField="Typ" DataValueField="Typ"></asp:DropDownList>
-
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Typ] FROM [Ankieta]"></asp:SqlDataSource>
-            <asp:SqlDataSource ID="MuzykaSDS" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Muzyka], [Tytul] FROM [Muzyka]"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Wybierz date zakonczenia: " CssClass="label label-danger"></asp:Label>
             <div class="container">
                 <div class="row">
@@ -190,65 +190,95 @@
             <asp:Label ID="Data_zakLAb" runat="server" Text=""></asp:Label>
             <br />
             <asp:Label ID="Label2" runat="server" Text="Status: " CssClass="label label-danger"></asp:Label>
-            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
-                <asp:ListItem>--Wybierz Stan --</asp:ListItem>
-                <asp:ListItem Value="1">Aktywna</asp:ListItem>
-                <asp:ListItem Value="0">Nieaktywna</asp:ListItem>
-            </asp:DropDownList>
-
+           
+           
             <br />
             <br />
             <div id="Buttons" style="float: left; width: 56%">
                 <asp:Button ID="AcceptButton" runat="server" Text="Zapisz" class="btn btn-success" Style="float: left" OnClick="AcceptButton_Click" />
                 <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
             </div>
-
+            
         </div>
-        <div id="right" style="float: right; width: 40%">
-            <div class="demo">
+       <div class="demo" style="float: right; width: 40%">
+      <%
+          Response.Write("<h3>Zdjęcia w ankiecie</h3>");
+           %>
                 <ul id="lightSlider">
                     <% 
-                     
-                        int surveyId = int.Parse(Request.QueryString["Id"]);
-                        foreach (Int32 key in usedPhotos.Keys)
+                    foreach (inzPJATKSNM.Models.Dzieło dzielo in  getSurveyPhotos())
                         {
-                            currentKey = key;
-                            currentValue = usedPhotos[key];
-                            Response.Write("<li data-thumb=" + usedPhotos[key] + ">"
-                                + " <div class=\"show-image\" id=" + key + ">"
-                                + " <img src=" + usedPhotos[key] + " />"
-                                //+ " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + key + " name =" + usedPhotos[key] + " />"
-                                + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" name =" + key + ">"
+                        Response.Write("<li data-thumb=" + dzielo.URL + ">"
+                            + " <div class=\"show-image\" id=" + dzielo.Id_dzieło + ">"
+                            + " <img src=" + dzielo.URL + " />"
+                            + " <input class=\"delete\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + dzielo.Id_dzieło + " name =" + dzielo.URL + ">"
                                 + " </div>"
-                                + "</li>  ");
+                            + "</li>  " );
 
                         }
                     %>
                 </ul>
-            </div>
-            <div id="buttons" align="center">
-                <asp:Button ID="Add_Button" runat="server" Text="Dodaj ↓ " CssClass="btn btn-success" OnClick="Add_Button_Click" />
-                <asp:Button ID="Del_Button" runat="server" Text="Usuń ↑ " CssClass="btn btn-danger" OnClick="Del_Button_Click" />
-            </div>
-            <div class="demo">
-                <ul id="lightSlider2">
+            <br />
+
+               <div >
+
+               <h3>Dostępne zdjęcia</h3>
+                       <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="KategorieDataSource" DataTextField="Kategoria" DataValueField="Id_Kat" OnTextChanged="kategoriaChanged" AutoPostBack="True" 
+                    onselectedindexchanged="kategoriaChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="KategorieDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Kat], [Kategoria] FROM [Kategoria]"></asp:SqlDataSource>
+                   &nbsp<asp:DropDownList ID="DropDownList3" runat="server" DataSourceID="TechnikaDataSource" DataTextField="Technika" DataValueField="Id_Tech" AutoPostBack="True" 
+                    onselectedindexchanged="technikaChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="TechnikaDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Tech], [Technika] FROM [Technika]"></asp:SqlDataSource>
+                   &nbsp<asp:DropDownList ID="DropDownList4" runat="server" DataSourceID="AutorDataSource" DataTextField="Nazwisko" DataValueField="Id_Autora" AutoPostBack="True" 
+                    onselectedindexchanged="autorChanged" AppendDataBoundItems="true">
+                       <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
+                   </asp:DropDownList>
+                   <asp:SqlDataSource ID="AutorDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Id_Autora], [Nazwisko] FROM [Autor]"></asp:SqlDataSource>
+          <br />
                     <% 
-                        int x_1 = 0;
-                        foreach (String s in freePhotos.Values)
-                        {
+               Response.Write("<div class = \"row\">");
 
-                            Response.Write("<li data-thumb=" + s + ">"
-                                + " <div class=\"show-image\" id=" + x_1 + ">"
-                                + " <img src=" + s + " />"
-                                + " <input class=\"update\" type=\"button\" value=\" \" onserverclick=\"AddToSurvey\" id=" + x_1 + " name =" + s + " />"
-                                + " </div>"
-                                + "</li>  ");
-
-                            x_1++;
-
+               foreach (inzPJATKSNM.Models.Dzieło dzielo in getFilteredPhoto())
+               {
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\" width=100 height=100>");
+                Response.Write("<input id=\"" + dzielo.URL + "\" name=\"" + dzielo.URL + "\" type=\"submit\" class=\"addPhoto\" runat=\"server\" style=\"background-color:transparent; border-color:transparent;\" onserverclick=\"addPhoto\">"); 
+                Response.Write("<img src=\""+dzielo.URL+"\"/>");
+                Response.Write("</input>");
+                Response.Write("</div>");             
+                Response.Write("</div>");
+            }
+            Response.Write("</div>");
+        %>
+        </div>
+        </div>
+    </div>
+     <script type="text/javascript">
+         function failOpenModal() {
+             $('#failModal').modal('show');
                         }
+    </script>
+       <div id="failModal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button   type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Wystąpił błąd</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            Response.Write("<p>"+Request.QueryString["err"]+"</p>");
                     %>
-                </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
             </div>
         </div>
     </div>
