@@ -23,6 +23,11 @@ namespace inzPJATKSNM.Views
                     mgmtDiv.Visible = true;
                 }
             }
+            else
+            {
+                Response.Redirect("LoginView.aspx");
+                   
+            }
             
             if (Request.QueryString["err"] != null)
             {

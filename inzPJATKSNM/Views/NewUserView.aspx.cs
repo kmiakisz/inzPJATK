@@ -12,7 +12,7 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
+          
             if (System.Web.HttpContext.Current.User.Identity.Name != null)
             {
                 inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(System.Web.HttpContext.Current.User.Identity.Name);
@@ -25,7 +25,7 @@ namespace inzPJATKSNM.Views
             {
                 Response.Redirect("LoginView.aspx");
             }
-             */ 
+             
            
         }
 
