@@ -21,7 +21,7 @@
             </div>
         </div>
         <div id="changesbutton">
-            <asp:Button ID="ChangesButton" runat="server" Text="Wyślij." CssClass="btn btn-success" />
+            <asp:Button ID="ChangesButton" runat="server" Text="Wyślij." CssClass="btn btn-success" OnClick="ChangesButton_Click" />
         </div>
     </div>
 </asp:Content>
