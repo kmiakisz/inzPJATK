@@ -12,6 +12,7 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            /*
             if (System.Web.HttpContext.Current.User.Identity.Name != null)
             {
                 inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(System.Web.HttpContext.Current.User.Identity.Name);
@@ -24,16 +25,19 @@ namespace inzPJATKSNM.Views
             {
                 Response.Redirect("LoginView.aspx");
             }
+             */ 
            
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
             User user = new User();
+            Rola role = new Rola();
             user.login = EmailTxt.Text;
             user.imie = NameTxt.Text;
             user.nazwisko = SurnameTxt.Text;
-            user.rola.roleId = Int32.Parse(RoleDDL.SelectedValue);
+            role.roleId =Int32.Parse(RoleDDL.SelectedValue);
+            user.rola = role;
             try
             {
                 inzPJATKSNM.Controllers.AuthenticationController.saveUser(user);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using inzPJATKSNM.AuthModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,15 @@ namespace inzPJATKSNM.Views
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void ChangesButton_Click(object sender, EventArgs e)
+        {
+            User user = new User();
+            user.login = Login1Txt.Text;
+            user.token = TokenTxt.Text;
+            inzPJATKSNM.Controllers.AuthenticationController.resetPass(user, user.token);
+            Response.Redirect("LogInView.aspx");
         }
     }
 }

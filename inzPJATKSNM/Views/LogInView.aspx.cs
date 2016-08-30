@@ -20,6 +20,18 @@ namespace inzPJATKSNM.Views
             User user = new User();
             user.login = LoginTxt.Text;
             user.haslo = TextBox2.Text;
+            if (inzPJATKSNM.Controllers.AuthenticationController.checkUser(user, user.haslo))
+            {
+                Response.Redirect("ShowSurveys.aspx");
+            }
+        }
+
+        protected void ResetPwdButton_Click(object sender, EventArgs e)
+        {
+            User user = new User();
+            user.login = LoginTxt.Text;
+            inzPJATKSNM.Controllers.AuthenticationController.resetPassToken(user);
+            Response.Redirect("ResetPassword.aspx");
         }
     }
 }
