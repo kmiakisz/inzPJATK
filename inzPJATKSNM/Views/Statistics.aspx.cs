@@ -51,6 +51,10 @@ namespace inzPJATKSNM.Views
                 throw new Exception("Błąd podczas aktualizacji statystyk!");
             }
         }
+        public static Statistic FillThumbnails(){
+            inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
+            return inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(id);
+        }
         public void FillStatisticsPerSurvey(int surverId)
         {
             //try

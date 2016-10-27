@@ -35,6 +35,43 @@
                         </div>
                     </div>
                 </div>
+                   <br />
+        <% 
+            inzPJATKSNM.Controllers.Statistic stat = inzPJATKSNM.Views.Statistics.FillThumbnails();
+            String name, url,desc;
+            if (stat.NumOfVisitors!=0)
+            {
+                Response.Write("<div class = \"row\">");
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i == 0)
+                    {
+                        name = stat.ImgMaxVoteNumName;
+                        url = stat.ImgMaxVoteNumUrl;
+                        desc = "najwyższą";
+                    }
+                    else
+                    {
+                        name = stat.ImgMinVoteNumName;
+                        url = stat.ImgMinVoteNumUrl;
+                        desc = "najniższą";
+                    }
+
+
+                    Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                    Response.Write("<div class=\"thumbnail\">");
+                    Response.Write("<img src=\"" + url + "\" alt=\" " + name + "\">");
+                    Response.Write("</div>");
+                    Response.Write("<div class=\"caption\">");
+                    Response.Write("<h3>" + name + "</h3>");
+                    Response.Write("<p>Dzieło z " + desc + " średnią oceną</p>");
+                    Response.Write("</div></div>");
+
+                }
+                Response.Write("</div>");
+            }
+          
+        %>
                 <div>
                     <asp:Button ID="BackButton" runat="server" Text="Powrót do statystyk" CssClass="btn btn-success" OnClick="BackButton_Click" />
                 </div>
@@ -43,7 +80,7 @@
                 <asp:Button ID="StatButton" runat="server" Text="Pokaż statystyki szczegółowe" CssClass="btn btn-success" OnClick="StatButton_Click" />
                 <asp:Chart ID="Chart1" runat="server" DataSourceID="ObjectDataSource1" CssClass="form-control">
                     <Series>
-                        <asp:Series Name="Series1" ChartType="StackedBar" XValueMember="photoId" YValueMembers="mark"></asp:Series>
+                        <asp:Series Name="Series1" ChartType="StackedBar" XValueMember="photoName" YValueMembers="mark"></asp:Series>
                     </Series>
                     <ChartAreas>
                         <asp:ChartArea Name="ChartArea1"></asp:ChartArea>

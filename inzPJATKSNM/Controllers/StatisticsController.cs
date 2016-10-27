@@ -88,6 +88,12 @@ namespace inzPJATKSNM.Controllers
                     cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
+                    cmd.Parameters.Add("@ImgMaxVoteNumUrl", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMaxVoteNumUrl"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMaxVoteNumUrl"].Size = 250;
+                    cmd.Parameters.Add("@ImgMinVoteNumUrl", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMinVoteNumUrl"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMinVoteNumUrl"].Size = 250;
                    // try
                    // {
                         Sqlcon.Open();
@@ -99,7 +105,8 @@ namespace inzPJATKSNM.Controllers
                         s.NumOfSubs = Convert.ToInt32(cmd.Parameters["@NumOfSubs"].Value);
                         s.ImgMaxVoteNumName = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumName"].Value);
                         s.ImgMinVoteNumName = Convert.ToString(cmd.Parameters["@ImgMinVoteNumName"].Value);
-                        
+                        s.ImgMaxVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumUrl"].Value);
+                        s.ImgMinVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMinVoteNumUrl"].Value);
                    // }
                    // catch (Exception e)
                    // {
@@ -117,7 +124,7 @@ namespace inzPJATKSNM.Controllers
         {
             List<Statistic> statList = new List<Statistic>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;          
-            string query = "select ocena , id_zdjecia from Ocena where id_ankiety =" + surveyId;
+            string query = "select ocena , id_zdjecia,tytuł from Ocena inner join Dzieło on id_zdjecia = id_dzieło where id_ankiety =" + surveyId;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 SqlCommand command = new SqlCommand(query, Sqlcon);
@@ -130,6 +137,7 @@ namespace inzPJATKSNM.Controllers
                         Statistic s = new Statistic();
                         s.mark = Convert.ToInt32(reader[0]);
                         s.photoId = Convert.ToInt32(reader[1]);
+                        s.photoName = reader[2].ToString();
                         statList.Add(s);
                     }
                 }
