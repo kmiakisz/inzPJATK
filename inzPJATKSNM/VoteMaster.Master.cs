@@ -13,5 +13,22 @@ namespace inzPJATKSNM
         {
 
         }
+        protected void EngButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string selectedLanguage = "en-GB";
+            HttpCookie cookie = new HttpCookie("CultureInfo");
+            cookie.Value = selectedLanguage;
+            Response.Cookies.Add(cookie);
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void PolButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string selectedLanguage = "pl-PL";
+            HttpCookie cookie = new HttpCookie("CultureInfo");
+            cookie.Value = selectedLanguage;
+            Response.Cookies.Add(cookie);
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

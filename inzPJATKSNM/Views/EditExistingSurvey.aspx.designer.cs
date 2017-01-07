@@ -58,15 +58,6 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.TextBox ServeyDescribtionTextBox1;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
-        /// <summary>
         /// MusicLabel control.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,15 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.DropDownList TypeDropDownList;
         
         /// <summary>
+        /// ZakDatLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ZakDatLbl;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -94,22 +94,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// example1 control.
+        /// EndDateTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText example1;
-        
-        /// <summary>
-        /// Data_zakLAb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Data_zakLAb;
+        protected global::System.Web.UI.WebControls.TextBox EndDateTxt;
         
         /// <summary>
         /// Label2 control.
@@ -139,6 +130,15 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Button CancelButton;
         
         /// <summary>
+        /// CategoryLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CategoryLbl;
+        
+        /// <summary>
         /// DropDownList2 control.
         /// </summary>
         /// <remarks>
@@ -148,13 +148,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
         
         /// <summary>
-        /// KategorieDataSource control.
+        /// TecLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource KategorieDataSource;
+        protected global::System.Web.UI.WebControls.Label TecLbl;
         
         /// <summary>
         /// DropDownList3 control.
@@ -166,13 +166,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
         
         /// <summary>
-        /// TechnikaDataSource control.
+        /// AuthLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource TechnikaDataSource;
+        protected global::System.Web.UI.WebControls.Label AuthLbl;
         
         /// <summary>
         /// DropDownList4 control.
@@ -182,6 +182,24 @@ namespace inzPJATKSNM.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
+        
+        /// <summary>
+        /// KategorieDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource KategorieDataSource;
+        
+        /// <summary>
+        /// TechnikaDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource TechnikaDataSource;
         
         /// <summary>
         /// AutorDataSource control.

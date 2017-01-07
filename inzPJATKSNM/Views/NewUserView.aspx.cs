@@ -5,6 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using inzPJATKSNM.AuthModels;
+using System.Threading;
+using System.Globalization;
+using inzPJATKSNM.Models;
+using inzPJATKSNM.Controllers;
+using inzPJATKSNM.PrivilegeModels;
 
 namespace inzPJATKSNM.Views
 {
@@ -12,21 +17,30 @@ namespace inzPJATKSNM.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
-            if (System.Web.HttpContext.Current.User.Identity.Name != null)
+            int loggedId;
+            HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
+
+            if (Session["token"] != null)
             {
-                inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(System.Web.HttpContext.Current.User.Identity.Name);
-                if (user.rola.roleId != 1)
+                string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
+                loggedId = user.userId;
+                List<Int32> list = UserController.GetUserPrivilegeListIdPerUserId(loggedId);
+                if (user.rola.roleId != 1 && !list.Contains(7))
                 {
-                    Response.Redirect("LoginView.aspx");
+                    Response.Redirect("AdministratorPanel.aspx");
                 }
             }
             else
             {
-                Response.Redirect("LoginView.aspx");
+                Response.Redirect("LogInView.aspx");
             }
+
              
-           
         }
 
         protected void AcceptButton_Click(object sender, EventArgs e)
@@ -48,5 +62,22 @@ namespace inzPJATKSNM.Views
             }
 
         }
+        protected override void InitializeCulture()
+        {
+            HttpCookie cookie = Request.Cookies["CultureInfo"];
+
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value); ;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pl-PL");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+            }
+
+            base.InitializeCulture();
+        } 
     }
 }

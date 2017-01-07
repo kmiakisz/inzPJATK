@@ -64,7 +64,7 @@ namespace inzPJATKSNM.Views {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::System.Web.UI.WebControls.Label TypeLabel;
+        protected global::System.Web.UI.WebControls.Label TypeLabel;
         
         /// <summary>
         /// TypeDropDownList control.
@@ -94,6 +94,15 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Button CancelButton;
         
         /// <summary>
+        /// CategoryLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CategoryLbl;
+        
+        /// <summary>
         /// DropDownList1 control.
         /// </summary>
         /// <remarks>
@@ -103,13 +112,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
-        /// KategorieDataSource control.
+        /// TecLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource KategorieDataSource;
+        protected global::System.Web.UI.WebControls.Label TecLbl;
         
         /// <summary>
         /// DropDownList2 control.
@@ -121,13 +130,13 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
         
         /// <summary>
-        /// TechnikaDataSource control.
+        /// AuthLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource TechnikaDataSource;
+        protected global::System.Web.UI.WebControls.Label AuthLbl;
         
         /// <summary>
         /// DropDownList3 control.
@@ -137,6 +146,24 @@ namespace inzPJATKSNM.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        
+        /// <summary>
+        /// KategorieDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource KategorieDataSource;
+        
+        /// <summary>
+        /// TechnikaDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource TechnikaDataSource;
         
         /// <summary>
         /// AutorDataSource control.

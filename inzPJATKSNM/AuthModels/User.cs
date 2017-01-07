@@ -13,6 +13,7 @@ namespace inzPJATKSNM.AuthModels
         public String imie { get;set; }
         public String nazwisko { get; set; }
         public String token { get; set; }
+        public String nazwaRoli { get; set; }
         public Rola rola { get; set; }
         public List<Uprawnienia> uprawnieniaUsera { get; set; }
 

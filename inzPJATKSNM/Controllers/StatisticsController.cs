@@ -88,8 +88,13 @@ namespace inzPJATKSNM.Controllers
                     cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
-                   // try
-                   // {
+                    cmd.Parameters.Add("@ImgMaxVoteNumUrl", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMaxVoteNumUrl"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMaxVoteNumUrl"].Size = 250;
+                    cmd.Parameters.Add("@ImgMinVoteNumUrl", SqlDbType.VarChar);
+                    cmd.Parameters["@ImgMinVoteNumUrl"].Direction = ParameterDirection.Output;
+                    cmd.Parameters["@ImgMinVoteNumUrl"].Size = 250;
+
                         Sqlcon.Open();
                         cmd.Parameters.Add("@SurveyId", SqlDbType.Int);
                         cmd.Parameters["@SurveyId"].Value = surveyId;
@@ -99,16 +104,10 @@ namespace inzPJATKSNM.Controllers
                         s.NumOfSubs = Convert.ToInt32(cmd.Parameters["@NumOfSubs"].Value);
                         s.ImgMaxVoteNumName = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumName"].Value);
                         s.ImgMinVoteNumName = Convert.ToString(cmd.Parameters["@ImgMinVoteNumName"].Value);
+                        s.ImgMaxVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumUrl"].Value);
+                        s.ImgMinVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMinVoteNumUrl"].Value);
                         
-                   // }
-                   // catch (Exception e)
-                   // {
-                   //     throw new Exception(e.Message);
-                   // }
-                   // finally
-                    //{
                         Sqlcon.Close();
-                  //  }
                 }
             }
             return s;
@@ -116,8 +115,8 @@ namespace inzPJATKSNM.Controllers
         public static List<Statistic> DrawChart(int surveyId)
         {
             List<Statistic> statList = new List<Statistic>();
-            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;          
-            string query = "select ocena , id_zdjecia from Ocena where id_ankiety =" + surveyId;
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            string query = "select ocena , id_zdjecia,tytuł from Ocena inner join Dzieło on id_zdjecia = id_dzieło where id_ankiety =" + surveyId;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 SqlCommand command = new SqlCommand(query, Sqlcon);
@@ -130,6 +129,7 @@ namespace inzPJATKSNM.Controllers
                         Statistic s = new Statistic();
                         s.mark = Convert.ToInt32(reader[0]);
                         s.photoId = Convert.ToInt32(reader[1]);
+                        s.photoName = reader[2].ToString();
                         statList.Add(s);
                     }
                 }
@@ -141,31 +141,39 @@ namespace inzPJATKSNM.Controllers
                 {
                     Sqlcon.Close();
                 }
-                //using (SqlCommand cmd = new SqlCommand()) //wykres source
-                //{
-                    //try
-                    //{
-                        //Sqlcon.Open();
-                        //cmd.Connection = Sqlcon;
-                        //cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.CommandText = "wykres_glosy";
 
-                        //cmd.Parameters.Add("@ankietaId", SqlDbType.Int);
-                        //cmd.Parameters["@ankietaId"].Value = surveyId;
-                        //cmd.ExecuteNonQuery();
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    throw new Exception(e.Message);
-                    //}
-                    //finally
-                    //{
                         Sqlcon.Close();
-                    //}
-
-                //}
             }
             return statList;
+        }
+
+        public static String GetSurveyName(int surveyId)
+        {
+            String surveyName = "";
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            string query = "SELECT NAZWA FROM ANKIETA WHERE ID_ANKIETY = " + surveyId;
+            
+            using (SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query, Sqlcon);
+                    Sqlcon.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        surveyName = reader[0].ToString();
+                    }
+                }catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    Sqlcon.Close();
+                }              
+            }
+            return surveyName;
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -78,8 +81,35 @@ namespace inzPJATKSNM.Views
         [WebMethod]
         public static void addEmail(string email)
         {
-            int id = Int32.Parse(val.Substring(6, (val.Length-1)-5));
-            inzPJATKSNM.Controllers.SurveyController.saveSubscriptionEmail(email, id);
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+            if (match.Success)
+            {
+                int id = Int32.Parse(val.Substring(6, (val.Length - 1) - 5));
+                inzPJATKSNM.Controllers.SurveyController.saveSubscriptionEmail(email, id);
+            }
+            else
+            {
+
+            }
+
         }
+        protected override void InitializeCulture()
+        {
+            HttpCookie cookie = Request.Cookies["CultureInfo"];
+
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value); ;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pl-PL");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+            }
+
+            base.InitializeCulture();
+        } 
     }
 }

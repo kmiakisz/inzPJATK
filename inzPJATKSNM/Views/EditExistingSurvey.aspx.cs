@@ -1,8 +1,11 @@
-﻿using inzPJATKSNM.Models;
+﻿using inzPJATKSNM.Controllers;
+using inzPJATKSNM.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -15,7 +18,7 @@ namespace inzPJATKSNM.Views
         public inzPJATKSNM.Models.Ankieta ankieta = new inzPJATKSNM.Models.Ankieta();
         List<String> listaURLZdjec = new List<String>();
         public Dictionary<Int32, String> freePhotos { get; set; }
-        public Dictionary<Int32, String> usedPhotos {get;set;}
+        public Dictionary<Int32, String> usedPhotos { get; set; }
         public Int32 currentKey { get; set; }
         public String currentValue { get; set; }
         private static Dictionary<string, Dzieło> surveyPhotos = new Dictionary<string, Dzieło>();
@@ -26,66 +29,108 @@ namespace inzPJATKSNM.Views
         int techFilter = 0;
         int autFilter = 0;
         public static String err;
-        
+        int surveyId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            foreach (System.Collections.DictionaryEntry entry in HttpContext.Current.Cache)
-            {
-                HttpContext.Current.Cache.Remove((string)entry.Key);
-            }
+            HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
 
-            Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-
-            Response.Cache.SetNoStore();
-
-            if (err !=null)
+            if (Session["token"] != null)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
-            }
-            if (!IsPostBack)
-            {
-                if (Request.QueryString["Id"] != null)
+                foreach (System.Collections.DictionaryEntry entry in HttpContext.Current.Cache)
                 {
-                    currentValue = "";
-                    currentKey = new Int32();
-                    int id = int.Parse(Request.QueryString["Id"]);
-                    try
+                    HttpContext.Current.Cache.Remove((string)entry.Key);
+                }
+
+                Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+
+                Response.Cache.SetNoStore();
+
+                if (err != null)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenModal();", true);
+                }
+                if (!IsPostBack)
+                {
+                    if (Session["token"] != null)
                     {
-                        if (surveyPhotos.Count == 0)
+                        int loggedId;
+                        string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                        inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
+                        loggedId = user.userId;
+                        List<Int32> list = UserController.GetUserPrivilegeListIdPerUserId(loggedId);
+                        if (!list.Contains(6))
                         {
-                            surveyPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                            Response.Redirect("AdministratorPanel.aspx");
                         }
-                        if (photoFromDB.Count == 0)
+                    }
+                    else
+                    {
+                        Response.Redirect("LogInView.aspx");
+                    }
+                    if (Request.QueryString["Id"] != null)
+                    {
+                        currentValue = "";
+                        currentKey = new Int32();
+                        int id = int.Parse(Request.QueryString["Id"]);
+                        surveyId = int.Parse(Request.QueryString["Id"]);
+                        try
                         {
+                            if (surveyPhotos.Count == 0)
+                            {
+                                surveyPhotos = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurveyPhotos(id);
+                            }
+                           /* if (photoFromDB.Count == 0)
+                            {
+                                loadPhotosFromDB();
+                            }
+                            * */
                             loadPhotosFromDB();
+                            if (filteredList.Count == 0)
+                            {
+                                filteredList = getPhotoFromDB();
+                            }
+
+
+                            ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
                         }
-                        if (filteredList.Count == 0)
+                        catch (Exception ex)
                         {
-                            filteredList = getPhotoFromDB();
+                            Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+                        }
+
+                        EndDateTxt.Text = ankieta.Data_zak.ToString();
+                        SurveyNameTextBox1.Text = ankieta.Nazwa;
+                        ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
+                        ZakDatLbl.Text = ZakDatLbl.Text + ankieta.Data_rozp.ToString();
+                        string status = inzPJATKSNM.Controllers.EditExistingSurveyController.getStatus(surveyId);
+                        if (status.Equals("True"))
+                        {
+                            Label2.Text += " Aktywna";
+                        }
+                        else
+                        {
+                            Label2.Text += " Nie aktywna";
                         }
                         
-                    
-                        ankieta = inzPJATKSNM.Controllers.EditExistingSurveyController.getSurvey(id);
+
+
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+                        Response.Redirect("ShowSurveys.aspx?err=PusteId");
                     }
-                   
-                    example1.Value = ankieta.Data_zak.ToString();
-                    SurveyNameTextBox1.Text = ankieta.Nazwa;
-                    ServeyDescribtionTextBox1.Text = ankieta.Opis_ankiety;
-                    Data_zakLAb.Text = ankieta.Data_rozp.ToString();
-               
-                  
                 }
-                else
-                {
-                    Response.Redirect("ShowSurveys.aspx?err=PusteId");
-                }
+
             }
-           
-    
+            else
+            {
+                Response.Redirect("LogInView.aspx");
+            }
         }
         public List<Dzieło> getSurveyPhotos()
         {
@@ -159,7 +204,7 @@ namespace inzPJATKSNM.Views
             {
                 if (photoFromDB.Count == 0)
                 {
-                    tempList = inzPJATKSNM.Controllers.NewSurveyController.getPhotoList();
+                    tempList = inzPJATKSNM.Controllers.EditExistingSurveyController.getPhotoList(int.Parse(Request.QueryString["Id"]));
                     foreach (Dzieło dzielo in tempList)
                     {
                         photoFromDB.Add(dzielo.URL, dzielo);
@@ -168,10 +213,10 @@ namespace inzPJATKSNM.Views
             }
             catch (Exception ex)
             {
-                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message,false);
             }
-                
-               
+
+
 
         }
         public List<Dzieło> getPhotoFromDB()
@@ -186,11 +231,11 @@ namespace inzPJATKSNM.Views
         }
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
-            
+
             ankieta.Id_ankiety = int.Parse(Request.QueryString["Id"]);
-            ankieta.Data_zak=DateTime.Parse(example1.Value);
+            ankieta.Data_zak = DateTime.Parse(EndDateTxt.Text);
             ankieta.Nazwa = SurveyNameTextBox1.Text;
-            ankieta.Opis_ankiety=ServeyDescribtionTextBox1.Text;
+            ankieta.Opis_ankiety = ServeyDescribtionTextBox1.Text;
             ankieta.Type = TypeDropDownList.Text;
             try
             {
@@ -198,7 +243,7 @@ namespace inzPJATKSNM.Views
             }
             catch (Exception ex)
             {
-                Response.Redirect("ShowSurveys.aspx?err="+ex.Message);
+                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
 
             }
             Response.Redirect("ShowSurveys.aspx");
@@ -215,16 +260,16 @@ namespace inzPJATKSNM.Views
         {
             if (surveyPhotos.Count != 1)
             {
-            photoFromDB.Add(url, surveyPhotos[url]);
-            filteredList.Add(surveyPhotos[url]);
-           
+                photoFromDB.Add(url, surveyPhotos[url]);
+                filteredList.Add(surveyPhotos[url]);
+
                 surveyPhotos.Remove(url);
             }
             else
             {
                 err = "Nie można usunąć wszystkich zdjęć z ankiety!!!";
             }
-          
+
         }
         [WebMethod]
         public static void AddPhoto(String url)
@@ -254,6 +299,23 @@ namespace inzPJATKSNM.Views
             autFilter = Int32.Parse(DropDownList4.SelectedValue);
             filterList(katFilter, autFilter, techFilter, 0);
         }
-       
+        protected override void InitializeCulture()
+        {
+            HttpCookie cookie = Request.Cookies["CultureInfo"];
+
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value); ;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pl-PL");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+            }
+
+            base.InitializeCulture();
+        } 
+
     }
 }

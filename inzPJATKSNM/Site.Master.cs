@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Threading;
 
 namespace inzPJATKSNM
 {
@@ -68,13 +69,63 @@ namespace inzPJATKSNM
 
         protected void Page_Load(object sender, EventArgs e)
         {
+           // System.Threading.Timer t = new System.Threading.Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            if (Session["token"] != null)
+            {
+                string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                Label1.Visible = true;               
+                Button1.Visible = true;
+                AdminPanel.Visible = true;
+                if (!IsPostBack)
+                {
+                    Label1.Text += username;
+                }
 
+            }
+            else
+            {
+                Label1.Visible = false;
+                Button1.Visible = false;
+                AdminPanel.Visible = false;
+            }
+            
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut();
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Session.Remove("Auth");
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
+            Response.Redirect("LogInView.aspx");
+        }
+
+        protected void EngButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string selectedLanguage = "en-GB";
+            HttpCookie cookie = new HttpCookie("CultureInfo");
+            cookie.Value = selectedLanguage;
+            Response.Cookies.Add(cookie);
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void PolButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string selectedLanguage = "pl-PL";
+            HttpCookie cookie = new HttpCookie("CultureInfo");
+            cookie.Value = selectedLanguage;
+            Response.Cookies.Add(cookie);
+            Response.Redirect(Request.RawUrl);
+        }
+      /*  public static void Callback(object state)
+        {
+            System.Diagnostics.Debug.Write("SIEMA");
+        }*/
     }
 
 }

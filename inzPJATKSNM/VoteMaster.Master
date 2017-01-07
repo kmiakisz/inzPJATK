@@ -11,7 +11,8 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <!--<webopt:bundlereference runat="server" path="~/Content/css" />-->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -42,16 +43,19 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" >System Ankiet</a>
+                    <a class="navbar-brand" runat="server">System Ankiet</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <br />
+                    <asp:ImageButton ID="EngButton" runat="server" ImageUrl="~/Images/eng.png" OnClick="EngButton_Click" />
+                    <asp:ImageButton ID="PolButton" runat="server" ImageUrl="~/Images/pol.jpg" OnClick="PolButton_Click" />
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                     </ul>
                 </div>
+
             </div>
         </div>
         <div class="container body-content">

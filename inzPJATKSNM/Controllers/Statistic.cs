@@ -22,6 +22,9 @@ namespace inzPJATKSNM.Controllers
         public string ImgMinVoteNumName { get; set; }
         //draw chart
         public int mark { get; set; }
-        public int photoId { get; set; }  
+        public int photoId { get; set; }
+        public String photoName { get; set; }
+        public String ImgMaxVoteNumUrl { get; set; }
+        public String ImgMinVoteNumUrl { get; set; }
     }
 }

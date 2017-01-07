@@ -20,7 +20,7 @@ namespace inzPJATKSNM.Controllers
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_Autora,Tytuł from dzieło where id_dzieło not in (select id_zdjecia from skład);";
+                    string query = "select Id_dzieło,URL,Id_Tech,Id_Kat,Id_Autora,Tytuł from dzieło;";//all photos from database should be visible during creating or editing survey
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -179,7 +179,7 @@ namespace inzPJATKSNM.Controllers
             
             DateTime data_rozp = DateTime.Now;
             DateTime data_zak = DateTime.Now.AddDays(30);
-            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Active) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Active);";
+            string commandTextInsertAnkieta = "Insert into Ankieta (Nazwa,Opis_ankiety,Data_rozp,Data_zak,Id_admin,Active,Typ) values (@nazwa,@opis,@data_rozp,@data_zak,@Id_admin,@Active,@Typ);";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {

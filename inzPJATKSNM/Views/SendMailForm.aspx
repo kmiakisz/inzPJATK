@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SendMailForm.aspx.cs" Inherits="inzPJATKSNM.Views.SendMailForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SendMailForm.aspx.cs" Inherits="inzPJATKSNM.Views.SendMailForm" meta:resourcekey="PageResource1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row" runat="server" id="row">
@@ -45,7 +45,7 @@
             </div>
             <div id="popupfoot">
                 <a href="HomePage.aspx" class="close agree">Anuluj</a>
-                <asp:Button ID="Accept" class="btn btn-success" runat="server" Text="Akceptuj" OnClientClick="closeModal();" />
+                <asp:Button ID="Accept" class="btn btn-success" runat="server" Text="Akceptuj" OnClientClick="closeModal();" meta:resourcekey="AcceptResource1" />
                 <%-- OnClick="Accept_Click" --%>
             </div>
 
@@ -56,31 +56,31 @@
         <br />
         <div id="content" class="container-fluid">
             <div>
-                <asp:CheckBox ID="AllMailList" runat="server" OnCheckedChanged="AllMailList_CheckedChanged" />
-                <asp:Label ID="Label1" runat="server" Text="Listy Grup Studentów" CssClass="label label-danger"></asp:Label>
+                <asp:CheckBox ID="AllMailList" runat="server" OnCheckedChanged="AllMailList_CheckedChanged" meta:resourcekey="AllMailListResource1" />
+                <asp:Label ID="Label1" runat="server" Text="Listy Grup Studentów" CssClass="label label-danger" meta:resourcekey="Label1Resource1"></asp:Label>
                 <div id="mailgroup">
-                    <asp:ListBox ID="AllMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource1" DataTextField="Grupa" DataValueField="Grupa" OnDataBound="AllMailListLst_DataBound" OnSelectedIndexChanged="AllMailListLst_SelectedIndexChanged" SelectionMode="Multiple"></asp:ListBox>
+                    <asp:ListBox ID="AllMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource1" DataTextField="Grupa" DataValueField="Grupa" OnDataBound="AllMailListLst_DataBound" OnSelectedIndexChanged="AllMailListLst_SelectedIndexChanged" SelectionMode="Multiple" meta:resourcekey="AllMailListLstResource1"></asp:ListBox>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Grupa] FROM [Grupa_Mail]"></asp:SqlDataSource>
                 </div>
             </div>
             <div>
-                <asp:CheckBox ID="SubsMailList" runat="server" />
-                <asp:Label ID="Label2" runat="server" Text="Lista Subskrybentów" CssClass="label label-danger"></asp:Label>
+                <asp:CheckBox ID="SubsMailList" runat="server" meta:resourcekey="SubsMailListResource1" />
+                <asp:Label ID="Label2" runat="server" Text="Lista Subskrybentów" CssClass="label label-danger" meta:resourcekey="Label2Resource1"></asp:Label>
                 <div id="subsMail">
-                    <asp:ListBox ID="SubsMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource2" DataTextField="Email" DataValueField="Email" OnSelectedIndexChanged="SubsMailListLst_SelectedIndexChanged" SelectionMode="Multiple"></asp:ListBox>
+                    <asp:ListBox ID="SubsMailListLst" runat="server" CssClass="form-control" DataSourceID="SqlDataSource2" DataTextField="Email" DataValueField="Email" OnSelectedIndexChanged="SubsMailListLst_SelectedIndexChanged" SelectionMode="Multiple" meta:resourcekey="SubsMailListLstResource1"></asp:ListBox>
                     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT Email FROM Glosujący WHERE Email IS NOT NULL;"></asp:SqlDataSource>
                 </div>
             </div>
             <div>
-                <asp:CheckBox ID="CustomMail" runat="server" />
-                <asp:Label ID="Label3" runat="server" Text="Własny Mail -> (maile wpisujemy odzielając je znakiem średnika - ';')" CssClass="label label-danger"></asp:Label>
+                <asp:CheckBox ID="CustomMail" runat="server" meta:resourcekey="CustomMailResource1" />
+                <asp:Label ID="CustomLbl" runat="server" Text="Własny Mail -> (maile wpisujemy odzielając je znakiem średnika - ';')" CssClass="label label-danger" meta:resourcekey="CustomLblResource1"></asp:Label>
                 <div id="customMail">
-                    <asp:TextBox ID="CustomMailTxt" runat="server" CssClass="form-control" OnTextChanged="CustomMailTxt_TextChanged" Style="width: 400px"></asp:TextBox>
+                    <asp:TextBox ID="CustomMailTxt" runat="server" CssClass="form-control" OnTextChanged="CustomMailTxt_TextChanged" Style="width: 400px" meta:resourcekey="CustomMailTxtResource1"></asp:TextBox>
                 </div>
             </div>
         </div> 
         <div id="button">
-            <asp:Button ID="SendMailButton" runat="server" Text="Wyślij" CssClass="btn btn-success" OnClick="SendMailButton_Click" />
+            <asp:Button ID="SendMailButton" runat="server" Text="Wyślij" CssClass="btn btn-success" OnClick="SendMailButton_Click" meta:resourcekey="SendMailButtonResource1" />
         </div>
     </div>
 

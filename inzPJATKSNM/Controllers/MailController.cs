@@ -104,9 +104,6 @@ namespace inzPJATKSNM.Controllers
             {
                 throw new Exception(u.Message);
             }
-
-
-
         }
         public static string generateToken()
         {

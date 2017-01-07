@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="inzPJATKSNM.SiteMaster"%>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="inzPJATKSNM.SiteMaster" %>
 
 <!DOCTYPE html>
 
@@ -11,7 +11,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -42,33 +42,31 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" runat="server" href="/Views/HomePage.aspx">System Ankiet</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="/Views/HomePage.aspx">Home</a></li>
-                        <li><a runat="server" href="/Views/AdministratorPanel.aspx">Admin Panel</a></li>
-                        
+                        <li><a id="AdminPanel" runat="server" href="/Views/AdministratorPanel.aspx">Admin Panel</a></li>
                     </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
+                    <div id="statusAndLogout">
+                        <div id="logout">
+                        </div>
+                        <div id="status">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Login">Zaloguj</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Witaj, <%: Context.User.Identity.GetUserName()  %> !</a></li>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                    <p class="navbar-text">
+                                        <asp:Label ID="Label1" runat="server" Text="Zalogowany jako : " ForeColor="White" meta:resourcekey="Label1Resource2"></asp:Label><asp:Button ID="Button1" runat="server" Text="Wyloguj" CssClass="btn btn-link" OnClick="Button1_Click" meta:resourcekey="Button1Resource2" />
+                                    </p>
                                 </li>
                             </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <br />
+                            <asp:ImageButton ID="EngButton" runat="server" ImageUrl="~/Images/eng.png" OnClick="EngButton_Click"/>
+                            <asp:ImageButton ID="PolButton" runat="server" ImageUrl="~/Images/pol.jpg" OnClick="PolButton_Click"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

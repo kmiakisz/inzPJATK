@@ -222,10 +222,13 @@
     <Content Include="DynamicData\FieldTemplates\Url.ascx" />
     <Content Include="DynamicData\FieldTemplates\Url_Edit.ascx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\eng.png" />
     <Content Include="Images\Icons\controls.png" />
     <Content Include="Images\Icons\minus.png" />
     <Content Include="Images\Icons\plus.png" />
     <Content Include="Images\Icons\statistics-512.png" />
+    <Content Include="Images\logo-pjwstk.jpg" />
+    <Content Include="Images\pol.jpg" />
     <Content Include="Images\SurveyPhotos\12287516_1089958617715028_1626717926_o.jpg" />
     <Content Include="Narodowosc\Default.aspx" />
     <Content Include="Narodowosc\Delete.aspx" />
@@ -406,6 +409,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\AboutUser.aspx" />
     <Content Include="Views\AddAuthor.aspx" />
     <Content Include="Views\AddMusic.aspx" />
     <Content Include="Views\AddNewPhoto.aspx" />
@@ -417,6 +421,9 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\AdministratorPanel.aspx" />
     <Content Include="Views\LogInView.aspx" />
+    <Content Include="Views\ManageCategories.aspx" />
+    <Content Include="Views\ManagePrivileges.aspx" />
+    <Content Include="Views\ManageTechniques.aspx" />
     <Content Include="Views\ManageUsers.aspx" />
     <Content Include="Views\NewSurvey.aspx" />
     <Content Include="Views\NewUserView.aspx" />
@@ -526,6 +533,8 @@
     <Compile Include="Controllers\Statistic.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="Controllers\TechniqueController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
       <DependentUpon>Boolean.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -688,6 +697,14 @@
     <Compile Include="Narodowosc\Insert.aspx.designer.cs">
       <DependentUpon>Insert.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PrivilegeModels\UserPrivilege.cs" />
+    <Compile Include="Views\AboutUser.aspx.cs">
+      <DependentUpon>AboutUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AboutUser.aspx.designer.cs">
+      <DependentUpon>AboutUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddAuthor.aspx.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -827,6 +844,27 @@
     <Compile Include="Views\LogInView.aspx.designer.cs">
       <DependentUpon>LogInView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManageCategories.aspx.cs">
+      <DependentUpon>ManageCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ManageCategories.aspx.designer.cs">
+      <DependentUpon>ManageCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagePrivileges.aspx.cs">
+      <DependentUpon>ManagePrivileges.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ManagePrivileges.aspx.designer.cs">
+      <DependentUpon>ManagePrivileges.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageTechniques.aspx.cs">
+      <DependentUpon>ManageTechniques.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ManageTechniques.aspx.designer.cs">
+      <DependentUpon>ManageTechniques.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManageUsers.aspx.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -917,6 +955,90 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AddAuthor.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AddAuthor.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Site.Master.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Site.Master.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\LogInView.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\LogInView.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AboutUser.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AboutUser.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AddNewPhoto.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AddNewPhoto.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AdministratorPanel.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\AdministratorPanel.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\EditExistingSurvey.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\EditExistingSurvey.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ManagePrivileges.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ManagePrivileges.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ManageUsers.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ManageUsers.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ResetCredentials.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ResetCredentials.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ResetPassword.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\ResetPassword.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\SendMailForm.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\SendMailForm.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\StartPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\StartPage.aspx.en-GB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\Statistics.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App_LocalResources\Statistics.aspx.en-GB.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

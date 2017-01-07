@@ -1,10 +1,16 @@
 ﻿using inzPJATKSNM.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;
+using inzPJATKSNM.Models;
+using inzPJATKSNM.Controllers;
+using inzPJATKSNM.PrivilegeModels;
 
 namespace inzPJATKSNM.Views
 {
@@ -13,18 +19,41 @@ namespace inzPJATKSNM.Views
         public static Statistic s;
         public static List<Statistic> listaS;
         public static int id;
+        int loggedId;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            if(Request.QueryString["Id"] != null)
+            HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
+            if (Session["token"] != null)
             {
-                id =  Int32.Parse(Request.QueryString["Id"]);
-                int par = Convert.ToInt32(Request.QueryString["Id"]);
-                FillStatisticsPerSurvey(par);
+                string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
+                loggedId = user.userId;
+                List<Int32> list = UserController.GetUserPrivilegeListIdPerUserId(loggedId);
+                if (!list.Contains(10))
+                {
+                    Response.Redirect("AdministratorPanel.aspx");
+                }
+                if (Request.QueryString["Id"] != null)
+                {
+                    id = Int32.Parse(Request.QueryString["Id"]);
+                    int par = Convert.ToInt32(Request.QueryString["Id"]);
+                    string surveyName = inzPJATKSNM.Controllers.StatisticsController.GetSurveyName(id);
+                    HeaderLabel.Text = "Statystyki dla ankiety : " + surveyName;
+                    FillStatisticsPerSurvey(par);
+                }
+                else
+                {
+                    HeaderLabel.Text = "Statystyki Ogólne.";
+                    FillStatistics();
+                }
             }
             else
             {
-                FillStatistics();
+                Response.Redirect("LogInView.aspx");
             }
         }
 
@@ -44,41 +73,46 @@ namespace inzPJATKSNM.Views
 
                 BackButton.Visible = false;
                 Chart1.Visible = false;
-                
+
             }
             catch (Exception e)
             {
                 throw new Exception("Błąd podczas aktualizacji statystyk!");
             }
         }
+        public static Statistic FillThumbnails()
+        {
+            inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
+            return inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(id);
+        }
         public void FillStatisticsPerSurvey(int surverId)
         {
             //try
             //{
-                inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
-                s = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(surverId);
+            inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
+            s = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(surverId);
 
-                Lbl1.Text = "Liczba głosujących : " + Convert.ToString(s.NumOfVotersOnSurvey);
-                Lbl2.Text = "Liczba odwiedzających : " + Convert.ToString(s.NumOfVisitors);
-                Lbl3.Text = "Liczba subskrybentów po ankiecie : " + Convert.ToString(s.NumOfSubs);
-                Lbl4.Text = "Nazwa zdjęcia z największą sumą głosów : " + Convert.ToString(s.ImgMaxVoteNumName);
-                Lbl5.Text = "Nazwa zdjęcia z najmniejszą sumą głosów : " + Convert.ToString(s.ImgMinVoteNumName);
+            Lbl1.Text = "Liczba głosujących : " + Convert.ToString(s.NumOfVotersOnSurvey);
+            Lbl2.Text = "Liczba odwiedzających : " + Convert.ToString(s.NumOfVisitors);
+            Lbl3.Text = "Liczba subskrybentów po ankiecie : " + Convert.ToString(s.NumOfSubs);
+            Lbl4.Text = "Nazwa zdjęcia z największą sumą głosów : " + Convert.ToString(s.ImgMaxVoteNumName);
+            Lbl5.Text = "Nazwa zdjęcia z najmniejszą sumą głosów : " + Convert.ToString(s.ImgMinVoteNumName);
 
-                Lbl6.Visible = false;
-                StatButton.Visible = false;
-                
+            Lbl6.Visible = false;
+            StatButton.Visible = false;
+
             //}
             //catch (Exception e)
             //{
-              //  throw new Exception(e.Message);
+            //  throw new Exception(e.Message);
             //}
         }
         public static List<inzPJATKSNM.Controllers.Statistic> FillChart()
         {
             listaS = inzPJATKSNM.Controllers.StatisticsController.DrawChart(id);
-            return listaS;           
+            return listaS;
         }
-      
+
 
         protected void StatButton_Click(object sender, EventArgs e)
         {
@@ -89,5 +123,22 @@ namespace inzPJATKSNM.Views
         {
             Response.Redirect("StaticticsPerSurveys.aspx");
         }
+        protected override void InitializeCulture()
+        {
+            HttpCookie cookie = Request.Cookies["CultureInfo"];
+
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value); ;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pl-PL");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+            }
+
+            base.InitializeCulture();
+        } 
     }
 }

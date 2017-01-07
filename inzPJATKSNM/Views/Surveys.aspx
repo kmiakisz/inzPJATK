@@ -1,8 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/VoteMaster.Master" AutoEventWireup="true" CodeBehind="Surveys.aspx.cs" Inherits="inzPJATKSNM.Views.Surveys" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript">
         function mailOpenModal() {
             $('#failModal').modal('show');
+        }
+    </script>
+    <script type="text/javascript">
+        function validateEmail() {
+            var email = document.getElementById("emailField").value;
+            var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if (!re.test(email)) {
+                alert("Email is not valid! Please correct your email address or leave it as blank.")
+            }
         }
     </script>
       <script type="text/javascript">
@@ -17,17 +28,17 @@
     </script>
      <script type="text/javascript">
          $(document).ready(function () {
-
              $(".addEmail").click(function (event) {
-                 var link = Sys.Serialization.JavaScriptSerializer.serialize("chuj");
-                $.ajax({
+                 var emailVal = $("#subscriptionModal").find('input[name="email"]').val();
+                 var link = Sys.Serialization.JavaScriptSerializer.serialize(emailVal);
+                 $.ajax({
                     url: '<%= ResolveUrl("Surveys.aspx/addEmail") %>',
                            method: 'post',
                            contentType: 'application/json',
                            data: '{"email":' + link + ' }',
                            dataType: 'json',
                            success: function () {
-                              
+                               alert(e);
                            },
                            error: function (er) {
                                alert(JSON.stringify(er))
@@ -36,8 +47,9 @@
             });
     });
          </script>
+    <br /><br />
      <% 
-     Response.Write("<div class = \"row\">");
+         Response.Write("<br/><div class = \"row\">");
             foreach(KeyValuePair<int, String> kvp in getURLDict()){
                String nazwa = getNazwyDict()[kvp.Key];
                String opis = getOpisyDict()[kvp.Key];
@@ -114,7 +126,8 @@
                         <br />
                         <label for="comment"><span class="glyphicon glyphicon-envelope"></span>Email: </label>
                         <br />
-                        <input class="email" name="email" id="email" runat="server" />
+                        <input class="email" name="email" id="emailField" onchange="validateEmail();"/>
+                        <h5 id='result'></h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="addEmail" onclick="subscription_Click">OK</button>

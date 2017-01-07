@@ -22,7 +22,7 @@
         rtl: false,
         adaptiveHeight: false,
         vertical: false,
-        verticalHeight: 500,
+        verticalHeight: 100, //500
         vThumbWidth: 100,
         thumbItem: 10,
         pager: true,
@@ -384,7 +384,7 @@
                     if (settings.gallery === true) {
                         if (settings.vertical === true) {
                             // set Gallery thumbnail width
-                            $cSouter.find('.lSPager').css('width', settings.vThumbWidth + 'px');
+                            $cSouter.find('.lSPager').css('width', 100 + 'px'); //settings.vThumbWidth
                         }
                         pagerWidth = (i * (settings.thumbMargin + thumbWidth)) + 0.5;
                         $cSouter.find('.lSPager').css({
@@ -392,7 +392,7 @@
                             'transition-duration': settings.speed + 'ms'
                         });
                         if (settings.vertical === true) {
-                            $slide.parent().css('padding-right', (settings.vThumbWidth + settings.galleryMargin) + 'px');
+                            $slide.parent().css('padding-right', (100 + settings.galleryMargin) + 'px');//settings.vThumbWidth
                         }
                         $cSouter.find('.lSPager').css(property, pagerWidth + 'px');
                     }
