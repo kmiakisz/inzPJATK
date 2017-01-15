@@ -55,6 +55,7 @@ namespace inzPJATKSNM.Views
             {
 
                 inzPJATKSNM.Controllers.AutorController.addNewAuthor(name, surname, Id_nar, Id_plec, Id_epoka);
+                Response.Redirect("AdministratorPanel.aspx");
             }
             catch (Exception ex)
             {

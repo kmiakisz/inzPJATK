@@ -147,22 +147,25 @@
     <div id="boxes">
         <div id="dialog" class="window">
             <asp:Label ID="nationalityLabel" runat="server" Text="Narodowosc" CssClass="label label-danger" meta:resourcekey="nationalityLabelResource1"></asp:Label>
-            <asp:DropDownList ID="nationalityDDL" runat="server" CssClass="form-control" DataSourceID="NarodowoscSQL" DataValueField="Id_Narod" DataTextField="Narodowosc" meta:resourcekey="nationalityDDLResource1"></asp:DropDownList>
-            <asp:SqlDataSource ID="NarodowoscSQL" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Narodowosc] , [Id_Narod] FROM [Narodowosc]"></asp:SqlDataSource>
+            <asp:DropDownList ID="DropDownList_Narod" runat="server" DataSourceID="SqlDataSource1" DataTextField="narodowosc" DataValueField="id_narod" CssClass="form-control"></asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="select narodowosc,id_narod from Narodowosc"></asp:SqlDataSource>
 
             <asp:Label ID="sexLabel" runat="server" Text="Plec" CssClass="label label-danger" meta:resourcekey="sexLabelResource1"></asp:Label>
-            <asp:DropDownList ID="sexDDL" runat="server" CssClass="form-control" DataSourceID="sexSQL" DataTextField="Plec" DataValueField="Id_Plec" meta:resourcekey="sexDDLResource1"></asp:DropDownList>
-            <asp:SqlDataSource ID="sexSQL" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Plec] , [Id_Plec] FROM [Plec]"></asp:SqlDataSource>
+            <asp:DropDownList ID="DropDownList_Sex" runat="server" DataSourceID="SqlDataSource2" DataTextField="plec" DataValueField="id_plec" CssClass="form-control"></asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="select plec,id_plec from Plec"></asp:SqlDataSource>
 
             <asp:Label ID="ageLabel" runat="server" Text="Przedzial Wiekowy" CssClass="label label-danger" meta:resourcekey="ageLabelResource1"></asp:Label>
-            <asp:DropDownList ID="ageDDL" runat="server" CssClass="form-control" DataSourceID="ageSQL" DataTextField="Wiek" DataValueField="Id_Wiek" meta:resourcekey="ageDDLResource1"></asp:DropDownList>
-            <asp:SqlDataSource ID="ageSQL" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="SELECT [Wiek] , [Id_Wiek] FROM [Wiek]"></asp:SqlDataSource>
+            <asp:DropDownList ID="DropDownList_Age" DataSourceID="SqlDataSource3" DataTextField="wiek" DataValueField="id_wiek" runat="server" CssClass="form-control"></asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" SelectCommand="select wiek,id_wiek from Wiek"></asp:SqlDataSource>
+
             <div class="languages">
                 <br />
                 <asp:ImageButton ID="EngButton" runat="server" ImageUrl="~/Images/eng.png" OnClick="EngButton_Click" />
                 <asp:ImageButton ID="PolButton" runat="server" ImageUrl="~/Images/pol.jpg" OnClick="PolButton_Click" />
             </div>
-            <div id="popupfoot"><a href="#" class="close agree">Anuluj</a>
+
+            <div id="popupfoot">
+                <a href="Surveys.aspx" class="close agree">Anuluj</a>
                 <asp:Button ID="Accept" class="btn btn-success" runat="server" Text="Akceptuj" OnClientClick="closeModal();" OnClick="Accept_Click" meta:resourcekey="AcceptResource1" />
             </div>
         </div>
@@ -215,50 +218,50 @@
     </div>
     <asp:HiddenField ID="HiddenField2" runat="server" />
     <script type="text/javascript">
-        function starVote(){
+        function starVote() {
+            console.log('jestem tu ludzi tlum');
             $(document).ready(function () {
-                console.log('jestem tu ludzi tlum');
+                console.log('a wszystko takie dziwne');
                 var id = '#dialog';
                 //Get the screen height and width
                 var maskHeight = $(document).height();
                 var maskWidth = $(window).width();
-                if (isPostBack) {
+                //if (isPostBack) {
 
-                } else {
-                    //Set heigth and width to mask to fill up the whole screen
-                    $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
+                //} else {
+                //Set heigth and width to mask to fill up the whole screen
+                $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
 
-                    //transition effect
-                    $('#mask').fadeIn(500);
-                    $('#mask').fadeTo("slow", 0.9);
+                //transition effect
+                $('#mask').fadeIn(500);
+                $('#mask').fadeTo("slow", 0.9);
 
-                    //Get the window height and width
-                    var winH = $(window).height();
-                    var winW = $(window).width();
+                //Get the window height and width
+                var winH = $(window).height();
+                var winW = $(window).width();
 
-                    //Set the popup window to center
-                    $(id).css('top', winH / 2 - $(id).height() / 2);
-                    $(id).css('left', winW / 2 - $(id).width() / 2);
+                //Set the popup window to center
+                $(id).css('top', winH / 2 - $(id).height() / 2);
+                $(id).css('left', winW / 2 - $(id).width() / 2);
 
-                    //transition effect
-                    $(id).fadeIn(2000);
-                }
+                //transition effect
+                $(id).fadeIn(2000);
+                // }
 
 
-                //if close button is clicked
+                //if close button is clicked redirect to site with 
                 $('.window .close').click(function (e) {
                     //Cancel the link behavior
-                    e.preventDefault();
-
+                    //e.preventDefault();
                     $('#mask').hide();
                     $('.window').hide();
                 });
 
                 //if mask is clicked
-                $('#mask').click(function () {
+                /*$('#mask').click(function () {
                     $(this).hide();
                     $('.window').hide();
-                });
+                });*/
             });
         };
     </script>
@@ -266,60 +269,60 @@
         $('.window .btn btn-success').click(function (e) {
             //Cancel the link behavior
             e.preventDefault();
-
+            console.log('halo, czy ja tu wgl wchodze?');
             $('#mask').hide();
             $('.window').hide();
         });
-        
-       /* $(document).ready(function () {
 
-            var id = '#dialog';
-                //Get the screen height and width
-                var maskHeight = $(document).height();
-                var maskWidth = $(window).width();
-                if (isPostBack) {
-
-                } else {
-                    //Set heigth and width to mask to fill up the whole screen
-                    $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
-
-                    //transition effect
-                    $('#mask').fadeIn(500);
-                    $('#mask').fadeTo("slow", 0.9);
-
-                    //Get the window height and width
-                    var winH = $(window).height();
-                    var winW = $(window).width();
-
-                    //Set the popup window to center
-                    $(id).css('top', winH / 2 - $(id).height() / 2);
-                    $(id).css('left', winW / 2 - $(id).width() / 2);
-
-                    //transition effect
-                    $(id).fadeIn(2000);
-                }
-
-
-                //if close button is clicked
-                $('.window .close').click(function (e) {
-                    //Cancel the link behavior
-                    e.preventDefault();
-
-                    $('#mask').hide();
-                    $('.window').hide();
-                });
-
-                //if mask is clicked
-                $('#mask').click(function () {
-                    $(this).hide();
-                    $('.window').hide();
-                });
-        });*/
-
+        /* $(document).ready(function () {
+ 
+             var id = '#dialog';
+                 //Get the screen height and width
+                 var maskHeight = $(document).height();
+                 var maskWidth = $(window).width();
+                 if (isPostBack) {
+ 
+                 } else {
+                     //Set heigth and width to mask to fill up the whole screen
+                     $('#mask').css({ 'width': maskWidth, 'height': maskHeight });
+ 
+                     //transition effect
+                     $('#mask').fadeIn(500);
+                     $('#mask').fadeTo("slow", 0.9);
+ 
+                     //Get the window height and width
+                     var winH = $(window).height();
+                     var winW = $(window).width();
+ 
+                     //Set the popup window to center
+                     $(id).css('top', winH / 2 - $(id).height() / 2);
+                     $(id).css('left', winW / 2 - $(id).width() / 2);
+ 
+                     //transition effect
+                     $(id).fadeIn(2000);
+                 }
+ 
+ 
+                 //if close button is clicked
+                 $('.window .close').click(function (e) {
+                     //Cancel the link behavior
+                     e.preventDefault();
+ 
+                     $('#mask').hide();
+                     $('.window').hide();
+                 });
+ 
+                 //if mask is clicked
+                 $('#mask').click(function () {
+                     $(this).hide();
+                     $('.window').hide();
+                 });
+         });*/
+        console.log('wchodze i wychodze');
     </script>
     <script>
-        var $selects = $('select');
-
+        var $selects = $('.row select');
+        console.log('teraz jestem tutaj');
         $selects.on('change', function () {
 
             // enable all options
@@ -328,17 +331,18 @@
             // loop over each select, use its value to 
             // disable the options in the other selects
             $selects.each(function () {
+                console.log('niby disabluje 1');
                 $selects.not(this)
                 if (this.value != "--wybierz--") {
                     $selects.find('option[value="' + this.value + '"]')
                    .prop('disabled', true);
+                    console.log('jestem sobie w ifie' + this.value);
                 } else {
                     $selects.find('option[value="' + this.value + '"]')
                                        .prop('disabled', false);
-
+                    console.log('a teraz jestem w elsie');
                 };
             });
-
         });
     </script>
     <style>

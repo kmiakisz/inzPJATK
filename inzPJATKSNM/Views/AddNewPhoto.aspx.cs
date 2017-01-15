@@ -30,6 +30,7 @@ namespace inzPJATKSNM.Views
             HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
             HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             HttpContext.Current.Response.Cache.SetNoStore();
+            
 
             if (Session["token"] != null)
             {
@@ -81,7 +82,21 @@ namespace inzPJATKSNM.Views
 
                 try
                 {
-                    inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
+                    string ifPhotoExists = inzPJATKSNM.Controllers.AddPhotoController.CheckPhoto(title,filePath);
+                    if (ifPhotoExists.Equals("exists"))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "failOpenPhotoModal();", true);
+                        NazwaTextBox.Text = "";
+                        fileupload2.Attributes.Clear(); 
+                    }
+                    else
+                    {
+                        inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
+                        NazwaTextBox.Text = "";
+                        fileupload2.Attributes.Clear();
+                        Response.Redirect("AdministratorPanel.aspx");
+                    }
+                    
 
                 }
                 catch (Exception ex)

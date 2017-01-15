@@ -11,6 +11,11 @@
               function failOpenModal() {
                   $('#failModal').modal('show');
               }
+</script>
+    <script type="text/javascript">
+        function failOpenPhotoModal() {
+            $('#failPhotoModal').modal('show');
+        }
 </script><script>
               $(document).ready(function () {
                   Dropzone.autoDiscover = false;
@@ -102,6 +107,25 @@
                     <%
                         Response.Write("<p>" + Request.QueryString["err"] + "</p>");
                     %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+        <div id="failPhotoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Wystąpił błąd!</h4>
+                </div>
+                <div class="modal-body">
+                    Aktualnie dodawane zdjęcie istnieje już w systemie! Proszę sprawdzić dzieła w aplikacji lub zmienic nazwę pliki i tytuł dodawanego zdjęcia.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>

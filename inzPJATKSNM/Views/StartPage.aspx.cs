@@ -30,16 +30,19 @@ namespace inzPJATKSNM.Views
         {
             addressToCheck = inzPJATKSNM.Controllers.CommonController.GetVisitorIPAddress();
             isIpExists = inzPJATKSNM.Controllers.SurveyController.CheckIpAddress(addressToCheck, adressCollection);
-
-            if (!isIpExists)
+            if (!IsPostBack)
             {
-                HiddenField2.Value = "0";
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "starVote()", " alert(' page loaded ');", true);
-                   ScriptManager.RegisterStartupScript(Page, Page.GetType(), "starVote()", "", true);
-            }
-            else
-            {
-                HiddenField2.Value = "1";
+                if (!isIpExists)
+                {
+                    HiddenField2.Value = "0";
+                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "starVote()", " alert(' page loaded ');", true);
+                    // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "starVote()", "", true);
+                    ClientScript.RegisterStartupScript(GetType(), "hwa", "starVote()", true);
+                }
+                else
+                {
+                    HiddenField2.Value = "1";
+                }
             }
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "starVote()", " alert(' page loaded ');", true);
             if (Request.QueryString["Id"] != null)
@@ -123,9 +126,9 @@ namespace inzPJATKSNM.Views
         protected void Accept_Click(object sender, EventArgs e)
         {
 
-            ViewState["idNarod"] = int.Parse(nationalityDDL.SelectedValue);
-            ViewState["idPlec"] = int.Parse(sexDDL.SelectedValue);
-            ViewState["idWiek"] = int.Parse(ageDDL.SelectedValue);
+            ViewState["idNarod"] = int.Parse(DropDownList_Narod.SelectedValue);
+            ViewState["idPlec"] = int.Parse(DropDownList_Sex.SelectedValue);
+            ViewState["idWiek"] = int.Parse(DropDownList_Age.SelectedValue);
 
             //ClientScript.RegisterStartupScript(GetType(),"closeModal();", true);
 

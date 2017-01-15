@@ -198,5 +198,33 @@ namespace inzPJATKSNM.Controllers
             }
             return authId;
         }
+        public static String CheckPhoto(string name, string url)
+        {
+            string checkPhoto = "not exists";
+            String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
+            string query = "select * from dzieło where tytuł = '" + name + "' or url = '" + url + "' or (tytuł = '" + name + "' and url = '" + url + "')";
+            using(SqlConnection Sqlcon = new SqlConnection(connStr))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query, Sqlcon);
+                    Sqlcon.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        checkPhoto = "exists";
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    Sqlcon.Close();
+                }
+            }
+            return checkPhoto;
+        }
     }
 }

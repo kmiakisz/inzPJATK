@@ -149,7 +149,7 @@
                         <asp:ListItem Selected="True" Value="0">Wszystkie</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div style="float: left; width: 33%;">
+                <div style="float: left; width: 30%;">
                     <asp:Label ID="TecLbl" runat="server" Text="Technika" Font-Bold="true" ForeColor="Red"></asp:Label>
                     <br />
                     <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="TechnikaDataSource" DataTextField="Technika" DataValueField="Id_Tech" AutoPostBack="True"

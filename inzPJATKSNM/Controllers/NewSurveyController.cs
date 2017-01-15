@@ -215,6 +215,5 @@ namespace inzPJATKSNM.Controllers
                
             }
         }
-        
     }
 }

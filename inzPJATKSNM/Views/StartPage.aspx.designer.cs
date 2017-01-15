@@ -58,22 +58,22 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label nationalityLabel;
         
         /// <summary>
-        /// nationalityDDL control.
+        /// DropDownList_Narod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList nationalityDDL;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_Narod;
         
         /// <summary>
-        /// NarodowoscSQL control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource NarodowoscSQL;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
         /// sexLabel control.
@@ -85,22 +85,22 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label sexLabel;
         
         /// <summary>
-        /// sexDDL control.
+        /// DropDownList_Sex control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList sexDDL;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_Sex;
         
         /// <summary>
-        /// sexSQL control.
+        /// SqlDataSource2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sexSQL;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
         
         /// <summary>
         /// ageLabel control.
@@ -112,22 +112,22 @@ namespace inzPJATKSNM.Views {
         protected global::System.Web.UI.WebControls.Label ageLabel;
         
         /// <summary>
-        /// ageDDL control.
+        /// DropDownList_Age control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ageDDL;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_Age;
         
         /// <summary>
-        /// ageSQL control.
+        /// SqlDataSource3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource ageSQL;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource3;
         
         /// <summary>
         /// EngButton control.
