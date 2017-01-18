@@ -65,8 +65,8 @@ namespace inzPJATKSNM.Views
                 s = inzPJATKSNM.Controllers.StatisticsController.AvgImagesInSurveys();
 
                 Lbl1.Text = "Średnia ilość dzieł w ankietach : " + Convert.ToString(s.avgImgInSurv);
-                Lbl2.Text = "Średnia ilość głosów : " + Convert.ToString(s.avgVoteNum);
-                Lbl3.Text = "Ogólna liczba głosów : " + Convert.ToString(s.voteNum);
+                Lbl2.Text = "Średnia ilość głosów na dzieło : " + Convert.ToString(s.avgVoteNum);
+                Lbl3.Text = "Ogólna liczba głosów w systemie : " + Convert.ToString(s.voteNum);
                 Lbl4.Text = "Ilość stworzonych ankiet : " + Convert.ToString(s.numOfCreatedSurv);
                 Lbl5.Text = "Ilość odwiedzin : " + Convert.ToString(s.numOfVisitors);
                 Lbl6.Text = "Ilość subskrybentów : " + Convert.ToString(s.numOfEmails);
@@ -93,11 +93,10 @@ namespace inzPJATKSNM.Views
             s = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(surverId);
 
             Lbl1.Text = "Liczba głosujących : " + Convert.ToString(s.NumOfVotersOnSurvey);
-            Lbl2.Text = "Liczba odwiedzających : " + Convert.ToString(s.NumOfVisitors);
             Lbl3.Text = "Liczba subskrybentów po ankiecie : " + Convert.ToString(s.NumOfSubs);
             Lbl4.Text = "Nazwa zdjęcia z największą sumą głosów : " + Convert.ToString(s.ImgMaxVoteNumName);
-            Lbl5.Text = "Nazwa zdjęcia z najmniejszą sumą głosów : " + Convert.ToString(s.ImgMinVoteNumName);
-
+            Lbl2.Visible = false;
+            Lbl5.Visible = false;
             Lbl6.Visible = false;
             StatButton.Visible = false;
 

@@ -522,6 +522,7 @@
     <Compile Include="Controllers\AddPhotoController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EditExistingSurveyController.cs" />
     <Compile Include="Controllers\hn_FileUpload.ashx.cs">

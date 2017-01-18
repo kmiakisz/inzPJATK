@@ -12,8 +12,13 @@
         function validateEmail() {
             var email = document.getElementById("emailField").value;
             var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            if (!re.test(email)) {
-                alert("Email is not valid! Please correct your email address or leave it as blank.")
+            if (re.test(email) || email == "")
+            {
+                //nic nie rób
+            }
+            else
+            {
+                alert("Wprowadzony adres e-mail ma niepoprawny format! Popraw adres lub pozostaw pole puste.")
             }
         }
     </script>

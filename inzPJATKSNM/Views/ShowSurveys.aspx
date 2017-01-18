@@ -102,7 +102,7 @@
                 </div>
                 <div class="modal-body">
                     <%
-                        Response.Write("<p>Udało się wysłać " + Request.QueryString["val"] + " maili!!!</p>");
+                        Response.Write("<p>Wysłano " + Request.QueryString["val"] + " e-mail(e)!</p>");
                     %>
                 </div>
                 <div class="modal-footer">

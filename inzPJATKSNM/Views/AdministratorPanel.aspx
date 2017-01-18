@@ -16,7 +16,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-1 col-md-2" runat="server" id="newSurveyDiv"> 
+            <div class="col-sm-1 col-md-2" runat="server" id="newSurveyDiv">
                 <div class="thumbnail tile tile-medium tile-orange">
                     <a href="NewSurvey.aspx" style="color: transparent">NewSurvey.aspx<h3>
                         <asp:Label ID="Label2" runat="server" Text="Nowa </br> Ankieta" meta:resourcekey="Label2Resource1"></asp:Label></h3>
@@ -27,7 +27,7 @@
                 <div class="thumbnail tile tile-wide tile-teal">
                     <div id="button" class="container-fluid">
                         <br />
-                        <asp:Button ID="Button1" Text="Panel użytkownika" runat="server" Style="background-color: Transparent;border:none;width:100%;height:100%;font-size:xx-large;outline:none" OnClick="AboutUserClick" meta:resourcekey="Button1Resource1"></asp:Button>
+                        <asp:Button ID="Button1" Text="Panel użytkownika" runat="server" Style="background-color: Transparent; border: none; width: 100%; height: 100%; font-size: xx-large; outline: none" OnClick="AboutUserClick" meta:resourcekey="Button1Resource1"></asp:Button>
                     </div>
 
                 </div>
@@ -36,7 +36,8 @@
                 <div class="thumbnail tile tile-wide tile-red">
                     <a href="ManageUsers.aspx" style="color: transparent">ManageUsers.aspx<h3>
                         <asp:Label ID="Label3" runat="server" Text="Zarządzanie<br />
-                        użytkownikami" meta:resourcekey="Label3Resource1"></asp:Label></h3>
+                        użytkownikami"
+                            meta:resourcekey="Label3Resource1"></asp:Label></h3>
                     </a>
                 </div>
             </div>
@@ -63,7 +64,20 @@
                     </a>
                 </div>
             </div>
-
+            <div class="col-sm-1 col-md-2" runat="server" id="categoryDiv">
+                <div class="thumbnail tile tile-medium tile-orange">
+                    <a href="ManageCategories.aspx" style="color: transparent">ManageCategories.aspx<h4>
+                        <asp:Label ID="Label7" runat="server" Text="Kategoria"></asp:Label></h4>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-1 col-md-2" runat="server" id="techniqueDiv">
+                <div class="thumbnail tile tile-medium tile-lime">
+                    <a href="ManageTechniques.aspx" style="color: transparent">ManageTechniques.aspx<h4>
+                        <asp:Label ID="Label8" runat="server" Text="Technika"></asp:Label></h4>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript">

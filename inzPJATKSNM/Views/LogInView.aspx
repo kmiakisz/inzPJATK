@@ -23,7 +23,6 @@
                 <div id="pwd">
                     <asp:Label ID="PwdLbl" runat="server" Text="Hasło" CssClass="label label-danger" meta:resourcekey="PwdLblResource1"></asp:Label>
                     <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" TextMode="Password" meta:resourcekey="TextBox2Resource1"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBox2" runat="server" ErrorMessage="Hasło jest polem wymaganym!" ForeColor="Red" Font-Bold="True" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ namespace inzPJATKSNM.Views
                 loggedId = user.userId;
                 loggedIn = user.userId;
                 List<Int32> list = UserController.GetUserPrivilegeListIdPerUserId(loggedIn);
-                if (user.rola.roleId != 1)
+                if (user.rola.roleId != 1)//only admin may see user management aplett
                 {
                     mgmtDiv.Visible = false;
                 }
@@ -39,7 +39,7 @@ namespace inzPJATKSNM.Views
                 {
                     mgmtDiv.Visible = true;
                 }
-                if (!list.Contains(2))
+                if (!list.Contains(2))//add photo visibility
                 {
                     newPhotoDiv.Visible = false;
                 }
@@ -47,7 +47,7 @@ namespace inzPJATKSNM.Views
                 {
                     newPhotoDiv.Visible = true;
                 }
-                if (!list.Contains(3))
+                if (!list.Contains(3))//add authoor visibility
                 {
                     authorsDiv.Visible = false;
                 }
@@ -55,7 +55,7 @@ namespace inzPJATKSNM.Views
                 {
                     authorsDiv.Visible = true;
                 }
-                if (!list.Contains(4))
+                if (!list.Contains(4))//user panel visibility
                 {
                     userPanelDiv.Visible = false;
                 }
@@ -63,7 +63,7 @@ namespace inzPJATKSNM.Views
                 {
                     userPanelDiv.Visible = true;
                 }
-                if (!list.Contains(5))
+                if (!list.Contains(5))//create survey view visibility
                 {
                     newSurveyDiv.Visible = false;
                 }
@@ -71,7 +71,7 @@ namespace inzPJATKSNM.Views
                 {
                     newSurveyDiv.Visible = true;
                 }
-                if (!list.Contains(9))
+                if (!list.Contains(9))//all surveys visibility
                 {
                     showSurveysDiv.Visible = false;
                 }
@@ -79,13 +79,29 @@ namespace inzPJATKSNM.Views
                 {
                     showSurveysDiv.Visible = true;
                 }
-                if (!list.Contains(10))
+                if (!list.Contains(10))//statistics visibility
                 {
                     statisticsDiv.Visible = false;
                 }
                 else
                 {
                     statisticsDiv.Visible = true;
+                }
+                if(!list.Contains(11))//category visibility
+                {
+                    categoryDiv.Visible = false;
+                }
+                else
+                {
+                    categoryDiv.Visible = true;
+                }
+                if (!list.Contains(13))//technique visibility
+                {
+                    techniqueDiv.Visible = false;
+                }
+                else
+                {
+                    techniqueDiv.Visible = true;
                 }
             }
             else

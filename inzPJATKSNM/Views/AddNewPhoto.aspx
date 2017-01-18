@@ -11,27 +11,28 @@
               function failOpenModal() {
                   $('#failModal').modal('show');
               }
-</script>
+    </script>
     <script type="text/javascript">
         function failOpenPhotoModal() {
             $('#failPhotoModal').modal('show');
         }
-</script><script>
-              $(document).ready(function () {
-                  Dropzone.autoDiscover = false;
-                  //Simple Dropzonejs 
-                  $("#dZUpload").dropzone({
-                      url: "hn_FileUpload.ashx",
-                      addRemoveLinks: true,
-                      success: function (file, response) {
-                          var imgName = response;
-                          file.previewElement.classList.add("dz-success");
-                      },
-                      error: function (file, response) {
-                          file.previewElement.classList.add("dz-error");
-                      }
-                  });
-              });
+    </script>
+    <script>
+        $(document).ready(function () {
+            Dropzone.autoDiscover = false;
+            //Simple Dropzonejs 
+            $("#dZUpload").dropzone({
+                url: "hn_FileUpload.ashx",
+                addRemoveLinks: true,
+                success: function (file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-success");
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                }
+            });
+        });
     </script>
     <script type="text/javascript">
         function previewFile() {
@@ -115,7 +116,7 @@
 
         </div>
     </div>
-        <div id="failPhotoModal" class="modal fade" role="dialog">
+    <div id="failPhotoModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->

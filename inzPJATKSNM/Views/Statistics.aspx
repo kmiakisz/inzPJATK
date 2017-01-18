@@ -39,36 +39,24 @@
                 <br />
                 <% 
                     inzPJATKSNM.Controllers.Statistic stat = inzPJATKSNM.Views.Statistics.FillThumbnails();
-                    String name, url, desc;
+                    String name, url;
                     if (stat.NumOfVisitors != 0)
                     {
                         Response.Write("<div class = \"row\">");
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (i == 0)
-                            {
-                                name = stat.ImgMaxVoteNumName;
-                                url = stat.ImgMaxVoteNumUrl;
-                                desc = "najwyższą";
-                            }
-                            else
-                            {
-                                name = stat.ImgMinVoteNumName;
-                                url = stat.ImgMinVoteNumUrl;
-                                desc = "najniższą";
-                            }
+
+                        name = stat.ImgMaxVoteNumName;
+                        url = stat.ImgMaxVoteNumUrl;
+                        
+                        Response.Write("<p>Dzieło z nawyższą średnią oceną</p>");
+                        Response.Write("<div class=\"col-sm-1 col-md-2\">");
+                        Response.Write("<div class=\"thumbnail\">");
+                        Response.Write("<img src=\"" + url + "\" alt=\" " + name + "\">");
+                        Response.Write("</div>");
+                        Response.Write("<div class=\"caption\">");
+                        Response.Write("<h3>" + name + "</h3>");
+                        Response.Write("</div></div>");
 
 
-                            Response.Write("<div class=\"col-sm-6 col-md-3\">");
-                            Response.Write("<div class=\"thumbnail\">");
-                            Response.Write("<img src=\"" + url + "\" alt=\" " + name + "\">");
-                            Response.Write("</div>");
-                            Response.Write("<div class=\"caption\">");
-                            Response.Write("<h3>" + name + "</h3>");
-                            Response.Write("<p>Dzieło z " + desc + " średnią oceną</p>");
-                            Response.Write("</div></div>");
-
-                        }
                         Response.Write("</div>");
                     } 
                 %>

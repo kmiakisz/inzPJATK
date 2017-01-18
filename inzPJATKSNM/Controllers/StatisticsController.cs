@@ -85,12 +85,15 @@ namespace inzPJATKSNM.Controllers
                     cmd.Parameters.Add("@ImgMaxVoteNumName", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMaxVoteNumName"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMaxVoteNumName"].Size = 250;
+
                     cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
+
                     cmd.Parameters.Add("@ImgMaxVoteNumUrl", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMaxVoteNumUrl"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMaxVoteNumUrl"].Size = 250;
+
                     cmd.Parameters.Add("@ImgMinVoteNumUrl", SqlDbType.VarChar);
                     cmd.Parameters["@ImgMinVoteNumUrl"].Direction = ParameterDirection.Output;
                     cmd.Parameters["@ImgMinVoteNumUrl"].Size = 250;

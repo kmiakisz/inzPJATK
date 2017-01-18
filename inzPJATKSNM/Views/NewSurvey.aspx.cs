@@ -186,7 +186,7 @@ namespace inzPJATKSNM.Views
                     photosToSave.Add(dzielo);
                 }
                 inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(photosToSave, nazwa, opis, typ);
-                Response.Redirect("AdministratorPanel.aspx");
+                //Response.Redirect("AdministratorPanel.aspx");
             }
             catch (Exception ex)
             {
