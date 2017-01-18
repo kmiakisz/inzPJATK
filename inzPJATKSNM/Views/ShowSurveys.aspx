@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShowSurveys.aspx.cs" Inherits="inzPJATKSNM.Views.ShowSurveys" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
     <br />
     <br />
     <script type="text/javascript">
@@ -15,26 +13,136 @@
             $('#failModal').modal('show');
         }
     </script>
-<%
+    <%
         string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
         inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
         List<Int32> list = inzPJATKSNM.Controllers.UserController.GetUserPrivilegeListIdPerUserId(user.userId);
-        Response.Write("<div class = \"row\">");
-        foreach (KeyValuePair<int, String> kvp in getURLDict())
+        if (list.Contains(8) && !list.Contains(14) && !list.Contains(6))//system mailingowy
         {
-            String nazwa = getNazwyDict()[kvp.Key];
-            String opis = getOpisyDict()[kvp.Key];
-            Response.Write("<div class=\"col-sm-6 col-md-3\">");
-            Response.Write("<div class=\"thumbnail\">");
-            Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");
+            }
             Response.Write("</div>");
-            Response.Write("<div class=\"caption\">");
-            Response.Write("<h3>" + nazwa + "</h3>");
-            Response.Write("<p>" + opis + "</p>");
-            Response.Write("<p> <button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a>&nbsp<a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");
         }
-        Response.Write("</div>");
-   
+        if (list.Contains(8) && !list.Contains(14) && list.Contains(6))//system mailingowy+edycja ankiet
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a>&nbsp<a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
+        if (list.Contains(8) && list.Contains(14) && !list.Contains(6))//system mailingowy+usuwanie
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button>&nbsp<a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
+        if (list.Contains(14) && !list.Contains(6) && !list.Contains(8))//usuwanie
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
+        if (list.Contains(14) && list.Contains(6) && !list.Contains(8))//usuwanie+edycja ankiet
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
+        if (list.Contains(6) && !list.Contains(14) && !list.Contains(8))//edycja
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
+        if (list.Contains(8) && list.Contains(14) && list.Contains(6))//all
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("<p><button onclick=\"otworzModal(\'" + kvp.Key + "\');return false;\" class=\"btn btn-danger\">Usuń </button> <a href=\"EditExistingSurvey.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Edytuj</a>&nbsp<a href=\"SendMailForm.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-primary\" role=\"button\">Udostępnij</a></p></div></div>");
+            }
+            Response.Write("</div>");
+        }
     %>
     <script type="text/javascript">
         var id;
