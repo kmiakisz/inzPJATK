@@ -58,7 +58,7 @@ namespace inzPJATKSNM.Views
             }
             catch (Exception ex)
             {
-                Response.Redirect("NewUserView.aspx?err=" + ex);
+                Response.Redirect("NewUserView.aspx?err=" + ex,false);
             }
 
         }

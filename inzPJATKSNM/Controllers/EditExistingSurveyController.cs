@@ -5,9 +5,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Security.Cryptography;
+using inzPJATKSNM.AuthModels;
 
 namespace inzPJATKSNM.Controllers
 {
@@ -469,12 +472,12 @@ namespace inzPJATKSNM.Controllers
                     {
                         try
                         {
-                            inzPJATKSNM.Controllers.Statistic s = new Controllers.Statistic();
-                            s = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(Int32.Parse(list[i]));
+                            inzPJATKSNM.Controllers.Statistic stat = new Controllers.Statistic();
+                            stat = inzPJATKSNM.Controllers.StatisticsController.StatisticPerSurvey(Int32.Parse(list[i]));
                             string surveyName = inzPJATKSNM.Controllers.StatisticsController.GetSurveyName(Int32.Parse(list[i]));
 
                             String subject = "Podsumowanie zakończonej ankiety : " + surveyName + " w systemie ankiet SNM";
-                            String body = "Ankieta o nazwie : " + surveyName + " własnie się zakończyła.\nWzięło w niej udział " + s.NumOfVotersOnSurvey + " osób. Statystyki odnośnie dzieł przedstawiają się następująco:\n-Nazwa zdjęcia z największą sumą głosów : " + s.ImgMaxVoteNumName + "\n-Nazwa zdjęcia z najmniejszą sumą głosów : " + s.ImgMinVoteNumName + "\n\nDziękujemy za wzięcie udziału w ankiecie i poświęcony czas. Zapraszamy do uczestniczenia w kolejnych ankietach.\n\nPozdrawiamy\n~zespoł SNM.";
+                            String body = "Ankieta o nazwie : " + surveyName + " własnie się zakończyła.\nWzięło w niej udział " + stat.NumOfVotersOnSurvey + " osób. Statystyki odnośnie dzieł przedstawiają się następująco:\n-Nazwa zdjęcia z największą sumą głosów : " + stat.ImgMaxVoteNumName + "\n-Nazwa zdjęcia z najmniejszą sumą głosów : " + stat.ImgMinVoteNumName + "\n\nDziękujemy za wzięcie udziału w ankiecie i poświęcony czas. Zapraszamy do uczestniczenia w kolejnych ankietach.\n\nPozdrawiamy\n~zespoł SNM.";
                             MailMessage message = new MailMessage();
                             message.From = new MailAddress("ankietySNM@gmail.com");
                             message.To.Add(new MailAddress(list[i + 1]));
@@ -482,6 +485,13 @@ namespace inzPJATKSNM.Controllers
                             message.Body = body;
 
                             SmtpClient client = new SmtpClient();
+                            ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                            System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                            System.Security.Cryptography.X509Certificates.X509Chain chain,
+                            System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                            {
+                                return true;
+                            };
                             client.Send(message);
                         }
                         catch (Exception ex)

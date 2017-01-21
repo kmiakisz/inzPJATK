@@ -19,7 +19,7 @@ namespace inzPJATKSNM.Views
             HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
             HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             HttpContext.Current.Response.Cache.SetNoStore();
-            
+
 
             if (Request.QueryString["err"] != null)
             {
@@ -55,7 +55,16 @@ namespace inzPJATKSNM.Views
         {
             User user = new User();
             user.login = LoginTxt.Text;
-            inzPJATKSNM.Controllers.AuthenticationController.resetPassToken(user);
+            try
+            {
+                inzPJATKSNM.Controllers.AuthenticationController.resetPassToken(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+
             Response.Redirect("ResetPassword.aspx");
         }
         public StateBag ReturnViewState()
@@ -78,6 +87,6 @@ namespace inzPJATKSNM.Views
             }
 
             base.InitializeCulture();
-        } 
+        }
     }
 }

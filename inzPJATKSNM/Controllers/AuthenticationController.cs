@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -71,7 +72,7 @@ namespace inzPJATKSNM.Controllers
         public static void sendRegisterEmail(User user)
         {
             String subject = "Witamy w platformie ankiet wydziału Sztuki Nowych Mediów PJATK!";
-            String body = "Witamy " + user.imie + "na platformie ankiet, \n Właśnie Twoje konto zostało utworzone w systemie! \n Od dzisiaj możesz logować się do systemu. \n Twój login: " + user.login + " \n Twoje hasło: " + user.haslo + "\nPo zalogowaniu się do aplikacji prosimy o zmianę hasła w zakładce zmień dane. \n Pozdrawiamy, \n zespół systemu ankiet SNM";
+            String body = "Witamy " + user.imie + " w platformie do zarządzania ankietami.\nTwoje konto własnie zostało utworzone w systemie!\nOd dzisiaj możesz logować używając poniższych danych:\nLogin: " + user.login + "\nHasło: " + user.haslo + "\nPo zalogowaniu się do aplikacji prosimy o zmianę hasła w zakładce Panel użytkownika.\n Pozdrawiamy,\nzespół systemu ankiet SNM";
             try
             {
                 MailMessage message = new MailMessage();
@@ -81,6 +82,13 @@ namespace inzPJATKSNM.Controllers
                 message.Body = body;
 
                 SmtpClient client = new SmtpClient();
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
                 client.Send(message);
             }
             catch (Exception e)
@@ -143,7 +151,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("Reset hasła się nie powiódł");
+                throw new Exception("Reset hasła się nie powiódł " + e.Message);
             }
             sendResetPassTokenEmail(user, token);
         }
@@ -160,11 +168,18 @@ namespace inzPJATKSNM.Controllers
                 message.Body = body;
 
                 SmtpClient client = new SmtpClient();
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
                 client.Send(message);
             }
             catch (Exception e)
             {
-                throw new Exception("Błąd podczas wysyłania maila resetującego hasło");
+                throw new Exception("Błąd podczas wysyłania maila resetującego hasło " + e.Message);
             }
         }
         public static void sendNewPwd(User user, String pwd)
@@ -180,6 +195,13 @@ namespace inzPJATKSNM.Controllers
                 message.Body = body;
 
                 SmtpClient client = new SmtpClient();
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
                 client.Send(message);
             }
             catch (Exception e)
@@ -243,6 +265,13 @@ namespace inzPJATKSNM.Controllers
                 message.Body = body;
 
                 SmtpClient client = new SmtpClient();
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
                 client.Send(message);
             }
             catch (Exception e)
@@ -357,6 +386,13 @@ namespace inzPJATKSNM.Controllers
                 message.Body = body;
 
                 SmtpClient client = new SmtpClient();
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
                 client.Send(message);
             }
             catch (Exception e)
