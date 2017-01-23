@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using inzPJATKSNM.Controllers;
 
 namespace inzPJATKSNM.Views
 {
@@ -15,6 +16,7 @@ namespace inzPJATKSNM.Views
         Dictionary<int, String> opisyAnkiet;
         Dictionary<int, String> urlAnkiet;
         public string val;
+        public int loggedIn;
         protected void Page_Load(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
@@ -25,6 +27,9 @@ namespace inzPJATKSNM.Views
 
             if (Session["token"] != null)
             {
+                string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
+                loggedIn = user.userId;
                 LoadSurveysFromDb();
                 if (Request.QueryString["val"] != null)
                 {

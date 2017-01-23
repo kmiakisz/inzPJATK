@@ -74,7 +74,7 @@
             <div id="SurveyName">
                 <asp:Label ID="SurveyNameLabel" runat="server" Text="Nazwa Ankiety" class="label label-danger"></asp:Label>
                 <asp:TextBox ID="SurveyNameTextBox" runat="server" class="form-control" Text=""></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox" ForeColor="Red" Font-Bold="true" Display="Dynamic"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Nazwa Ankiety nie może być pusta!" ControlToValidate="SurveyNameTextBox" ForeColor="Red" Font-Bold="true" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
             </div>
             <div id="SurveyDescribtion">
                 <asp:Label ID="ServeyDescribtionLabel" runat="server" Text="Opis Ankiety" class="label label-danger"></asp:Label>
@@ -86,7 +86,7 @@
                 </asp:DropDownList>
                 <br />
                 <div id="Buttons" style="float: left; width: 56%">
-                    <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" Style="float: left" OnClick="AcceptButton_Click" />
+                    <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" class="btn btn-danger" Style="float: left" OnClick="AcceptButton_Click" ValidationGroup="A" />
                     <asp:Button ID="CancelButton" runat="server" Text="Anuluj" class="btn btn-danger" Style="float: right" OnClick="CancelButton_Click" />
                 </div>
             </div>

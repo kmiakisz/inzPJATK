@@ -12,7 +12,12 @@ namespace inzPJATKSNM.Controllers
         public static string GetVisitorIPAddress(bool GetLan = false)
         {
             string visitorIPAddress = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
+            if (visitorIPAddress.Contains(":"))
+            {
+               int addrLen = visitorIPAddress.Length;
+               int idxOf = visitorIPAddress.IndexOf(":");
+               visitorIPAddress = visitorIPAddress.Substring(0, idxOf);
+            }
             if (String.IsNullOrEmpty(visitorIPAddress))
                 visitorIPAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
 
@@ -37,12 +42,24 @@ namespace inzPJATKSNM.Controllers
                 try
                 {
                     visitorIPAddress = arrIpAddress[arrIpAddress.Length - 2].ToString();
+                    if (visitorIPAddress.Contains(":"))
+                    {
+                        int addrLen = visitorIPAddress.Length;
+                        int idxOf = visitorIPAddress.IndexOf(":");
+                        visitorIPAddress = visitorIPAddress.Substring(0, idxOf);
+                    }
                 }
                 catch
                 {
                     try
                     {
                         visitorIPAddress = arrIpAddress[0].ToString();
+                        if(visitorIPAddress.Contains(":"))
+                        {
+                            int addrLen = visitorIPAddress.Length;
+                            int idxOf = visitorIPAddress.IndexOf(":");
+                            visitorIPAddress = visitorIPAddress.Substring(0, idxOf);
+                        }
                     }
                     catch
                     {
@@ -50,6 +67,12 @@ namespace inzPJATKSNM.Controllers
                         {
                             arrIpAddress = Dns.GetHostAddresses(stringHostName);
                             visitorIPAddress = arrIpAddress[0].ToString();
+                            if (visitorIPAddress.Contains(":"))
+                            {
+                                int addrLen = visitorIPAddress.Length;
+                                int idxOf = visitorIPAddress.IndexOf(":");
+                                visitorIPAddress = visitorIPAddress.Substring(0, idxOf);
+                            }
                         }
                         catch
                         {
@@ -62,7 +85,16 @@ namespace inzPJATKSNM.Controllers
 
 
             return visitorIPAddress;
-        }       
+        }  
+         /*public static Boolean checkSemicolon(String chuj){
+             char[] dupa = chuj.ToCharArray();
+             foreach(Char c in dupa){
+                 if(c.Equals(':'))
+                     return true;
+             }
+             return false;
+        }*/
     }
+   
   
 }

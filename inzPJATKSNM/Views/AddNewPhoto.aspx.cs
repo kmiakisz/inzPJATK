@@ -94,7 +94,7 @@ namespace inzPJATKSNM.Views
                         inzPJATKSNM.Controllers.AddPhotoController.storePhotoToDb(filePath, technikaId, kategoriaId, autorId, title);
                         NazwaTextBox.Text = "";
                         fileupload2.Attributes.Clear();
-                        Response.Redirect("AdministratorPanel.aspx");
+                        Response.Redirect("AdministratorPanel.aspx",false);
                     }
                     
 

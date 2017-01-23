@@ -47,7 +47,7 @@ namespace inzPJATKSNM.Controllers
             } 
             return photoList;
         }
-        public static void saveSurveyAndSkładToDB(List<Dzieło> imagesSurveyToDB,String nazwa,String opis,String typ)
+        public static void saveSurveyAndSkładToDB(List<Dzieło> imagesSurveyToDB,String nazwa,String opis,String typ,Int32 user_id)
         {
             List<int> imageIdList = new List<int>();
             int i = imageIdList.Count();
@@ -64,7 +64,7 @@ namespace inzPJATKSNM.Controllers
                     }
                 }
                 //Tu wywolanie procedury dodajacej ankiete
-                saveSurveyToDB(nazwa, opis, typ);
+                saveSurveyToDB(nazwa, opis, typ,user_id);
                 ankietaId = getNewSurveyId();
                 foreach (int zdjecieId in imageIdList)
                 {
@@ -174,7 +174,7 @@ namespace inzPJATKSNM.Controllers
             }
 
         }
-        public static void saveSurveyToDB(string nazwa, string opis,string typ)
+        public static void saveSurveyToDB(string nazwa, string opis,string typ,int user_id)
         {
             
             DateTime data_rozp = DateTime.Now;
@@ -193,7 +193,7 @@ namespace inzPJATKSNM.Controllers
                 command.Parameters.Add("@data_zak", SqlDbType.DateTime);
                 command.Parameters["@data_zak"].Value = data_zak;
                 command.Parameters.Add("@Id_admin", SqlDbType.Int);
-                command.Parameters["@Id_admin"].Value = 1;
+                command.Parameters["@Id_admin"].Value = user_id;
                 command.Parameters.Add("@Active", SqlDbType.Bit);
                 command.Parameters["@Active"].Value = 1;
                 command.Parameters.Add("@Typ", SqlDbType.VarChar);
@@ -206,7 +206,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Błąd podczas zapisu ankiety do bazy!");
+                    throw new Exception("Błąd podczas zapisu ankiety do bazy!" + e.Message);
                 }
                 finally
                 {

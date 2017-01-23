@@ -21,6 +21,7 @@ namespace inzPJATKSNM.Views
         int katFilter = 0;
         int techFilter = 0;
         int autFilter = 0;
+        int loggedId;
         protected void Page_Load(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
@@ -31,6 +32,9 @@ namespace inzPJATKSNM.Views
 
             if (Session["token"] != null)
             {
+                string username = inzPJATKSNM.Controllers.AuthenticationController.getLogin((string)HttpContext.Current.Session["token"]);
+                inzPJATKSNM.AuthModels.User user = inzPJATKSNM.Controllers.AuthenticationController.getUser(username);
+                loggedId = user.userId;
                 foreach (System.Collections.DictionaryEntry entry in HttpContext.Current.Cache)
                 {
                     HttpContext.Current.Cache.Remove((string)entry.Key);
@@ -178,6 +182,7 @@ namespace inzPJATKSNM.Views
             String nazwa = SurveyNameTextBox.Text;
             String opis = ServeyDescribtionTextBox.Text;
             String typ = TypeDropDownList.SelectedValue.ToString();
+            Int32 user_id = loggedId;
             try
             {
                 List<Dzieło> photosToSave = new List<Dzieło>();
@@ -185,12 +190,13 @@ namespace inzPJATKSNM.Views
                 {
                     photosToSave.Add(dzielo);
                 }
-                inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(photosToSave, nazwa, opis, typ);
+                inzPJATKSNM.Controllers.NewSurveyController.saveSurveyAndSkładToDB(photosToSave, nazwa, opis, typ,user_id);
                 //Response.Redirect("AdministratorPanel.aspx");
             }
             catch (Exception ex)
             {
-                Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
+                throw new Exception(ex.Message);
+                //Response.Redirect("ShowSurveys.aspx?err=" + ex.Message);
             }
 
         }

@@ -43,7 +43,8 @@ namespace inzPJATKSNM.Views
                     id = int.Parse(Request.QueryString["Id"]);
                     if (!IsPostBack)
                     {
-                        body.Value += " Ankieta pod adresem: http://localhost:11222/Views/StartPage.aspx?Id=" + id;
+                        //MS Azure link in body
+                        body.Value += " Ankieta pod adresem: http://systemankietsnm.azurewebsites.net/Views/StartPage.aspx?Id=" + id;
                     }
                     if (inzPJATKSNM.Controllers.SurveyController.getSurveyType(id).Equals("PUBLIC"))
                     {

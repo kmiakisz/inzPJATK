@@ -17,10 +17,11 @@ namespace inzPJATKSNM.Controllers
         {
             //status zwracany do metody w AddNewPhoto 0 = ok, 1 = nie udalo sie, -1 zmieniono nazwe
             int status = 0;
-            string savePath = "\\inzPJATKSNM\\Images\\SurveyPhotos\\";
+            //string savePath = "\\inzPJATKSNM\\Images\\SurveyPhotos\\";
+            string azurePath = "\\wwwroot\\Images\\SurveyPhotos\\";
             string fileName = inzPJATKSNM.Views.AddNewPhoto.fileupload2.FileName;
             //tu trzeba pobrac z bazy danych najwieksze ID zdjecia (albo i nie )
-            string pathToCheck = savePath + fileName;
+            string pathToCheck = azurePath + fileName;//
             string tempfileName = "";
             string toDBPath = "";
             try
@@ -33,7 +34,7 @@ namespace inzPJATKSNM.Controllers
                         // if a file with this name already exists,
                         // prefix the filename with a number.
                         tempfileName = counter.ToString() + fileName;
-                        pathToCheck = savePath + tempfileName;
+                        pathToCheck = azurePath + tempfileName;//
                         counter++;
                     }
 
@@ -47,17 +48,17 @@ namespace inzPJATKSNM.Controllers
                     // Notify the user that the file was saved successfully.
                     status = 0;
                 }
-                savePath += fileName;
+                azurePath += fileName;//
                 string startupPath = Path.GetDirectoryName(Path.GetDirectoryName(
                 System.IO.Path.GetDirectoryName(
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
-                startupPath += savePath;
+                startupPath += azurePath;//
                 string fullPath = startupPath;
                 toDBPath = "../Images/SurveyPhotos/" + fileName;
                 startupPath = startupPath.Remove(0, 6);
                 inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
             }catch(Exception e){
-                throw new Exception("Dodanie zdjęcia się nie powiodło!");
+                throw new Exception("Dodanie zdjęcia się nie powiodło! " + e.Message);
             }
             
             return toDBPath;

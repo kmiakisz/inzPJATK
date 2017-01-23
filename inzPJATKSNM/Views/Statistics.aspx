@@ -37,29 +37,32 @@
                     </div>
                 </div>
                 <br />
-                <% 
-                    inzPJATKSNM.Controllers.Statistic stat = inzPJATKSNM.Views.Statistics.FillThumbnails();
-                    String name, url;
-                    if (stat.NumOfVisitors != 0)
-                    {
-                        Response.Write("<div class = \"row\">");
+                <div id="thumb" runat="server">
+                    <% 
+                        inzPJATKSNM.Controllers.Statistic stat = inzPJATKSNM.Views.Statistics.FillThumbnails();
+                        String name, url;
+                        if (stat.NumOfVisitors != 0)
+                        {
+                            Response.Write("<div class = \"row\">");
 
-                        name = stat.ImgMaxVoteNumName;
-                        url = stat.ImgMaxVoteNumUrl;
-                        
-                        Response.Write("<p>Dzieło z nawyższą średnią oceną</p>");
-                        Response.Write("<div class=\"col-sm-1 col-md-2\">");
-                        Response.Write("<div class=\"thumbnail\">");
-                        Response.Write("<img src=\"" + url + "\" alt=\" " + name + "\">");
-                        Response.Write("</div>");
-                        Response.Write("<div class=\"caption\">");
-                        Response.Write("<h3>" + name + "</h3>");
-                        Response.Write("</div></div>");
+                            name = stat.ImgMaxVoteNumName;
+                            url = stat.ImgMaxVoteNumUrl;
+
+                            Response.Write("<p>Dzieło z nawyższą średnią oceną</p>");
+                            Response.Write("<div class=\"col-sm-1 col-md-2\">");
+                            Response.Write("<div class=\"thumbnail\">");
+                            Response.Write("<img src=\"" + url + "\" alt=\" " + name + "\">");
+                            Response.Write("</div>");
+                            Response.Write("<div class=\"caption\">");
+                            Response.Write("<h3>" + name + "</h3>");
+                            Response.Write("</div></div>");
 
 
-                        Response.Write("</div>");
-                    } 
-                %>
+                            Response.Write("</div>");
+                        } 
+                    %>
+                </div>
+
                 <div>
                     <asp:Button ID="BackButton" runat="server" Text="Powrót do statystyk" CssClass="btn btn-success" OnClick="BackButton_Click" meta:resourcekey="BackButtonResource1" />
                 </div>

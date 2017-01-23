@@ -119,7 +119,7 @@ namespace inzPJATKSNM.Controllers
         {
             List<Statistic> statList = new List<Statistic>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
-            string query = "select ocena , id_zdjecia,tytuł from Ocena inner join Dzieło on id_zdjecia = id_dzieło where id_ankiety =" + surveyId;
+            string query = "select avg(ocena),id_zdjecia,tytuł from Ocena inner join Dzieło on id_zdjecia = id_dzieło where id_ankiety = " + surveyId + " group by id_zdjecia,tytuł;";
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 SqlCommand command = new SqlCommand(query, Sqlcon);

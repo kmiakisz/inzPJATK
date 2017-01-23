@@ -37,18 +37,41 @@ namespace inzPJATKSNM.Views
                 {
                     Response.Redirect("AdministratorPanel.aspx");
                 }
+                if (Request.QueryString["Err"] != null)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "();", true);
+                }
                 if (Request.QueryString["Id"] != null)
                 {
                     id = Int32.Parse(Request.QueryString["Id"]);
                     int par = Convert.ToInt32(Request.QueryString["Id"]);
                     string surveyName = inzPJATKSNM.Controllers.StatisticsController.GetSurveyName(id);
                     HeaderLabel.Text = "Statystyki dla ankiety : " + surveyName;
-                    FillStatisticsPerSurvey(par);
+                    try
+                    {
+                        FillStatisticsPerSurvey(par);
+                        thumb.Visible = true;
+                    }
+                    catch(Exception ex)
+                    {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-details", ex.Message, loggedId);
+                        //Response.Redirect("", false); - run script manager in pageload
+                    }
+                    
                 }
                 else
                 {
                     HeaderLabel.Text = "Statystyki Ogólne.";
-                    FillStatistics();
+                    try
+                    {
+                        FillStatistics();
+                        thumb.Visible = false;
+                    }
+                    catch(Exception ex)
+                    {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-overall", ex.Message, loggedId);
+                        //Response.Redirect("", false); - run script manager in pageload
+                    }                    
                 }
             }
             else

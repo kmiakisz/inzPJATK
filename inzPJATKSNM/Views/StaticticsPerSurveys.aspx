@@ -15,6 +15,7 @@
         <br />
         <% 
             Response.Write("<div class = \"row\">");
+
             foreach (KeyValuePair<int, String> kvp in getURLDict())
             {
                 String nazwa = getNazwyDict()[kvp.Key];
@@ -29,7 +30,8 @@
                 Response.Write("<p><a href=\"Statistics.aspx?" + "Id=" + kvp.Key + "\" class=\"btn btn-success\" role=\"button\">Pokaż statystykę.</a></p></div></div>");
             }
             Response.Write("</div>");
-   
+            Response.Write("<br/>");
+            Response.Write("<p><a href=\"Statistics.aspx\" class=\"btn btn-success\" role=\"button\">Powrót</a></p>");
         %>
     </div>
     <div id="failModal" class="modal fade" role="dialog">

@@ -432,6 +432,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="TempImages\temp.txt" />
     <Content Include="Views\AboutUser.aspx" />
     <Content Include="Views\AddAuthor.aspx" />
     <Content Include="Views\AddMusic.aspx" />
@@ -548,6 +549,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EditExistingSurveyController.cs" />
+    <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\hn_FileUpload.ashx.cs">
       <DependentUpon>hn_FileUpload.ashx</DependentUpon>
     </Compile>
