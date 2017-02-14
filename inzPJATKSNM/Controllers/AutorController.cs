@@ -48,6 +48,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("addNewAuthor", e.Message);
                 throw new Exception("Dodawanie autora się nie powiodło!");
             }
          

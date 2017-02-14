@@ -35,12 +35,12 @@ namespace inzPJATKSNM.Views
 
                 if(!list.Contains(3))
                 {
-                    Response.Redirect("AdministratorPanel.aspx");
+                    Response.Redirect("AdministratorPanel.aspx",false);
                 }
             }
             else
             {
-                Response.Redirect("LogInView.aspx");
+                Response.Redirect("LogInView.aspx",false);
             }
         }
 
@@ -55,11 +55,11 @@ namespace inzPJATKSNM.Views
             {
 
                 inzPJATKSNM.Controllers.AutorController.addNewAuthor(name, surname, Id_nar, Id_plec, Id_epoka);
-                Response.Redirect("AdministratorPanel.aspx");
+                Response.Redirect("AdministratorPanel.aspx",false);
             }
             catch (Exception ex)
             {
-                Response.Redirect("ShowSurveys.aspx?val=" + ex.Message);
+                Response.Redirect("ShowSurveys.aspx?val=" + ex.Message,false);
             }
 
         }

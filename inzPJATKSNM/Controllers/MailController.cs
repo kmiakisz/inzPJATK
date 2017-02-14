@@ -37,6 +37,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getMailList", e.Message);
                 throw new Exception("Błąd podczas pobierania maili");
             }
 
@@ -64,6 +65,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendPublicMail", e.Message);
                 throw new Exception("Błąd podczas wysyłania maili do publicznej ankiety");
             }
 
@@ -94,6 +96,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendMessage", e.Message);
                 throw new Exception("Błąd podczas wysyłania wiadomości - prywatna ankieta");
             }
             try
@@ -102,6 +105,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception u)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertToken- mail cotroller", u.Message);
                 throw new Exception(u.Message);
             }
         }

@@ -34,6 +34,7 @@ namespace inzPJATKSNM.Controllers
                 }
             }catch(Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("listCategory", e.Message);
                 throw new Exception(e.Message);
             }
             return listCategory;
@@ -62,6 +63,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (SqlException sqlEx)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertCategory", sqlEx.Message);
                 throw new Exception("Podany element istnieje już bazie danych!");
             }
         }

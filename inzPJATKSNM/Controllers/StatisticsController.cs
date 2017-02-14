@@ -51,6 +51,7 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("AvgImagesInSurveys", e.Message);
                         throw new Exception("Błąd podczas aktualizacji statystyk!");
                     }
                     finally
@@ -68,35 +69,37 @@ namespace inzPJATKSNM.Controllers
             Statistic s = new Statistic();
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand("StatisticsPerSurvey", Sqlcon)) //statystyki oper ankieta
+                try
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter outPutParameter = new SqlParameter();
+                    using (SqlCommand cmd = new SqlCommand("StatisticsPerSurvey", Sqlcon)) //statystyki oper ankieta
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter outPutParameter = new SqlParameter();
 
-                    cmd.Parameters.Add("@NumOfVotersOnSurvey", SqlDbType.Int);
-                    cmd.Parameters["@NumOfVotersOnSurvey"].Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@NumOfVotersOnSurvey", SqlDbType.Int);
+                        cmd.Parameters["@NumOfVotersOnSurvey"].Direction = ParameterDirection.Output;
 
-                    cmd.Parameters.Add("@NumOfVisitors", SqlDbType.Int);
-                    cmd.Parameters["@NumOfVisitors"].Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@NumOfVisitors", SqlDbType.Int);
+                        cmd.Parameters["@NumOfVisitors"].Direction = ParameterDirection.Output;
 
-                    cmd.Parameters.Add("@NumOfSubs", SqlDbType.Int);
-                    cmd.Parameters["@NumOfSubs"].Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@NumOfSubs", SqlDbType.Int);
+                        cmd.Parameters["@NumOfSubs"].Direction = ParameterDirection.Output;
 
-                    cmd.Parameters.Add("@ImgMaxVoteNumName", SqlDbType.VarChar);
-                    cmd.Parameters["@ImgMaxVoteNumName"].Direction = ParameterDirection.Output;
-                    cmd.Parameters["@ImgMaxVoteNumName"].Size = 250;
+                        cmd.Parameters.Add("@ImgMaxVoteNumName", SqlDbType.VarChar);
+                        cmd.Parameters["@ImgMaxVoteNumName"].Direction = ParameterDirection.Output;
+                        cmd.Parameters["@ImgMaxVoteNumName"].Size = 250;
 
-                    cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
-                    cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
-                    cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
+                        cmd.Parameters.Add("@ImgMinVoteNumName", SqlDbType.VarChar);
+                        cmd.Parameters["@ImgMinVoteNumName"].Direction = ParameterDirection.Output;
+                        cmd.Parameters["@ImgMinVoteNumName"].Size = 250;
 
-                    cmd.Parameters.Add("@ImgMaxVoteNumUrl", SqlDbType.VarChar);
-                    cmd.Parameters["@ImgMaxVoteNumUrl"].Direction = ParameterDirection.Output;
-                    cmd.Parameters["@ImgMaxVoteNumUrl"].Size = 250;
+                        cmd.Parameters.Add("@ImgMaxVoteNumUrl", SqlDbType.VarChar);
+                        cmd.Parameters["@ImgMaxVoteNumUrl"].Direction = ParameterDirection.Output;
+                        cmd.Parameters["@ImgMaxVoteNumUrl"].Size = 250;
 
-                    cmd.Parameters.Add("@ImgMinVoteNumUrl", SqlDbType.VarChar);
-                    cmd.Parameters["@ImgMinVoteNumUrl"].Direction = ParameterDirection.Output;
-                    cmd.Parameters["@ImgMinVoteNumUrl"].Size = 250;
+                        cmd.Parameters.Add("@ImgMinVoteNumUrl", SqlDbType.VarChar);
+                        cmd.Parameters["@ImgMinVoteNumUrl"].Direction = ParameterDirection.Output;
+                        cmd.Parameters["@ImgMinVoteNumUrl"].Size = 250;
 
                         Sqlcon.Open();
                         cmd.Parameters.Add("@SurveyId", SqlDbType.Int);
@@ -109,8 +112,17 @@ namespace inzPJATKSNM.Controllers
                         s.ImgMinVoteNumName = Convert.ToString(cmd.Parameters["@ImgMinVoteNumName"].Value);
                         s.ImgMaxVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMaxVoteNumUrl"].Value);
                         s.ImgMinVoteNumUrl = Convert.ToString(cmd.Parameters["@ImgMinVoteNumUrl"].Value);
-                        
-                        Sqlcon.Close();
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("StatisticPerSurvey", e.Message);
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    Sqlcon.Close();
                 }
             }
             return s;
@@ -138,6 +150,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("DrawChart", e.Message);
                     throw new Exception(e.Message);
                 }
                 finally
@@ -145,7 +158,7 @@ namespace inzPJATKSNM.Controllers
                     Sqlcon.Close();
                 }
 
-                        Sqlcon.Close();
+                Sqlcon.Close();
             }
             return statList;
         }
@@ -155,7 +168,7 @@ namespace inzPJATKSNM.Controllers
             String surveyName = "";
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             string query = "SELECT NAZWA FROM ANKIETA WHERE ID_ANKIETY = " + surveyId;
-            
+
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
                 try
@@ -167,14 +180,16 @@ namespace inzPJATKSNM.Controllers
                     {
                         surveyName = reader[0].ToString();
                     }
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("GetSurveyName", e.Message);
                     throw new Exception(e.Message);
                 }
                 finally
                 {
                     Sqlcon.Close();
-                }              
+                }
             }
             return surveyName;
         }

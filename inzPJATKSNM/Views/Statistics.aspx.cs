@@ -54,7 +54,7 @@ namespace inzPJATKSNM.Views
                     }
                     catch(Exception ex)
                     {
-                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-details", ex.Message, loggedId);
+                        //inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-details", ex.Message, loggedId);
                         //Response.Redirect("", false); - run script manager in pageload
                     }
                     
@@ -69,7 +69,7 @@ namespace inzPJATKSNM.Views
                     }
                     catch(Exception ex)
                     {
-                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-overall", ex.Message, loggedId);
+                        //inzPJATKSNM.Controllers.ErrorLogController.logToDb("Statistics-overall", ex.Message, loggedId);
                         //Response.Redirect("", false); - run script manager in pageload
                     }                    
                 }

@@ -3,6 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link href="../Content/bootstrap.css" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function errObjModal() {
+            $('#errModal').modal('show');
+        }
+    </script>
     <div id="content" class="container-fluid">
         <br />
         <div class="panel panel-danger">
@@ -34,6 +39,27 @@
         </div>
         <div id="acceptbutton">
             <asp:Button ID="AcceptButton" runat="server" Text="Dodaj" CssClass="btn btn-success" OnClick="AcceptButton_Click" ValidationGroup="A" />
+        </div>
+    </div>
+    <div id="errModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Wystąpił błąd!</h4>
+                </div>
+                <div class="modal-body">
+                    <%
+                        Response.Write("<p>" + Request.QueryString["err"] + "</p>");
+                    %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -45,6 +45,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getDziela", e.Message);
                 throw new Exception("Błąd podczas pobierania dzieł!");
             }
 
@@ -55,19 +56,31 @@ namespace inzPJATKSNM.Controllers
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
             using (SqlConnection Sqlcon = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand())
+                try
                 {
-                    Sqlcon.Open();
-                    cmd.Connection = Sqlcon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "isMailSendUpdate";
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        Sqlcon.Open();
+                        cmd.Connection = Sqlcon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "isMailSendUpdate";
 
-                    cmd.Parameters.Add("@surveyId", SqlDbType.Int);
-                    cmd.Parameters["@surveyId"].Value = surveyId;
+                        cmd.Parameters.Add("@surveyId", SqlDbType.Int);
+                        cmd.Parameters["@surveyId"].Value = surveyId;
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception e)
+                {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("updateMailSend", e.Message);
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
                     Sqlcon.Close();
                 }
+
             }
         }
         public static String getSurveyName(int idSurvey)
@@ -88,10 +101,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 nazwa = reader.GetString(0);
-
-
                             }
                         }
                     }
@@ -100,6 +110,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getSurveyName", e.Message);
                 throw new Exception("Błąd podczas pobierania nazwy ankiety");
             }
 
@@ -123,10 +134,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 technika = reader.GetString(0);
-
-
                             }
                         }
                     }
@@ -135,6 +143,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getTechnika", e.Message);
                 throw new Exception("Błąd poczas pobierania techniki");
             }
 
@@ -158,10 +167,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 kategoria = reader.GetString(0);
-
-
                             }
                         }
                     }
@@ -170,6 +176,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getKategoria", e.Message);
                 throw new Exception("Błąd podczas pobierania kategorii dzieła");
             }
 
@@ -193,10 +200,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 autor = reader.GetString(0);
-
-
                             }
                         }
                     }
@@ -205,6 +209,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getAutor", e.Message);
                 throw new Exception("Błąd podczas pobierania autora");
             }
 
@@ -236,6 +241,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveGlosujacy", e.Message);
                 throw new Exception("Błąd podczas zapisu głosującego");
             }
 
@@ -278,6 +284,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveGlosujacy", e.Message);
                 throw new Exception("Błąd podczas zapisu głosującego");
             }
 
@@ -311,6 +318,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getLastGlosujacy", e.Message);
                 throw new Exception("Błąd podczas zapisu głosującego");
             }
 
@@ -337,10 +345,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 blokowaneIP.Add(reader.GetString(0));
-
-
                             }
                         }
                     }
@@ -349,6 +354,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getBlockedIPs", e.Message);
                 throw new Exception("Błąd podczas pobierania listy zablokowanych adresów IP");
             }
 
@@ -378,6 +384,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveVotes", e.Message);
                 throw new Exception("Błąd podczas zapisywania wyników głosowania");
             }
 
@@ -394,6 +401,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception u)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveAll", u.Message);
                     throw new Exception(u.Message);
                 }
 
@@ -430,6 +438,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveIPAddress", e.Message);
                 throw new Exception("Błąd podczas zapisywania adresu IP");
             }
 
@@ -452,10 +461,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 type = reader.GetString(0);
-
-
                             }
                         }
                     }
@@ -464,6 +470,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getSurveyType", e.Message);
                 throw new Exception("Błąd podczas pobierania typu ankiety");
             }
 
@@ -488,10 +495,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 tokens.Add(reader.GetString(0), reader.GetString(1));
-
-
                             }
                         }
                     }
@@ -500,6 +504,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getSurveyTokens", e.Message);
                 throw new Exception("Błąd podczas pobierania tokenów ankiety");
             }
 
@@ -517,6 +522,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception u)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("checkToken", u.Message);
                 throw new Exception(u.Message);
             }
 
@@ -552,6 +558,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertToken", e.Message);
                 throw new Exception("Błąd podczas zapisu ankiety");
             }
 
@@ -586,6 +593,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("changeTokenState", e.Message);
                 throw new Exception("Błąd podczas zapisu wyników głosowania");
             }
 
@@ -616,6 +624,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getNazwy", e.Message);
                 throw new Exception("Błąd podczas pobierania ankiety");
             }
 
@@ -646,6 +655,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getOpis", e.Message);
                 throw new Exception("Błąd podczas pobierania ankiety");
             }
             return opisy;
@@ -666,11 +676,7 @@ namespace inzPJATKSNM.Controllers
                         {
                             while (reader.Read())
                             {
-
                                 urle.Add(reader.GetInt32(0), reader.GetString(1));
-
-
-
                             }
                         }
                     }
@@ -679,6 +685,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getFirstURL", e.Message);
                 throw new Exception("Błąd podczas pobierania ankiety");
             }
             return urle;
@@ -716,6 +723,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveSubscriptionEmail", e.Message);
                     throw new Exception("Błąd podczas zapisu adresu email");
                 }
 
@@ -747,11 +755,15 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("CheckIpAddress", e.Message);
                 throw new Exception(e.Message);
             }
-            if (adressCollection.Contains(addressToCheck)){
+            if (adressCollection.Contains(addressToCheck))
+            {
                 isContains = true;
-            }else{
+            }
+            else
+            {
                 isContains = false;
             }
 
@@ -788,6 +800,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getInfoByIp", e.Message);
                 throw new Exception(e.Message);
             }
             return g;

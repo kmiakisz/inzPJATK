@@ -19,8 +19,24 @@
                         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="Id_Kat" DataSourceID="CategoriesDS" GridLines="None" CssClass="table table-hover table-striped">
                             <Columns>
                                 <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
-                                <asp:BoundField DataField="Id_Kat" HeaderText="Id_Kat" InsertVisible="False" ReadOnly="True" SortExpression="Id_Kat" />
-                                <asp:BoundField DataField="Kategoria" HeaderText="Kategoria" SortExpression="Kategoria" />
+                                <asp:TemplateField HeaderText="Id_Kat" InsertVisible="False" SortExpression="Id_Kat">
+                                    <EditItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Id_Kat") %>'></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Id_Kat") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Kategoria" SortExpression="Kategoria">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Kategoria") %>' ValidationGroup="B"></asp:TextBox>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ValidationGroup="B" ErrorMessage="Pole nie może być puste!" Display="Dynamic" ForeColor="Red" Font-Bold="True" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("Kategoria") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
 
@@ -53,7 +69,7 @@
                 <div class="panel-body">
                     <div id="CategoryTxtBoxDiv">
                         <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" Text="" Visible="true" ValidationGroup="A"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Pole nie może być puste!" Display="Dynamic" ControlToValidate="TextBox1" ForeColor="Red" Font-Bold="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Pole nie może być puste!" Display="Dynamic" ControlToValidate="TextBox1" ForeColor="Red" Font-Bold="True" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
                     <div id="CategoryAddBtn2DIV">
                         <asp:Button ID="Button1" runat="server" Text="Dodaj" CssClass="btn btn-success" OnClick="Button1_Click" ValidationGroup="A" />

@@ -10,7 +10,7 @@ namespace inzPJATKSNM.Controllers
 {
     public class ErrorLogController
     {
-        public static void logToDb(String view_name,String err_log_body, Int32 user_id)
+        public static void logToDb(String view_name,String err_log_body)
         {
             try
             {
@@ -31,9 +31,6 @@ namespace inzPJATKSNM.Controllers
 
                             cmd.Parameters.Add("@err_body", SqlDbType.VarChar);
                             cmd.Parameters["@err_body"].Value = err_log_body;
-
-                            cmd.Parameters.Add("@user_id", SqlDbType.Int);
-                            cmd.Parameters["@user_id"].Value = user_id;
 
                             cmd.ExecuteNonQuery(); 
                         }

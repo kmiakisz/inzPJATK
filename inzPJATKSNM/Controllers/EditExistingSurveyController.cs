@@ -50,6 +50,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getSurveyPhotos", e.Message);
                 throw new Exception("Pobieranie zdjęć się nie powiodło!");
             }
 
@@ -89,6 +90,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getSurvey", e.Message);
                 throw new Exception("Nie udało się pobrać ankiety o ID " + id);
             }
 
@@ -109,6 +111,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveEditsurvey", e.Message);
                 throw new Exception(e.Message);
             }
 
@@ -135,6 +138,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (SqlException ex)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveOnlyEditSurvey", ex.Message);
                     throw new Exception("Zapis ankiety o ID " + ankieta.Id_ankiety + " nie powiódł się");
                 }
             }
@@ -151,6 +155,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveEditPhotos", e.Message);
                 throw new Exception(e.Message);
             }
 
@@ -177,6 +182,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("deleteOldPhotos", e.Message);
                 throw new Exception("Wystąpił błąd podczas usuwania starych zdjęć");
             }
 
@@ -202,6 +208,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception ex)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertNewPhotos", ex.Message);
                     throw new Exception("Błąd poczas dodawania nowych zdjęć");
                 }
                 finally
@@ -232,6 +239,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception ex)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoId-1", ex.Message);
                     throw new Exception("Błąd wyszukiwania zdjęcia o URl " + url);
                 }
                 finally
@@ -242,6 +250,7 @@ namespace inzPJATKSNM.Controllers
             }
             if (imageId == 0)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoId-2", "Błąd wyszukiwania ID!");
                 throw new System.ArgumentException("Błąd wyszukiwania ID!");
             }
             else
@@ -278,6 +287,7 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("getFreePhotos", e.Message);
                         throw new Exception("Błąd poczas pobierania dostępnych zdjęć!");
                     }
                     finally
@@ -320,6 +330,7 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("getUsedPhotos", e.Message);
                         throw new Exception("Błąd poczas pobierania aktualnie używanych zdjęć");
                     }
                     finally
@@ -365,6 +376,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoList", e.Message);
                 throw new Exception("Błąd poczas pobierania listy dzieł");
             }
             return photoList;
@@ -413,6 +425,7 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("invokeUpdateStatus", e.Message);
                         throw new Exception(e.Message);
                     }
                 }
@@ -460,6 +473,7 @@ namespace inzPJATKSNM.Controllers
                     }
                     catch (Exception e)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("updateSurveyStatusAndReturnVotes", e.Message);
                         throw new Exception(e.Message);
                     }
                 }
@@ -496,6 +510,7 @@ namespace inzPJATKSNM.Controllers
                         }
                         catch (Exception ex)
                         {
+                            inzPJATKSNM.Controllers.ErrorLogController.logToDb("updateSurveyStatusAndReturnVotes - send mail", ex.Message);
                             throw new Exception(ex.Message);
                         }
                         if (!alreadyUsedIds.Contains(Int32.Parse(list[i])))

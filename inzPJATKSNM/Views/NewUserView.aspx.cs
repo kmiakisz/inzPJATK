@@ -34,6 +34,10 @@ namespace inzPJATKSNM.Views
                 {
                     Response.Redirect("AdministratorPanel.aspx");
                 }
+                if(Request.QueryString["err"] != null)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "pop", "errObjModal();", true);
+                }
             }
             else
             {
@@ -46,6 +50,7 @@ namespace inzPJATKSNM.Views
         protected void AcceptButton_Click(object sender, EventArgs e)
         {
             User user = new User();
+            List<String> listaUserow = inzPJATKSNM.Controllers.UserController.getMailList();
             Rola role = new Rola();
             user.login = EmailTxt.Text;
             user.imie = NameTxt.Text;
@@ -54,7 +59,15 @@ namespace inzPJATKSNM.Views
             user.rola = role;
             try
             {
-                inzPJATKSNM.Controllers.AuthenticationController.saveUser(user);
+                if (!listaUserow.Contains(EmailTxt.Text))
+                {
+                    inzPJATKSNM.Controllers.AuthenticationController.saveUser(user);
+                }
+                else
+                {
+                    Response.Redirect("NewUserView.aspx?err=" + "Użytkownik o takim adresie e-mail istnieje już w systemie!", false);
+                }
+                
             }
             catch (Exception ex)
             {

@@ -63,9 +63,9 @@ namespace inzPJATKSNM.Views
         {
             try
             {
-                nazwyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getNazwy();
-                opisyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getOpis();
-                urlAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getFirstURL();
+                nazwyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getNazwy(loggedId);
+                opisyAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getOpis(loggedId);
+                urlAnkiet = inzPJATKSNM.Controllers.ShowSurveysController.getFirstURL(loggedId);
             }
             catch (Exception ex)
             {

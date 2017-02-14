@@ -58,6 +58,7 @@ namespace inzPJATKSNM.Controllers
                 startupPath = startupPath.Remove(0, 6);
                 inzPJATKSNM.Views.AddNewPhoto.fileupload2.SaveAs(startupPath);
             }catch(Exception e){
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("addPhoto", e.Message);
                 throw new Exception("Dodanie zdjęcia się nie powiodło! " + e.Message);
             }
             
@@ -111,6 +112,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("addThumbnail", e.Message);
                 throw new Exception("Dodanie miniarutki się nie powiodło!");
             }
             return toDBPath;
@@ -154,22 +156,31 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("storePhotoToDb", e.Message);
                 throw new Exception("Zapis zdjęcia do bazy się nie powiódł!");
             }
 
         }
         public static List<String> TrimAuthor(String str)
         {
-            List<String> listAuth = new List<string>();
-            int len = str.Length;
-            int len_minus = len - 1;
-            int idxOfSpace = str.IndexOf(' ');
-            int indexOfSpace_2 = str.IndexOf(' ') + 1;
-            string part1 = str.Substring(0, idxOfSpace);
-            string part2 = str.Substring(indexOfSpace_2, len - indexOfSpace_2);
-            listAuth.Add(part1);
-            listAuth.Add(part2);
-            return listAuth;
+            try 
+            {
+                List<String> listAuth = new List<string>();
+                int len = str.Length;
+                int len_minus = len - 1;
+                int idxOfSpace = str.IndexOf(' ');
+                int indexOfSpace_2 = str.IndexOf(' ') + 1;
+                string part1 = str.Substring(0, idxOfSpace);
+                string part2 = str.Substring(indexOfSpace_2, len - indexOfSpace_2);
+                listAuth.Add(part1);
+                listAuth.Add(part2);
+                return listAuth;
+            }
+            catch(Exception e)
+            {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("TrimAuthor", e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public static Int32 getIdByNameAndSurname(String name, String surname)
@@ -190,6 +201,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("getIdByNameAndSurname", e.Message);
                     throw new Exception(e.Message);
                 }
                 finally
@@ -218,6 +230,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("CheckPhoto", e.Message);
                     throw new Exception(e.Message);
                 }
                 finally

@@ -35,6 +35,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getTechnika", e.Message);
                 throw new Exception(e.Message);
             }
             return listTechnic;
@@ -63,6 +64,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (SqlException sqlEx)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertTechnic", sqlEx.Message);
                 throw new Exception("Podany element istnieje już bazie danych!");
             }
         }

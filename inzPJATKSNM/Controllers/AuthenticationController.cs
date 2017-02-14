@@ -65,6 +65,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveUser", e.Message);
                 throw new Exception("Dodawanie użytkowmnika się nie powiodło!");
             }
             sendRegisterEmail(user);
@@ -93,6 +94,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendRegisterEmail", e.Message);
                 throw new Exception("Błąd podczas wysyłania maila rejestracyjnego");
             }
         }
@@ -151,14 +153,15 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("resetPassToken", e.Message);
                 throw new Exception("Reset hasła się nie powiódł " + e.Message);
             }
             sendResetPassTokenEmail(user, token);
         }
         public static void sendResetPassTokenEmail(User user, String token)
         {
-            String subject = "Reset hasła w systemie ankiet SNM";
-            String body = "Otrzymaliśmy prośbę o reset hasła w systemie ankiet SNM.\nJeśli to nie Ty " + user.imie + " ją wysłałeś prosimy o natychmiastowe skontakotowanie się z Administratorem lub o wiadomość na adres ankietysnm@gmail.com \n Twój token to: " + token + "\nProsimy o wpisanie go w odpowiednie pole w celu zresetowania hasła. \nPozdrawiamy, zespół systemu ankiet SNM";
+            String subject = "Zmiana hasła w systemie ankiet SNM";
+            String body = "Otrzymaliśmy prośbę o zmianę hasła w systemie ankiet SNM.\nJeśli to nie Ty " + user.imie + " ją wysłałeś prosimy o natychmiastowe skontakotowanie się z Administratorem lub o wiadomość na adres ankietysnm@gmail.com\nTwój token to: " + token + "\nProsimy o wpisanie go w odpowiednie pole w celu zresetowania hasła.\nPozdrawiamy, zespół systemu ankiet SNM";
             try
             {
                 MailMessage message = new MailMessage();
@@ -179,13 +182,14 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendResetPassTokenEmail", e.Message);
                 throw new Exception("Błąd podczas wysyłania maila resetującego hasło " + e.Message);
             }
         }
         public static void sendNewPwd(User user, String pwd)
         {
             String subject = "Zmiana hasła w systemie ankiet SNM";
-            String body = "Użytkowniku :" + user.imie + " " + user.nazwisko + "! \nOdnotowaliśmy zmianę hasła w systemie ankiet SNM. Twoje nowe hasło to : " + pwd + ". \nJeśli to nie Ty dokonałeś zmiany hasła, prosimy o natyczmiastowy kontakt z Administratorem lub o wiadomość na adres ankietysnm@gmail.com.\n\nPozdrawiamy,\n->Zespół systemu ankiet SNM.";
+            String body = "Użytkowniku :" + user.imie + " " + user.nazwisko + "!\nOdnotowaliśmy zmianę hasła w systemie ankiet SNM. Twoje nowe hasło to : " + pwd + ".\nJeśli to nie Ty dokonałeś zmiany hasła, prosimy o natyczmiastowy kontakt z Administratorem lub o wiadomość na adres ankietysnm@gmail.com.\n\nPozdrawiamy,\n->Zespół systemu ankiet SNM.";
             try
             {
                 MailMessage message = new MailMessage();
@@ -206,6 +210,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendNewPwd", e.Message);
                 throw new Exception("Błąd podczas wysyłania maila z nowym hasłem");
             }
 
@@ -242,6 +247,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("resetPass", e.Message);
                     throw new Exception("Reset hasła się nie powiódł");
                 }
                 sendResetPassEmail(user);
@@ -254,8 +260,8 @@ namespace inzPJATKSNM.Controllers
         }
         public static void sendResetPassEmail(User user)
         {
-            String subject = "Reset hasła w systemie ankiet SNM";
-            String body = "Otrzymaliśmy prośbę o reset hasła w systemie ankiet SNM.\n Jeśli to nie Ty " + user.imie + " ją wysłałeś prosimy o natychmiastowe skontakotowanie się z Administratorem lub o wiadomość na adres ankietysnm@gmail.com \n Twoje nowe hasło to: " + user.haslo + "\nPozdrawiamy, zespół systemu ankiet SNM";
+            String subject = "Zmiana hasła w systemie ankiet SNM";
+            String body = "Otrzymaliśmy prośbę o zmianę hasła w systemie ankiet SNM.\nJeśli to nie Ty " + user.imie + " ją wysłałeś prosimy o natychmiastowe skontakotowanie się z Administratorem lub o wiadomość na adres ankietysnm@gmail.com\nTwoje nowe hasło to: " + user.haslo + "\nPozdrawiamy, zespół systemu ankiet SNM";
             try
             {
                 MailMessage message = new MailMessage();
@@ -276,6 +282,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendResetPassEmail", e.Message);
                 throw new Exception("Błąd podczas wysyłania maila resetującego hasło");
             }
         }
@@ -336,6 +343,7 @@ namespace inzPJATKSNM.Controllers
               }
                catch (Exception e)
              {
+                 inzPJATKSNM.Controllers.ErrorLogController.logToDb("getUser", e.Message);
                throw new Exception("Autor o podanym loginie nie istnieje w systemie!");
             }
             return user;
@@ -368,6 +376,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("deleteUser", e.Message);
                     throw new Exception("Usunięcie użytkowmnika się nie powiodło!");
                 }
                 sendDeleteUserEmail(user, administrator);
@@ -376,7 +385,7 @@ namespace inzPJATKSNM.Controllers
         public static void sendDeleteUserEmail(User user, User administrator)
         {
             String subject = "Usunięcie użytkownika " + user.login;
-            String body = "Użytkownik " + user.login + " został usunięty. Od tego momentu nie może się logować do systemu.\n Pozdrawiamy, \n zespół systemu ankiet SNM";
+            String body = "Użytkownik " + user.login + " został usunięty. Od tego momentu nie może się logować do systemu.\nPozdrawiamy,\nzespół systemu ankiet SNM";
             try
             {
                 MailMessage message = new MailMessage();
@@ -397,6 +406,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("sendDeleteUserEmail", e.Message);
                 throw new Exception("Błąd podczas wysyłania maila o usunięciu użytkownika hasło");
             }
         }
@@ -426,6 +436,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("editUser", e.Message);
                 throw new Exception("Zmiana danych użytkownika się nie powiodła!");
             }
         }
@@ -456,6 +467,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("changePassword", e.Message);
                 throw new Exception(e.Message);
             }
         }
@@ -510,6 +522,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("changePriviledges", e.Message);
                 throw new Exception("Zmiana uprawnień się nie powiodła!");
             }
         }
@@ -545,6 +558,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("changeRole", e.Message);
                 throw new Exception("Zmiana uprawnień się nie powiodła!");
             }
         }
@@ -586,6 +600,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("deletePrivliges", e.Message);
                 throw new Exception("Zmiana uprawnień się nie powiodła!");
             }
         }
@@ -617,6 +632,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("insertTokenToUser", e.Message);
                 throw new Exception(e.Message);
             }
         }
@@ -644,6 +660,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("checkToken", e.Message);
                 throw new Exception(e.Message);
             }
         }

@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div id="backButtonDiv">
-                <asp:Button ID="BckBtn" runat="server" Text="Powrót." CssClass="btn btn-success" meta:resourcekey="BckBtnResource1" />
+                <asp:Button ID="BckBtn" runat="server" Text="Powrót." CssClass="btn btn-success" meta:resourcekey="BckBtnResource1" OnClick="BckBtn_Click" />
             </div>
         </div>
         <div id="right" style="float: right; width: 35%">

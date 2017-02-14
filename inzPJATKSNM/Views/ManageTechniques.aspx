@@ -25,8 +25,24 @@
                         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Id_Tech" DataSourceID="TechiqueDS" GridLines="None" CssClass="table table-hover table-striped">
                             <Columns>
                                 <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
-                                <asp:BoundField DataField="Id_Tech" HeaderText="Id_Tech" InsertVisible="False" ReadOnly="True" SortExpression="Id_Tech" />
-                                <asp:BoundField DataField="Technika" HeaderText="Technika" SortExpression="Technika" />
+                                <asp:TemplateField HeaderText="Id_Tech" InsertVisible="False" SortExpression="Id_Tech">
+                                    <EditItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Id_Tech") %>'></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Id_Tech") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Technika" SortExpression="Technika">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Technika") %>'></asp:TextBox>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Pole nie może być puste!" ValidationGroup="B" Display="Dynamic" ForeColor="Red" Font-Bold="True" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("Technika") %>' ValidationGroup="B"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                         <asp:SqlDataSource ID="TechiqueDS" runat="server" ConnectionString="<%$ ConnectionStrings:inzSNMConnectionString %>" DeleteCommand="DELETE FROM [Technika] WHERE [Id_Tech] = @Id_Tech" InsertCommand="INSERT INTO [Technika] ([Technika]) VALUES (@Technika)" SelectCommand="SELECT [Id_Tech], [Technika] FROM [Technika]" UpdateCommand="UPDATE [Technika] SET [Technika] = @Technika WHERE [Id_Tech] = @Id_Tech">

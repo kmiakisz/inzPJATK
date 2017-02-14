@@ -43,6 +43,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoList", e.Message);
                 throw new Exception("Błąd poczas pobierania listy dzieł");
             } 
             return photoList;
@@ -60,6 +61,7 @@ namespace inzPJATKSNM.Controllers
                     i++;
                     if(i > 10)
                     {
+                        inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveSurveyAndSkładToDB", "Limit zdjęć w ankiecie został przekroczony!");
                         throw new Exception("Limit zdjęć w ankiecie został przekroczony!");
                     }
                 }
@@ -73,6 +75,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception u)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveSurveyAndSkładToDB", u.Message);
                 throw new Exception(u.Message);
             }
            
@@ -103,6 +106,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getNewSurveyId", e.Message);
                 throw new Exception("Błąd podczas pobierania Id nowo stworzonej ankiety");
             }
             
@@ -132,12 +136,14 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception ex)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoId", ex.Message);
                     throw new Exception("Błąd wyszukiwania dzieła o url " + url);
                 }
                 Sqlcon.Close();
             }
             if (imageId == 0)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getPhotoId-2", "Błąd wyszukiwania ID!");
                 throw new System.ArgumentException("Błąd wyszukiwania ID!");
             }else{
                 return imageId;
@@ -164,6 +170,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveSkładToDB", e.Message);
                     throw new Exception("Błąd podczas zapisywania składu ankiety");
                 }
                 finally
@@ -206,6 +213,7 @@ namespace inzPJATKSNM.Controllers
                 }
                 catch (Exception e)
                 {
+                    inzPJATKSNM.Controllers.ErrorLogController.logToDb("saveSurveyToDB", e.Message);
                     throw new Exception("Błąd podczas zapisu ankiety do bazy!" + e.Message);
                 }
                 finally

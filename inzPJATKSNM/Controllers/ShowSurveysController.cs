@@ -10,9 +10,9 @@ namespace inzPJATKSNM.Controllers
 {
     public class ShowSurveysController
     {
-        
 
-        public static Dictionary<int, String> getNazwy()
+
+        public static Dictionary<int, String> getNazwy(int user_id)
         {
            
             Dictionary<int, String> nazwy = new Dictionary<int, string>();
@@ -22,7 +22,7 @@ namespace inzPJATKSNM.Controllers
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "select Id_ankiety,nazwa from ankieta;";
+                    string query = "select Id_ankiety,nazwa from ankieta where id_admin = " + user_id + ";";
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -38,12 +38,13 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getNazwy", e.Message);
                 throw new Exception("Błąd podczas pobierania nazw dzieł ");
             }
            
             return nazwy;
         }
-        public static Dictionary<int, String> getOpis()
+        public static Dictionary<int, String> getOpis(int user_id)
         {
             Dictionary<int, String> opisy = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
@@ -52,7 +53,7 @@ namespace inzPJATKSNM.Controllers
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "select Id_ankiety,Opis_ankiety from ankieta;";
+                    string query = "select Id_ankiety,Opis_ankiety from ankieta where id_admin = " + user_id + ";";
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -68,12 +69,13 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getOpis", e.Message);
                 throw new Exception("Błąd podczas pobierania opisów");
             }
            
             return opisy;
         }
-        public static Dictionary<int, String> getFirstURL()
+        public static Dictionary<int, String> getFirstURL(int user_id)
         {
             Dictionary<int, String> urle = new Dictionary<int, string>();
             String connStr = ConfigurationManager.ConnectionStrings["inzSNMConnectionString"].ConnectionString;
@@ -82,7 +84,7 @@ namespace inzPJATKSNM.Controllers
                 using (SqlConnection Sqlcon = new SqlConnection(connStr))
                 {
                     Sqlcon.Open();
-                    string query = "select ankieta.id_ankiety, dzielo.url from ankieta outer apply ( select top(1) url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo;";
+                    string query = "select ankieta.id_ankiety, dzielo.url from ankieta outer apply ( select top(1) url from dzieło d join skład s on s.id_zdjecia = d.id_dzieło where s.id_ankiety = ankieta.id_ankiety) as dzielo where id_admin = " + user_id + ";";
                     using (SqlCommand command = new SqlCommand(query, Sqlcon))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -98,6 +100,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("getFirstURL", e.Message);
                 throw new Exception("Błąd podczas pobierania urla ");
             }
            
@@ -129,6 +132,7 @@ namespace inzPJATKSNM.Controllers
             }
             catch (Exception e)
             {
+                inzPJATKSNM.Controllers.ErrorLogController.logToDb("removeSurvey", e.Message);
                 throw new Exception("Błąd podczas usuwania ankiety o Id " + id);
             }
            

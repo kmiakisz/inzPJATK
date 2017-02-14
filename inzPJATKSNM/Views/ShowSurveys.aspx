@@ -143,6 +143,24 @@
             }
             Response.Write("</div>");
         }
+        if (!list.Contains(8) && !list.Contains(14) && !list.Contains(6))//none
+        {
+            Response.Write("<div class = \"row\">");
+            foreach (KeyValuePair<int, String> kvp in getURLDict())
+            {
+                String nazwa = getNazwyDict()[kvp.Key];
+                String opis = getOpisyDict()[kvp.Key];
+                Response.Write("<div class=\"col-sm-6 col-md-3\">");
+                Response.Write("<div class=\"thumbnail\">");
+                Response.Write("<img src=\"" + kvp.Value + "\" alt=\" " + nazwa + "\">");
+                Response.Write("</div>");
+                Response.Write("<div class=\"caption\">");
+                Response.Write("<h3>" + nazwa + "</h3>");
+                Response.Write("<p>" + opis + "</p>");
+                Response.Write("</div></div>");
+            }
+            Response.Write("</div>");
+        }
     %>
     <script type="text/javascript">
         var id;
